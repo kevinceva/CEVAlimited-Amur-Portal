@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" 
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+	<package name="ceva-common" extends="struts-default,json-default"
+		namespace="/">
+
+		<result-types>
+			<result-type name="tiles"
+				class="org.apache.struts2.views.tiles.TilesResult" />
+		</result-types>
+
+		<interceptors>
+			<interceptor name="sessioncheck" class="com.ceva.interceptors.SessionCheck">
+			</interceptor>
+			<interceptor name="loggingInterceptor"
+				class="com.ceva.interceptors.LoggingInterceptor">
+			</interceptor>
+			<interceptor name="loggingInterceptorNew"
+				class="com.ceva.interceptors.LoggingInterceptorNew">
+			</interceptor>
+			<interceptor name="actionGrabber"
+				class="com.ceva.interceptors.ActionIdentificationInterceptor">
+			</interceptor>
+		</interceptors>
+
+		<action name="cevaappl" class="com.ceva.base.common.action.CommonWebAction">
+			<interceptor-ref name="loggingInterceptorNew" />
+			<result name="valid" type="dispatcher">${commonWebBean.redirectPage}
+			</result>
+			<result name="invalid" type="redirect">WEB-INF/jsp/InvalidURL.jsp
+			</result>
+			<result name="error" type="dispatcher">WEB-INF/jsp/login.jsp</result>
+		</action>
+
+		<action name="agent" class="com.ceva.base.common.action.AgentRegAction" method="CommonScreen">
+ 			<result name="success" type="dispatcher">jsp/agentReg.jsp</result>
+			<result name="fail" type="dispatcher">jsp/agentReg.jsp</result>
+		</action>
+
+		<action name="weblogin" class="weblogin" method="webLogin">
+ 			<result name="success" type="dispatcher">${commonWebLoginBean.redirectPage}
+			</result>
+			<result name="firstlogin" type="dispatcher">${commonWebLoginBean.redirectPage}
+			</result>
+			<result name="loginfail" type="dispatcher">${commonWebLoginBean.redirectPage}
+			</result>
+		</action>
+
+		<action name="redirectlogin" class="redirectLogin" method="redirectLogin">
+ 			<result name="success" type="tiles">Home</result>
+		</action>
+
+		<action name="changePassword" class="changePassword" method="changePassword">
+
+			<result name="success" type="dispatcher">${commonWebLoginBean.commonWebBean.redirectPage}
+			</result>
+			<result name="input" type="dispatcher">${commonWebLoginBean.redirectPage}
+			</result>
+			<result name="loginfail" type="dispatcher">${commonWebLoginBean.redirectPage}
+			</result>
+		</action>
+
+	<action name="logout" class="com.ceva.base.common.action.CommonWebLoginAction"
+		method="webLogOut">
+			<interceptor-ref name="loggingInterceptorNew" />
+			<interceptor-ref name="actionGrabber" />
+			<result name="success" type="dispatcher">WEB-INF/jsp/login.jsp</result>
+			<result name="error" type="dispatcher">WEB-INF/jsp/login.jsp</result>
+		</action>
+	
+		<action name="smsClient"
+			class="com.ceva.base.agencybanking.action.SMSClientAction" method="smsSend">
+			<result type="json">
+			</result>
+		</action>	
+	
+		<action name="cicagentregsave" class="com.ceva.base.common.action.AgentRegAction" method="InsertAgency">
+ 			<result name="success" type="dispatcher">jsp/agentReg.jsp</result>
+			<result name="fail" type="dispatcher">jsp/agentReg.jsp</result>
+		</action>
+		
+ 		<action name="validateAgent" class="com.ceva.base.common.action.AgentRegAction" method="validateAgent">
+			<result type="json">
+			</result>
+		</action> 
+		
+<!-- 		<action name="validateAgent" class="com.ceva.base.common.action.AgentRegAction" method="validateAgent">
+ 			<result name="success" type="dispatcher">WEB-INF/jsp/agentReg.jsp</result>
+			<result name="loginfail" type="dispatcher">WEB-INF/jsp/agentReg.jsp</result>
+		</action>	 -->	
+					
+	
+	</package>
+
+</struts>

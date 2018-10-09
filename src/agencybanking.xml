@@ -1,0 +1,853 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="agencybanking" extends="default" namespace="/AgencyBanking">
+		<result-types>
+			<result-type name="tiles" class="org.apache.struts2.views.tiles.TilesResult" />
+		</result-types>
+
+		<action name="logout" class="logout">
+			<result name="success" type="dispatcher">../WEB-INF/jsp/login.jsp</result>
+		</action>
+
+		<action name="home" class="home" method="getUserAssinedDashLinks">
+			<result name="success" type="tiles">Home</result>
+		</action>
+		
+		<action name="dashboard" class="home" method="getUserAssinedDashLinks">
+			<result name="success" type="tiles">Home</result>
+		</action>
+		
+		<!-- Fetching Dashboard Data -->
+		<action name="dashboardData" class="com.ceva.base.ceva.action.OrderAction" method="fetchOrdersDetails">
+			<result type="json"/>
+		</action>	
+
+		<action name="livedata" class="livedata" method="getUserAssinedDashLinks">
+			<result type="json" />
+		</action>
+
+		<action name="retriveHeadOffice" class="com.ceva.base.common.action.AjaxAction" method="retriveHeadOffice">
+			<result type="json">
+			</result>
+		</action>
+
+		<action name="cicreportsact"
+			class="com.ceva.base.agencybanking.action.CICGetReportDetails" method="allReportDetails">
+			<result name="success" type="tiles">cicreports</result>
+			<result name="fail" type="tiles">cicreports</result>
+		</action>
+
+		<action name="cicreportsall">
+			<result name="success" type="tiles">cicreportsall</result>
+			<result name="fail" type="tiles">cicreportsall</result>
+		</action>
+
+		<action name="ciccontrolallreports" class="com.ceva.reports.CICControllAllReportsAction"
+			method="generateInstantReports">
+			<result name="success" type="tiles">cicreportgensuccess</result>
+			<result name="noRecords" type="tiles">cicnoreportfound</result>
+			<result name="error" type="tiles">cicreporterror</result>
+		</action>
+
+		<!-- ICT ADMIN -->
+
+		<action name="ictadminRegAct"
+			class="com.ceva.base.agencybanking.action.CevaPowerAdminAction" method="getIctAdminData">
+			<result name="success" type="tiles">IctAdminRegGridScreen</result>
+			<result name="fail" type="tiles">Home</result>
+		</action>
+
+		<action name="getICTAdminCreatePage"
+			class="com.ceva.base.agencybanking.action.CevaPowerAdminAction"
+			method="adminCreateInfo">
+			<result name="success" type="tiles">getICTAdminCreatePage</result>
+			<result name="fail" type="tiles">IctAdminRegGridScreen</result>
+		</action>
+
+		<action name="ictAdmincreatePageConfirm"
+			class="com.ceva.base.agencybanking.action.CevaPowerAdminAction">
+			<result name="success" type="tiles">ictAdmincreatePageConfirm</result>
+			<result name="fail" type="tiles">getICTAdminCreatePage</result>
+		</action>
+
+
+		<action name="insertIctAdminDetails" class="com.ceva.base.agencybanking.action.CevaPowerAdminAction" method="insertIctAdminDetails">
+			<result name="success" type="tiles">ictAdminCreationAck</result>
+			<result name="fail" type="tiles">getICTAdminCreatePage</result>
+		</action>
+
+		<action name="ictAdminViewAct"
+			class="com.ceva.base.agencybanking.action.CevaPowerAdminAction"
+			method="getviewICTUserAdminPage">
+			<result name="success" type="tiles">ICTADMINViewScreen1</result>
+			<result name="fail" type="tiles">getICTAdminCreatePage</result>
+		</action>
+
+		<action name="ictAdminModifyAct"
+			class="com.ceva.base.agencybanking.action.CevaPowerAdminAction"
+			method="getviewICTUserAdminPage">
+			<result name="success" type="tiles">ICTADMINModifyScreen1</result>
+			<result name="fail" type="tiles">getICTAdminCreatePage</result>
+		</action>
+
+		<action name="ictAdminModifyScreenAct"
+			class="com.ceva.base.agencybanking.action.CevaPowerAdminAction"
+			method="updateICTUserAdminPage">
+			<result name="success" type="tiles">IctAdminRegGridScreen</result>
+			<result name="fail" type="tiles">IctAdminRegGridScreen</result>
+		</action>
+
+		<!-- <action name="userGrpCreation"
+			class="com.ceva.base.agencybanking.action.CevaPowerAdminAction"
+			method="listAllUserGrps">
+			<result name="success" type="tiles">UserGroupGridScreen</result>
+			<result name="fail" type="tiles">Home</result>
+		</action>  -->
+
+		<action name="userGrpCreation"
+			class="com.ceva.base.ceva.action.NewUserManagemtAction"
+			method="fetchUserGroupDetails">
+			<result name="success" type="tiles">UserGroupGridScreen</result>
+			<result name="fail" type="tiles">Home</result>
+		</action>
+		
+		<action name="userGrpAssignAct"
+			class="com.ceva.base.agencybanking.action.CevaPowerAdminAction"
+			method="getAllUserDetails">
+			<result name="success" type="tiles">UserGroupAssignGridScreen</result>
+			<result name="fail" type="tiles">Home</result>
+		</action>
+
+		<!-- User Group Creation -->
+		<action name="userGrpCreationNew"
+			class="com.ceva.base.agencybanking.action.CevaGroupAction" method="createUserGrps">
+			<result name="success" type="tiles">UserGroupCreateScreen</result>
+			<result name="fail" type="tiles">Home</result>
+		</action>
+
+		<action name="saveGroupDetails"
+			class="com.ceva.base.agencybanking.action.CevaGroupAction" method="saveGroupDetails">
+			<result name="success" type="tiles">UserGroupAckScreen</result>
+			<result name="fail" type="tiles">Home</result>
+		</action>
+
+
+		<action name="confirmGroupDetails"
+			class="com.ceva.base.agencybanking.action.CevaGroupAction">
+			<result name="success" type="tiles">UserGroupConfirmScreen</result>
+			<result name="fail" type="tiles">Home</result>
+		</action>
+		<!-- User Group Creation Ending -->
+
+		<action name="setAccessRights"
+			class="com.ceva.base.agencybanking.action.CevaGroupAction" method="getUserDetails">
+			<result name="success" type="tiles">setAdminAssignRights</result>
+			<result name="fail" type="tiles">setAdminAssignRights</result>
+
+		</action>
+		<action name="saveUserAssignDetails"
+			class="com.ceva.base.agencybanking.action.CevaGroupAction" method="saveUserAssignDetails">
+			<result name="success" type="tiles">redirectAdminAssignRights</result>
+			<result name="fail" type="tiles">setAdminAssignRights</result>
+		</action>
+
+		<action name="confirmUserAssignDetails"
+			class="com.ceva.base.agencybanking.action.CevaGroupAction">
+			<result name="success" type="tiles">confirmAdminAssignRights</result>
+			<result name="fail" type="tiles">confirmAdminAssignRights</result>
+		</action>
+
+		<action name="modifyUserAccessRights"
+			class="com.ceva.base.agencybanking.action.CevaGroupAction" method="modifyAccessRights">
+			<result name="success" type="tiles">setAdminAssignRights</result>
+			<result name="fail" type="tiles">setAdminAssignRights</result>
+		</action>
+
+		<!-- Dashboard For All The Users -->
+
+		<!-- <action name="dashboardUsers"
+			class="com.ceva.base.agencybanking.action.CevaPowerAdminAction"
+			method="dashboardUsers">
+			<result name="success" type="tiles">DashBoardGridScreen</result>
+			<result name="fail" type="tiles">Home</result>
+		</action> -->
+
+		<action name="userDashInformation"
+			class="com.ceva.base.agencybanking.action.CevaGroupAction" method="userDashInformation">
+			<result name="success" type="tiles">${userInfoPage}</result>
+			<result name="fail" type="tiles">DashBoardGridScreen</result>
+		</action>
+		
+
+		<!-- Reports -->
+		<action name="reportsact"
+			class="com.ceva.base.agencybanking.action.GetReportDetails" method="allReportDetails">
+			<result name="success" type="tiles">reports</result>
+			<result name="fail" type="tiles">reports</result>
+		</action>
+
+		<action name="reportsall">
+			<result name="success" type="tiles">reportsall</result>
+			<result name="fail" type="tiles">reportsall</result>
+		</action>
+
+		<action name="controlallreports" class="com.ceva.reports.ControllAllReportsAction"
+			method="generateInstantReports">
+			<result name="success" type="tiles">reportgensuccess</result>
+			<result name="noRecords" type="tiles">noreportfound</result>
+			<result name="error" type="tiles">reporterror</result>
+		</action>
+
+		<action name="postJson" class="com.ceva.base.ceva.action.JsonAjaxAction">
+			<result type="json" />
+		</action>
+
+		<!-- Report Schedular -->
+		<action name="reportscheact"
+			class="com.ceva.base.agencybanking.action.GetReportDetails" method="scheduledReports">
+			<result name="success" type="tiles">reportschedular</result>
+			<result name="fail" type="tiles">Home</result>
+		</action>
+
+		<action name="insertreportscheduled"
+			class="com.ceva.base.agencybanking.action.GetReportDetails" method="insertScheduledReports">
+			<result name="success" type="tiles">reportschedular</result>
+		</action>
+
+		<!-- Reports -->
+
+		<action name="viewUserGroup"
+			class="com.ceva.base.agencybanking.action.CevaGroupAction" method="viewUserGroup">
+			<result name="success" type="tiles">viewusergroup</result>
+			<result name="fail" type="tiles">viewNoUserGroup</result>
+
+		</action>
+
+		<action name="modifyGroupDetailsConfirm"
+			class="com.ceva.base.agencybanking.action.CevaGroupAction">
+			<result name="success" type="tiles">UserGroupModifyConfirmScreen
+			</result>
+			<result name="fail" type="tiles">Home</result>
+		</action>
+
+		<action name="modifyGroupDetailsAck"
+			class="com.ceva.base.agencybanking.action.CevaGroupAction" method="modifyGroupDetails">
+			<result name="success" type="tiles">UserGroupModifyAckScreen</result>
+			<result name="fail" type="tiles">Home</result>
+		</action>
+
+		<action name="resetPassword"
+			class="com.ceva.base.agencybanking.action.CevaPowerAdminAction"
+			method="resetPassword">
+			<result name="success" type="tiles">userPasswordResetAck</result>
+			<result name="fail" type="tiles">userPasswordResetConfirm</result>
+		</action>
+
+		<action name="updateUserStatus"
+			class="com.ceva.base.agencybanking.action.CevaPowerAdminAction"
+			method="updateUserStatus">
+			<result name="success" type="tiles">ActiveDeactiveUserAck</result>
+			<result name="fail" type="tiles">userActivate</result>
+		</action>
+
+		<action name="userInformation"
+			class="com.ceva.base.agencybanking.action.CevaGroupAction" method="userInformation">
+			<result name="success" type="tiles">${userInfoPage}</result>
+			<result name="fail" type="tiles">Home</result>
+		</action>
+		<action name="userModifyConfirm"
+			class="com.ceva.base.agencybanking.action.CevaGroupAction" method="userModifyConfirm">
+			<result name="success" type="tiles">${userInfoPage}</result>
+			<result name="fail" type="tiles">Home</result>
+		</action>
+
+		<action name="userModifyAck"
+			class="com.ceva.base.agencybanking.action.CevaGroupAction" method="userModifyAck">
+			<result name="success" type="tiles">userModifyAck</result>
+			<result name="fail" type="tiles">userModifyConfirm</result>
+		</action>
+
+
+		<!-- resetID -->
+
+		<action name="reSetIdAct" class="com.ceva.base.agencybanking.action.ResetIDAction"
+			method="getCommonScreen">
+			<result name="success" type="tiles">resetIDPage</result>
+			<result name="fail" type="tiles">Home</result>
+		</action>
+
+
+		<action name="resetID" class="com.ceva.base.agencybanking.action.ResetIDAction"
+			method="resetID">
+			<result name="success" type="tiles">resetIDPageACT</result>
+			<result name="fail" type="tiles">resetIDPage</result>
+		</action>
+
+		<!-- resetID -->
+		
+		
+		<!-- Post Notifications -->
+		
+		<action name="notificationAction" class="com.ceva.base.ceva.action.NotificationsAction" method="fetchNotificationGroups">
+			<result name="success" type="tiles">notificationScreen</result>
+			<result name="fail" type="tiles">Home</result>
+		</action>
+		
+		<action name="getNotificationGroups" class="com.ceva.base.ceva.action.CustomerAction" method="fetchCustomers">
+            <result type="json"/>
+        </action>
+        
+        <action name="getNotificationRiders" class="com.ceva.base.ceva.action.RiderAction" method="fetchRiders">
+            <result type="json"/>
+        </action>
+        
+        <action name="sendNotifications" class="com.ceva.base.ceva.action.NotificationsAction" method="sendNotification">
+            <result type="json"/>
+        </action>
+		
+		<action name="transactionAction">
+			<result name="success" type="tiles">transactionScreen</result>
+			<result name="fail" type="tiles">Home</result>
+		</action>
+		
+		<action name="viewTransaction" class="com.ceva.base.ceva.action.TransactionAction" method="fetchTransactions">
+            <result type="json"/>
+        </action>
+
+		<!-- Cash Deposit -->
+
+	
+
+		<action name="checkUserId" class="com.ceva.base.common.action.AjaxAction"
+			method="checkUserId">
+			<result type="json">
+			</result>
+		</action>
+
+		<action name="checkTransactionType" class="com.ceva.base.common.action.AjaxAction"
+			method="checkTransactionType">
+			<result type="json" name="success">
+			</result>
+		</action>
+
+		<action name="auditTrailAction"
+			class="com.ceva.base.agencybanking.action.HistoryTracking" method="initliaze">
+			<result name="success" type="tiles">InsureAffiliation</result>
+			<result name="fail">InsureAffiliation</result>
+		</action>
+
+		<action name="queryDeails"
+			class="com.ceva.base.agencybanking.action.HistoryTracking" method="getDetails">
+			<result name="success" type="tiles">Report</result>
+			<result name="fail">Report</result>
+		</action>
+
+		<action name="loadSerial" class="com.ceva.base.agencybanking.action.PaymentAction"
+			method="loadSerial">
+			<result name="success" type="tiles">LoadSerial</result>
+			<result name="fail" type="tiles">Home</result>
+		</action>
+
+		<action name="loadSerialConfirm" class="com.ceva.base.agencybanking.action.PaymentAction"
+			method="loadSerialConfirm">
+			<result name="success" type="tiles">LoadSerialConfirm</result>
+			<result name="fail" type="tiles">LoadSerial</result>
+		</action>
+
+		<action name="loadSerialData" class="com.ceva.base.agencybanking.action.PaymentAction"
+			method="loadSerialData">
+			<result name="success" type="tiles">LoadSerialAck</result>
+			<result name="fail" type="tiles">LoadSerialConfirm</result>
+		</action>
+
+		<!-- Switch UI -->
+
+	
+
+		<action name="userprofile"
+			class="com.ceva.base.agencybanking.action.CevaGroupAction" method="userProfile">
+			<result name="success" type="tiles">userProfileInformation</result>
+			<result name="fail" type="tiles">userProfileInformation</result>
+		</action>
+
+		<action name="webLogin" class="com.ceva.base.common.action.WebLoginAction"
+			method="getCommonScreen">
+			<result name="success" type="tiles">Weblogin</result>
+			<result name="fail" type="tiles">Home</result>
+		</action>
+
+		<action name="insertWebloginAction" class="com.ceva.base.common.action.WebLoginAction"
+			method="InsertWebLoginDetails">
+			<result name="success" type="tiles">WebloginSucess</result>
+			<result name="fail" type="tiles">Weblogin</result>
+		</action>
+
+		
+		
+		
+		<action name="pagenationExAct" class="com.ceva.base.ceva.action.PagenationExAction" method="commonMethod">			
+			<result name="success" type="tiles">PagenationExample</result>
+		</action>
+		
+		
+		<action name="userMgmJsonAct" class="com.ceva.base.ceva.action.UserManagementAjaxAction">
+			<result type="json" />
+		</action>
+		
+		<!--  Pay Bill new changes -->
+		
+		
+	
+		<!-- Airtime Insurance -->
+		<action name="clientinfo"
+			class="com.ceva.base.ceva.action.ClientInformationAction"
+			method="fetchClientDetails">
+			<result name="success" type="tiles">ClientInfoGridScreen</result>
+			<result name="fail" type="tiles">Home</result>
+		</action>
+		
+		<action name="clientPolicyJsonAct" class="com.ceva.base.ceva.action.ClientInformationAction" method="fetchPolicyList">
+			<result type="json" />
+		</action>	
+		
+		<action name="viewClientInfo"
+			class="com.ceva.base.ceva.action.ClientInformationAction" method="viewClientInfo">
+			<result name="success" type="tiles">viewclientinfo</result>
+			<result name="fail" type="tiles">viewclientinfo</result>
+
+		</action>	
+		
+		<action name="fetchPolicyPurchaseJsonAct" class="com.ceva.base.ceva.action.ClientInformationAction" method="fetchPurchaseList">
+			<result type="json" />
+		</action>	
+		
+		<!-- Customers -->
+		
+		<action name="customerDetails" class="com.ceva.base.ceva.action.CustomerAction" method="fetchCustomers">
+			<result name="success" type="tiles">CustomerDetails</result>
+			<result name="fail" type="tiles">Home</result>
+		</action>
+		
+		<action name="customerInformation" class="com.ceva.base.ceva.action.CustomerAction" method="fetchCustomerInfo">
+			<result name="success" type="tiles">CustomerInformation</result>
+			<result name="fail" type="tiles">Home</result>
+		</action>
+		
+		<action name="fetchOrderList" class="com.ceva.base.ceva.action.CustomerAction" method="fetchOrderList">
+			<result type="json" />
+		</action>
+		
+		<action name="activateDeactivateCustomer" class="com.ceva.base.ceva.action.CustomerAction" method="activateDeactivateCustomer">
+			<result type="json" />
+		</action>
+		
+		<!-- Travel special offers -->	
+		
+		<action name="specialOffers" class="com.ceva.base.ceva.action.SpecialOffersAction" method="fetchSpecialOffers">
+            <result name="success" type="tiles">SpecialOffers</result>
+            <result name="fail" type="tiles">Home</result>
+        </action>
+        
+        <action name="specialOffers" class="com.ceva.base.ceva.action.SpecialOffersAction"
+            method="fetchSpecialOffers">
+            <result name="success" type="tiles">SpecialOffers</result>
+            <result name="fail" type="tiles">Home</result>
+        </action>
+
+        <action name="createOfferPage">
+            <result name="success" type="tiles">offerCreateInformation</result>
+            <result name="fail" type="tiles">Home</result>
+        </action>
+
+        <action name="addOffer" class="com.ceva.base.ceva.action.SpecialOffersAction"
+            method="addOffer">
+            <result name="success" type="tiles">offerCreateInformation</result>
+            <result name="input" type="tiles">offerCreateInformation</result>
+            <result name="fail" type="tiles">Home</result>
+        </action>
+        
+        <action name="offerModifyConfirm" class="com.ceva.base.ceva.action.SpecialOffersAction"
+            method="modOffer">
+            <result name="success" type="tiles">SpecialOffers</result>
+            <result name="input" type="tiles">SpecialOffers</result>
+            <result name="fail" type="tiles">Home</result>
+        </action>
+
+        <action name="offerInformation" class="com.ceva.base.ceva.action.SpecialOffersAction"
+            method="offerInformation">
+            <result name="success" type="tiles">${productInfoPage}</result>
+            <result name="fail" type="tiles">Home</result>
+        </action>
+        
+        <!-- Lifestyle -->
+        <!-- <action name="merchantDetails" class="com.ceva.base.ceva.action.LifestyleAction" method="fetchMerchantDetails">
+            <result name="success" type="tiles">LifestyleMerchants</result>
+            <result name="fail" type="tiles">Home</result>
+        </action> -->
+        
+        <action name="merchantDetails">
+            <result name="success" type="tiles">LifestyleMerchants</result>
+            <result name="fail" type="tiles">Home</result>
+        </action>
+        
+        <action name="merchantInformation" class="com.ceva.base.ceva.action.LifestyleAction" method="merchantInformation">
+            <result name="success" type="tiles">${merchantInfoPage}</result>
+            <result name="fail" type="tiles">Home</result>
+        </action>
+        
+        <action name="createMerchant" class="com.ceva.base.ceva.action.LifestyleAction" method="callServlet">
+            <result name="success" type="tiles">CreateMerchant</result>
+            <result name="fail" type="tiles">CreateMerchant</result>
+        </action>
+        
+        <action name="confirmMerchant" class="com.ceva.base.ceva.action.LifestyleAction" method="createMerchant">
+            <result name="success" type="tiles">LifestyleMerchants</result>
+            <result name="fail" type="tiles">Home</result>
+        </action>
+        
+        <action name="lifestyleOffers">
+			<result name="success" type="tiles">merchantOffers</result>
+			<result name="fail" type="tiles">Home</result>
+		</action>
+		
+		<action name="createOffer" class="com.ceva.base.ceva.action.LifestyleAction" method="fetchMerchant">
+			<result name="success" type="tiles">createMerchantOffer</result>
+			<result name="fail" type="tiles">Home</result>
+		</action>
+		
+		<action name="confirmOffer" class="com.ceva.base.ceva.action.LifestyleAction" method="createMerchantOffer">
+			<result name="success" type="tiles">merchantOffers</result>
+            <result name="input" type="tiles">merchantOffers</result>
+            <result name="fail" type="tiles">Home</result>
+        </action>
+        
+        <action name="sendOfferAlert" class="com.ceva.base.ceva.action.LifestyleAction" method="sendOfferAlert">
+			<result type="json" />
+		</action>
+		
+		<action name="fetchMerchants" class="com.ceva.base.ceva.action.LifestyleAction" method="fetchMerchant">
+			<result type="json" />
+		</action>
+		
+		<action name="fetchMerchantsOffers" class="com.ceva.base.ceva.action.LifestyleAction" method="fetchMerchantOffers">
+			<result type="json" />
+		</action>
+        
+		
+	   <action name="customerMgmnt"
+			class="com.ceva.base.ceva.action.NewCustomerManagemtAction"
+			method="fetchUserGroupDetails">
+			<result name="success" type="tiles">CustomerGridScreen</result>
+			<result name="fail" type="tiles">Home</result>
+		</action>
+		
+		<action name="categoryDetails" class="com.ceva.base.ceva.action.CategoryAction" method="callServlet">
+			<result name="success" type="tiles">CategoryDetails</result>
+			<result name="fail" type="tiles">CategoryDetails</result>
+		</action>	
+		
+		<action name="productDetails" class="com.ceva.base.ceva.action.ProductAction" method="callServlet">
+			<result name="success" type="tiles">ProductDetails</result>
+			<result name="fail" type="tiles">ProductDetails</result>
+		</action>	
+		
+		<action name="manufacturerDetails" class="com.ceva.base.ceva.action.ManufacturerAction" method="callServlet">
+			<result name="success" type="tiles">ManufacturerDetails</result>
+			<result name="fail" type="tiles">ManufacturerDetails</result>
+		</action>
+		
+		<!-- Orders -->	
+					
+		<action name="orderDetails" class="com.ceva.base.ceva.action.OrderAction" method="fetchOrdersDetails">
+			<result name="success" type="tiles">OrderDetails</result>
+			<result name="fail" type="tiles">Home</result>
+		</action>
+				
+		<action name="orderInformation" class="com.ceva.base.ceva.action.OrderAction" method="orderInfo">
+            <result type="json"/>
+        </action>
+        
+        <action name="assignOrder" class="com.ceva.base.ceva.action.RiderAction" method="assignOrder">
+            <result type="json"/>
+        </action>
+        
+        <action name="cancelOrder" class="com.ceva.base.ceva.action.OrderAction" method="cancelOrder">
+            <result type="json"/>
+        </action>
+		
+		<!-- Riders -->
+		
+		<action name="riderDetails" class="com.ceva.base.ceva.action.RiderAction" method="fetchRiders">
+			<result name="success" type="tiles">RiderDetails</result>
+			<result name="fail" type="tiles">Home</result>
+		</action>												
+
+		<action name="createRiderPage" class="com.ceva.base.ceva.action.RiderAction" method="callServlet">
+			<result name="success" type="tiles">CreateRider</result>
+			<result name="fail" type="tiles">Home</result>
+		</action>	
+		
+		<action name="addRider" class="com.ceva.base.ceva.action.RiderAction" method="addRider">
+            <result type="json"/>
+        </action>
+        
+        <action name="modifyRider" class="com.ceva.base.ceva.action.RiderAction" method="modRider">
+            <result type="json"/>
+        </action>
+        		
+		<action name="riderInformation" class="com.ceva.base.ceva.action.RiderAction" method="riderInformation">
+            <result name="success" type="tiles">${riderInfoPage}</result>
+            <result name="fail" type="tiles">Home</result>
+        </action>
+        
+        <action name="riderOrder" class="com.ceva.base.ceva.action.RiderAction" method="fetchRiders">
+			<result name="success" type="tiles">RiderOrders</result>
+			<result name="fail" type="tiles">Home</result>
+		</action>
+		
+		<action name="pendingOrder" class="com.ceva.base.ceva.action.OrderAction" method="fetchPendingOrders">
+			<result name="success" type="tiles">PendingOrders</result>
+			<result name="fail" type="tiles">Home</result>
+		</action>
+		
+		<action name="ridersOrderDetails" class="com.ceva.base.ceva.action.RiderAction" method="fetchRiderOrders">
+			<result name="success" type="tiles">RiderOrderDetails</result>
+			<result name="fail" type="tiles">Home</result>
+		</action>
+		
+		<action name="activeDeactivateRider" class="com.ceva.base.ceva.action.RiderAction" method="activateDeactivateRider">
+			<result type="json" />
+		</action>
+		
+		<action name="fetchETA" class="com.ceva.base.ceva.action.RiderAction" method="fetchETA">
+			<result type="json" />
+		</action>
+        
+        
+        <!-- Category -->
+		
+		<!-- action name="categoryManagement"
+			class="com.ceva.base.ceva.action.CategoryManagemtAction" method="fetchCategoryDetails">
+			<result name="success" type="tiles">CategoryGridScreen</result>
+			<result name="fail" type="tiles">Home</result>
+		</action-->
+		
+		<action name="subCatJsonAct" class="com.ceva.base.ceva.action.CategoryManagemtAction" method="fetchSubCatList">
+			<result type="json" />
+		</action>
+		
+		<action name="categoryCreationNew"
+			class="com.ceva.base.ceva.action.CategoryManagemtAction" method="createCategories">
+			<result name="success" type="tiles">CategoryCreateScreen</result>
+			<result name="fail" type="tiles">Home</result>
+		</action>	
+		
+		<action name="saveCategoryDetails"
+			class="com.ceva.base.ceva.action.CategoryManagemtAction" method="saveCategoryDetails">
+			<result name="success" type="tiles">CategoryAckScreen</result>
+			<result name="fail" type="tiles">Home</result>
+		</action>
+
+
+		<action name="confirmCategoryDetails"
+			class="com.ceva.base.ceva.action.CategoryManagemtAction" method="confirmCategoryDetails">
+			<result name="success" type="tiles">CategoryConfirmScreen</result>
+			<result name="fail" type="tiles">Home</result>
+		</action>
+		
+		<action name="viewCategory" class="com.ceva.base.ceva.action.CategoryManagemtAction" method="viewCategory">
+			<result name="success" type="tiles">viewProduct</result>
+			<result name="fail" type="tiles">viewProduct</result>
+		</action>	
+		
+		
+		<!-- <action name="products" class="com.ceva.base.ceva.action.ProductAction" method="fetchProducts">
+			<result name="success" type="tiles">Products</result>
+			<result name="fail" type="tiles">Home</result>
+		</action> -->
+		
+		<action name="products">
+			<result name="success" type="tiles">Products</result>
+			<result name="fail" type="tiles">Home</result>
+		</action>	
+		
+		<action name="fetchProducts" class="com.ceva.base.ceva.action.ProductAction" method="fetchDemandProducts">
+			<result type="json" />
+		</action>	
+		
+		<action name="fetchSupplyProducts" class="com.ceva.base.ceva.action.ProductAction" method="fetchSupplyProducts">
+			<result type="json" />
+		</action>
+		
+		<action name="productInformation"
+			class="com.ceva.base.ceva.action.ProductAction" method="productInformation">
+			<result name="success" type="tiles">${productInfoPage}</result>
+			<result name="fail" type="tiles">Home</result>
+		</action>
+		
+		<action name="createProduct" class="com.ceva.base.ceva.action.ProductAction" method="createProduct">
+			<result name="success" type="tiles">createProduct</result>
+			<result name="fail" type="tiles">createProduct</result>
+		</action>
+		
+		<!-- <action name="createProduct" class="com.ceva.base.ceva.action.ProductAction">
+			<result name="success" type="tiles">createProduct</result>
+			<result name="fail" type="tiles">createProduct</result>
+		</action>	 -->				
+		
+		<action name="productCreateConfirm" class="com.ceva.base.ceva.action.ProductAction" method="createDemandProducts">
+			<result type="json" />
+		</action>
+		
+		<!-- <action name="productCreateConfirm" class="com.ceva.base.ceva.action.ProductAction" method="createDemandProducts">
+			<result name="success" type="tiles">createProduct</result>
+			<result name="input" type="tiles">createProduct</result>
+			<result name="fail" type="tiles">createProduct</result>
+		</action> -->
+		
+		<action name="createSupplyProducts" class="com.ceva.base.ceva.action.ProductAction" method="createSupplyProducts">
+			<result name="success" type="tiles">createProduct</result>
+			<result name="fail" type="tiles">Home</result>
+		</action>	
+		
+		<action name="productCreateAck" class="com.ceva.base.ceva.action.ProductAction" method="productCreateAck">
+			<result type="json"/>
+		</action>		
+		
+		<action name="viewProduct" class="com.ceva.base.ceva.action.ProductAction" method="viewProduct">
+			<result name="success" type="tiles">viewProduct</result>
+			<result name="fail" type="tiles">viewProduct</result>
+		</action>	
+		
+		<action name="manufacturers" class="com.ceva.base.ceva.action.ManufacturerAction" method="fetchManufacturers">
+			<result name="success" type="tiles">Manufacturers</result>
+			<result name="fail" type="tiles">Manufacturers</result>
+		</action>	
+		
+		<action name="manufacturerInformation"
+			class="com.ceva.base.ceva.action.ManufacturerAction" method="manufacturerInformation">
+			<result name="success" type="tiles">${manufacturerInfoPage}</result>
+			<result name="fail" type="tiles">Home</result>
+		</action>	
+		
+		<action name="manufacturerModifyConfirm" class="com.ceva.base.ceva.action.ManufacturerAction" method="manufacturerModifyConfirm">
+			<result name="success" type="tiles">${manufacturerInfoPage}</result>
+			<result name="fail" type="tiles">Home</result>
+		</action>
+		
+		<action name="manufacturerModifyAck"
+			class="com.ceva.base.ceva.action.ManufacturerAction" method="manufacturerModifyAck">
+			<result type="json"/>
+		</action>
+		
+		<action name="createManufacturer"
+			class="com.ceva.base.ceva.action.ManufacturerAction" method="CommonScreen">
+			<result name="success" type="tiles">captureManufacturer</result>
+			<result name="fail" type="tiles">captureManufacturer</result>
+		</action>
+		
+		<action name="manufacturerCreateConfirm" class="com.ceva.base.ceva.action.ManufacturerAction" method="manufacturerCreateConfirm">
+			<result name="success" type="tiles">manufacturerCreateConfirm</result>
+			<result name="fail" type="tiles">Home</result>
+		</action>	
+		
+		<action name="manufacturerCreateAck"
+			class="com.ceva.base.ceva.action.ManufacturerAction" method="manufacturerCreateAck">
+			<result type="json"/>
+		</action>	
+		
+		<action name="category" class="com.ceva.base.ceva.action.CategoryAction" method="fetchCategories">
+			<result name="success" type="tiles">CategoryGridScreen</result>
+			<result name="fail" type="tiles">Home</result>
+		</action>
+		
+		<action name="createCategory" class="com.ceva.base.ceva.action.CategoryAction" method="createCategory">
+			<result name="success" type="tiles">createCategory</result>
+			<result name="fail" type="tiles">Home</result>
+		</action>
+		
+		<action name="categoryCreateConfirm" class="com.ceva.base.ceva.action.CategoryAction" method="categoryCreateConfirm">
+			<result name="success" type="tiles">categoryCreateConfirm</result>
+			<result name="fail" type="tiles">Home</result>
+		</action>		
+		
+		<action name="categoryCreateAck" class="com.ceva.base.ceva.action.CategoryAction" method="categoryCreateAck">
+			<result name="success" type="tiles">categoryCreateAck</result>
+			<result name="fail" type="tiles">Home</result>
+		</action>		
+		
+		<action name="categoryInformation" class="com.ceva.base.ceva.action.CategoryAction" method="categoryInformation">
+			<result name="success" type="tiles">${categoryInfoPage}</result>
+			<result name="fail" type="tiles">Home</result>
+		</action>
+		
+		<action name="categoryModifyConfirm" class="com.ceva.base.ceva.action.CategoryAction" method="categoryModifyConfirm">
+			<result name="success" type="tiles">${categoryInfoPage}</result>
+			<result name="fail" type="tiles">Home</result>
+		</action>	
+		
+		<action name="categoryModifyAck" class="com.ceva.base.ceva.action.CategoryAction" method="categoryModifyAck">
+			<result type="json"/>
+		</action>				
+		
+		<action name="subcatInformation" class="com.ceva.base.ceva.action.CategoryAction" method="subcatInformation">
+			<result name="success" type="tiles">${subcatInfoPage}</result>
+			<result name="fail" type="tiles">Home</result>
+		</action>
+		
+		<action name="subcatModifyConfirm" class="com.ceva.base.ceva.action.CategoryAction" method="subcatModifyConfirm">
+			<result name="success" type="tiles">${subcatInfoPage}</result>
+			<result name="fail" type="tiles">Home</result>
+		</action>		
+		
+		<action name="subcatModifyAck" class="com.ceva.base.ceva.action.CategoryAction" method="subcatModifyAck">
+			<result type="json"/>
+		</action>
+		
+		<action name="createSubCategory" class="com.ceva.base.ceva.action.CategoryAction" method="createSubCategory">
+			<result name="success" type="tiles">createSubCategory</result>
+			<result name="fail" type="tiles">Home</result>
+		</action>
+		
+		<action name="subcatCreateConfirm" class="com.ceva.base.ceva.action.CategoryAction" method="subcatCreateConfirm">
+			<result name="success" type="tiles">subcatCreateConfirm</result>
+			<result name="fail" type="tiles">Home</result>
+		</action>		
+		
+		<action name="subcatCreateAck" class="com.ceva.base.ceva.action.CategoryAction" method="subcatCreateAck">
+			<result type="json"/>
+		</action>		
+				
+		<!-- <action name="productInformation"
+			class="com.ceva.base.ceva.action.ProductAction" method="productInformation">
+			<result name="success" type="tiles">${productInfoPage}</result>
+			<result name="fail" type="tiles">Home</result>
+		</action-->			
+		
+		<action name="productModifyConfirm" class="com.ceva.base.ceva.action.ProductAction" method="productModifyConfirm">
+			<result name="success" type="tiles">${productInfoPage}</result>
+			<result name="fail" type="tiles">Home</result>
+		</action>	
+		
+		<action name="productModifyAck" class="com.ceva.base.ceva.action.ProductAction" method="productModifyAck">
+			<result type="json"/>
+		</action>
+		
+		<!-- action name="productModifyAck" class="com.ceva.base.ceva.action.ProductAction" method="productModifyAck">
+			<result type="json" />
+		</action-->		
+		
+		<!-- action name="viewProduct" class="com.ceva.base.ceva.action.ProductAction" method="viewProduct">
+			<result name="success" type="tiles">viewProduct</result>
+			<result name="fail" type="tiles">viewProduct</result>
+		</action> -->				
+		
+												
+																						
+		
+	</package>
+</struts>

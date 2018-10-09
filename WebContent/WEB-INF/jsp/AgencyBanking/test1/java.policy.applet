@@ -1,0 +1,7 @@
+/* AUTOMATICALLY GENERATED ON Tue May 24 15:32:20 IST 2016*/
+/* DO NOT EDIT */
+
+grant {
+  permission java.io.FilePermission "C:\\Users\\tbc\\AppData\\Local\\Temp", "read, write, delete, execute";
+};
+

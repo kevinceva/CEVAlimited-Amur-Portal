@@ -1,0 +1,12 @@
+@CHARSET "ISO-8859-1";
+.navbar-inner{
+	
+    background: linear-gradient(#004c89 0%, #67afbf 100%);
+    background: -moz-linear-gradient(#004c89 0%, #67afbf 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #004c89), color-stop(100%, #67afbf));
+    background: -webkit-linear-gradient(#ffffff 0%, #ffffff 100%);
+    border-bottom: 3px solid #052e56 !important;
+}
+.navbar .branding{
+	background :none !important;
+}

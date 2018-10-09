@@ -1,0 +1,52 @@
+@font-face {
+  font-family: 'Sancreek';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Sancreek Regular'), local('Sancreek-Regular'), url(fonts/0sp5vaO1xlh1oVM73vz23vesZW2xOQ-xsNqO47m55DA.woff) format('woff');
+}
+@font-face {
+  font-family: 'Sansita One';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Sansita One'), local('SansitaOne'), url(fonts/r0cFg_5MCCA0Wi4i7AgXWIbN6UDyHWBl620a-IRfuBk.woff) format('woff');
+}
+
+/* * {
+	margin:0;
+	padding:0;
+	border:none;
+	outline:none;
+	color:#333;
+	font-size:14px;
+}
+body {
+	background-color: #eee;
+	padding:30px 0;
+	text-align:center;
+	font-family:Arial,Verdana,Sans-serif;
+} */
+h1,h2,h3,h4,h5 {
+	padding-bottom: 13px;
+	font-family: 'Sansita One', cursive;
+}
+#wrapper {
+	text-align: left;
+	width:800px;
+	margin:0 auto;
+}
+.container {
+	height: 50px;
+	width: 100%;
+}
+h1 {
+	font-size: 24px;
+}
+.flash {
+	color: #ff0851;
+}
+.flash-colour {
+	color: #da9d4d;
+}
+.blue {
+	color: #6495ff;
+}

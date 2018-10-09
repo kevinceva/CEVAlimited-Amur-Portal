@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" 
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="default" extends="struts-default,json-default"
+		namespace="/">
+
+		<interceptors>
+			<interceptor name="actionGrabber"
+				class="com.ceva.interceptors.ActionIdentificationInterceptor">
+			</interceptor>
+
+			<interceptor name="caching"
+				class="com.ceva.interceptors.ClearCacheInterceptor">
+			</interceptor>
+
+			<interceptor name="sessioncheck" class="com.ceva.interceptors.SessionCheck">
+			</interceptor>
+			<interceptor name="loggingInterceptor"
+				class="com.ceva.interceptors.LoggingInterceptor">
+			</interceptor>
+
+			<interceptor name="childMenus" class="com.ceva.interceptors.GetChildMenus">
+			</interceptor>
+			
+			<interceptor name="cacheDataInterceptor" class="com.ceva.interceptors.CacheInterceptor"></interceptor>
+			
+			
+			
+			
+			<interceptor-stack name="mystack">
+				 <!-- <interceptor-ref name="token"></interceptor-ref>
+	           
+	            OR <interceptor-ref name="tokenSession"></interceptor-ref>
+	             -->
+	             
+	            <interceptor-ref name="cacheDataInterceptor" />
+				<interceptor-ref name="loggingInterceptor" />
+				<interceptor-ref name="sessioncheck" />
+				<interceptor-ref name="actionGrabber" />
+				<interceptor-ref name="childMenus" />
+				<interceptor-ref name="cookie" />
+				<interceptor-ref name="caching" />
+				<interceptor-ref name="defaultStack">
+					<param name="exception.logEnabled">true</param>
+					<param name="exception.logLevel">ERROR</param>
+					<param name="params.excludeParams">dojo\..*,^struts\..*,^session\..*,^request\..*,^application\..*,^servlet(Request|Response)\..*,parameters\...*,submit</param>
+				</interceptor-ref>
+				<interceptor-ref name="exception" />
+				<interceptor-ref name="alias" />
+				<interceptor-ref name="servletConfig" />
+				<interceptor-ref name="prepare" />
+				<interceptor-ref name="i18n" />
+				<interceptor-ref name="chain" />
+				<interceptor-ref name="debugging" />
+				<interceptor-ref name="profiling" />
+				<interceptor-ref name="scopedModelDriven" />
+				<interceptor-ref name="modelDriven" />
+				<!-- <interceptor-ref name="fileUpload">
+					<param name="maximumSize">10485760</param> Max 10 MB file
+					<param name="allowedTypes">  Allowed Image Types.
+						image/png,image/gif,image/jpeg,image/pjpeg,
+						application/vnd.ms-excel,
+						application/msexcel,
+						application/x-msexcel,
+						application/x-ms-excel,
+						application/x-excel,
+						application/x-dos_ms_excel,
+						application/xls,
+						application/x-xls,
+						application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+					</param>
+				</interceptor-ref> -->
+				<interceptor-ref name="checkbox" />
+				<interceptor-ref name="staticParams">
+					<param name="parse">false</param>
+					<param name="overwrite">false</param>
+				</interceptor-ref>
+				<interceptor-ref name="params">
+					<param name="excludeParams">dojo\..*,^struts\..*,^session\..*,^request\..*,^application\..*,^servlet(Request|Response)\..*,parameters\...*,_,d-\d+?-[sop]</param>
+				</interceptor-ref>
+				<interceptor-ref name="conversionError" />
+				<interceptor-ref name="validation">
+					<param name="excludeMethods">input,back,cancel,browse</param>
+				</interceptor-ref>
+				<interceptor-ref name="workflow">
+					<param name="excludeMethods">input,back,cancel,browse</param>
+				</interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+
+		<default-interceptor-ref name="mystack" /> 
+		
+		<global-results>
+			<result name="loginRedirect" type="redirect">../jsp/logout.jsp</result>
+			<result name="sessionExpired">../jsp/logout.jsp</result>  
+			<result name="error">../jsp/Error.jsp</result>  
+			<result name="hackspage">../jsp/hackspage.jsp</result> 
+   		<result name="loginanother">../jsp/anotherspage.jsp</result>
+		</global-results>
+		<!-- <global-exception-mappings>
+			<exception-mapping exception="java.lang.NullPointerException"
+				result="error" />
+		</global-exception-mappings> --> 
+
+	</package>
+
+</struts>

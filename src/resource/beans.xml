@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+			http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd ">
+
+	<context:annotation-config />
+	<context:component-scan base-package="com.ceva.base.common" />
+
+	<!-- Below are the beans binds to struts2 action class -->
+	<bean id="cevaappl" class="com.ceva.base.common.action.CommonWebAction"
+		scope="prototype" />
+
+	<bean id="weblogin" class="com.ceva.base.common.action.CommonWebLoginAction"
+		scope="prototype" />
+
+	<bean id="redirectLogin" class="com.ceva.base.common.action.CommonWebLoginAction"
+		scope="prototype" />
+
+	<bean id="changePassword" class="com.ceva.base.common.action.CommonWebLoginAction"
+		scope="prototype" />
+
+	<bean id="logout" class="com.ceva.base.common.action.CommonWebLoginAction"
+		scope="prototype" />
+
+	<bean id="home" class="com.ceva.base.agencybanking.action.DashBoardLinkAction"
+		scope="prototype" />
+
+	<bean id="livedata" class="com.ceva.base.agencybanking.action.DashBoardLinkAction"
+		scope="prototype" />
+
+	<bean id="generateMerchantIdAct" class="com.ceva.base.common.action.AjaxAction"
+		scope="prototype" />
+		
+	<bean id="settlementStatus" class="com.ceva.base.agencybanking.action.SettlementAction"
+		scope="prototype" />
+		
+	<bean id="billerRegistration" class="com.ceva.base.agencybanking.action.BillerManagementAction"
+		scope="prototype" /> 
+	 
+	<bean id="bulkRegistration" class="com.ceva.base.agencybanking.action.BulkPaymentManagementAction"
+		scope="prototype" />
+		
+	<!-- <bean id="paybillAction" class="com.ceva.base.agencybanking.action.PaybillActions"
+		scope="prototype" />   -->
+		
+	<!-- Below are the bean configurations -->
+        <bean id="traveloffers-Bean" class="com.ceva.base.common.bean.TravelOffers" />
+	 <bean id="user-Login-Bean" class="com.ceva.base.common.UserBean" />
+	<bean id="merchant-Bean" class="com.ceva.base.common.bean.MerchantBean" />
+	<bean id="dash-board-Bean" class="com.ceva.base.common.bean.DashboardBean" />
+	<bean id="ajax-action-bean" class="com.ceva.base.common.bean.AjaxActionBean" scope="prototype" />
+	<bean id="common-web-bean" class="com.ceva.base.common.bean.CommonWebBean" />
+	<bean id="common-web-login-bean" class="com.ceva.base.common.bean.CommonWebLoginBean" />
+	<bean id="settlement-bean" class="com.ceva.base.common.bean.SettlementBean" scope="prototype"/>
+	<bean id="biller-bean" class="com.ceva.base.common.bean.BillerBean" scope="prototype"/>
+	<bean id="bulk-bean" class="com.ceva.base.common.bean.BulkBean" scope="prototype"/>
+	<bean id="mpesa-bean" class="com.ceva.base.common.bean.PayBillBean" scope="prototype"/> 
+	
+</beans>

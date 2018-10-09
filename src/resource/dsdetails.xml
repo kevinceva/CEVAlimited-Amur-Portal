@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+               http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+               http://www.springframework.org/schema/context
+               http://www.springframework.org/schema/context/spring-context-3.0.xsd
+               http://www.springframework.org/schema/tx
+               http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+	<!-- posta data source details start -->
+
+	<bean id="dataSource" class="com.jolbox.bonecp.BoneCPDataSource"
+		destroy-method="close">
+		<property name="driverClass" value="oracle.jdbc.driver.OracleDriver" />
+		<property name="maxConnectionsPerPartition" value="3" />
+		<property name="minConnectionsPerPartition" value="1" />
+		<property name="partitionCount" value="2" />
+		<property name="acquireIncrement" value="3" />
+		<property name="jdbcUrl" value="jdbc:oracle:thin:@//127.0.0.1:1521/XE" />
+		<property name="username" value="cevabase" />
+		<property name="password" value="cevabase" />
+		<property name="idleConnectionTestPeriodInMinutes" value="240" />
+		<property name="idleConnectionTestPeriodInSeconds" value="14400" />
+		<property name="idleMaxAgeInMinutes" value="60" />
+		<property name="idleMaxAgeInSeconds" value="3600" />
+ 		<property name="closeConnectionWatch" value="false"/>
+		<property name="statementsCacheSize" value="60" />
+		<property name="logStatementsEnabled" value="true" />
+		<property name="acquireRetryDelayInMs" value="7000" />
+		<property name="lazyInit" value="false" />
+		<property name="transactionRecoveryEnabled" value="false"/>
+		<property name="acquireRetryAttempts" value="5" />
+		<property name="disableJMX" value="false"/>
+		<property name="queryExecuteTimeLimitInMs" value="0" />
+		<property name="poolAvailabilityThreshold" value="5" />
+		<property name="disableConnectionTracking" value="false"/>
+		<property name="connectionTimeoutInMs" value="0" />
+		<property name="closeConnectionWatchTimeoutInMs" value="0" />
+		<property name="maxConnectionAgeInSeconds" value="0" />
+		<property name="serviceOrder" value="FIFO"/>
+		<property name="statisticsEnabled" value="false"/>
+		<property name="defaultAutoCommit" value="false"/>
+		<property name="defaultReadOnly" value="false"/>
+		<property name="externalAuth" value="false"/>
+ 		<property name="deregisterDriverOnClose" value="true" />
+		<property name="nullOnConnectionTimeout"  value="false" />
+		<property name="resetConnectionOnClose" value="false" />
+		<property name="detectUnresolvedTransactions" value="false" />
+		<property name="poolStrategy" value="DEFAULT" />
+		<property name="closeOpenStatements" value="false" />
+		<property name="detectUnclosedStatements" value="false" />
+	</bean>
+
+	<bean id="cevaDataSource" class="com.ceva.base.common.utils.ConnectionBean">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+
+	<!-- posta data source details end -->
+
+</beans>  
