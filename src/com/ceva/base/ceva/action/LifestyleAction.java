@@ -17,6 +17,7 @@ import net.sf.json.JSONObject;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
+import org.apache.struts2.ServletActionContext;
 import org.json.simple.parser.JSONParser;
 
 import com.ceva.base.common.dao.CustomerDAO;
@@ -76,6 +77,8 @@ public class LifestyleAction extends ActionSupport {
 	private String discountAmount = null;
 	private String offerMessage = null;
 	private File offerImage = null;
+
+	private String finaljsonarray;
 
 	private String offerID = null;
 
@@ -528,12 +531,12 @@ public class LifestyleAction extends ActionSupport {
 				Map uploadResult = cloudinary.uploader().upload(toUpload,
 						ObjectUtils.asMap("public_id", merchantName, "invalidate", true));
 				String imageUrl = uploadResult.get("secure_url").toString();
-				//String imgNewName = uploadResult.get("public_id").toString();
-				
+				// String imgNewName = uploadResult.get("public_id").toString();
+
 				System.out.println("Image url :: " + imageUrl);
 				merchantImageUrl = imageUrl;
-				
-			}			
+
+			}
 
 			requestJSON = new JSONObject();
 			requestDTO = new RequestDTO();
@@ -548,8 +551,8 @@ public class LifestyleAction extends ActionSupport {
 			requestJSON.put("merchantMobile", merchantMobile);
 			requestJSON.put("merchantAddress", merchantAddress);
 			requestJSON.put("merchantStatus", merchantStatus);
-			
-			System.out.println("Request JSON :::::::::::::::::: "+requestJSON);
+
+			System.out.println("Request JSON :::::::::::::::::: " + requestJSON);
 
 			requestDTO.setRequestJSON(requestJSON);
 			lifestyleDAO = new LifestyleDAO();
@@ -657,12 +660,111 @@ public class LifestyleAction extends ActionSupport {
 
 	}
 
+	public String cardCreationConfirm() {
+		logger.debug(
+				"########################### clusterCreationconfirm ChannelMappingConf Data Started ###########################");
+
+		try {
+
+			requestJSON = new JSONObject();
+			responseJSON = new JSONObject();
+
+			logger.info("finaljsonarray >>> [" + finaljsonarray + "]");
+
+			JSONArray jsonarray = JSONArray.fromObject(finaljsonarray);
+
+			responseJSON.put("FINAL_JSON", jsonarray);
+
+			logger.info("Response Json [" + responseJSON + "]");
+
+			result = "success";
+
+		} catch (Exception e) {
+
+			result = "fail";
+			e.printStackTrace();
+			logger.debug("Exception in getRequest[" + e.getMessage() + "]");
+			addActionError("Internal error occured.");
+
+		} finally {
+
+			requestJSON = null;
+
+		}
+
+		logger.debug("########################### ChannelMappingConf Data End ###########################");
+		return result;
+	}
+
+	public String cardCreationAck() {
+
+		logger.debug("########################### checking ifrezckasfkjjk ChannelMappingAck Data Started ###########################");
+
+		ArrayList<String> errors = null;
+		LifestyleDAO agdao = null;
+		String remarks = null;
+		try {
+			requestDTO = new RequestDTO();
+			requestJSON = new JSONObject();
+			responseJSON = new JSONObject();
+
+			session = ServletActionContext.getRequest().getSession();
+
+			responseJSON.put(CevaCommonConstants.MAKER_ID, session.getAttribute(CevaCommonConstants.MAKER_ID));
+			responseJSON.put("remoteip", session.getAttribute("REMOTE_IP"));
+
+			agdao = new LifestyleDAO();
+			logger.info("finaljsonarray >>> [" + finaljsonarray + "]");
+
+			JSONArray jsonarray = JSONArray.fromObject(finaljsonarray);
+			responseJSON.put("FINAL_JSON", jsonarray);
+			requestDTO.setRequestJSON(responseJSON);
+			/*responseDTO = agdao.ClusterCreationAck(requestDTO);
+
+			if (responseDTO != null && responseDTO.getErrors().size() == 0) {
+				result = "success";
+			} else {
+				errors = (ArrayList<String>) responseDTO.getErrors();
+				for (int i = 0; i < errors.size(); i++) {
+					addActionError(errors.get(i));
+				}
+				result = "fail";
+			}
+			logger.info("Response Json [" + responseJSON + "]");
+			*/
+			result = "success";
+			remarks = "SUCCESS";
+			responseJSON.put("remarks", remarks);
+
+		} catch (Exception e) {
+
+			result = "fail";
+			e.printStackTrace();
+			logger.debug("Exception in getRequest[" + e.getMessage() + "]");
+			addActionError("Internal error occured.");
+
+		} finally {
+			requestJSON = null;
+		}
+
+		logger.debug("########################### ChannelMappingAck Data End ###########################");
+		return result;
+	}
+
 	public JSONObject getResponseJSON() {
 		return responseJSON;
 	}
 
 	public void setResponseJSON(JSONObject responseJSON) {
 		this.responseJSON = responseJSON;
+	}
+
+	public String getFinaljsonarray() {
+		return finaljsonarray;
+	}
+
+	public void setFinaljsonarray(String finaljsonarray) {
+		this.finaljsonarray = finaljsonarray;
 	}
 
 	public JSONObject getMerchantCategoriesJSON() {

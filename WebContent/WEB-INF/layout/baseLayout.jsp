@@ -191,6 +191,7 @@ label.error {
 	src="${pageContext.request.contextPath}/js/sweetalert.min.js"></script>
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/js/jquery.bootstrap-duallistbox.js"></script>
+<script src="${pageContext.request.contextPath}/js/datafetchfillinng.js"></script>
 <script type="text/javascript">
 	$('.startDate').datepicker({
 		format : 'dd-mm-yyyy'

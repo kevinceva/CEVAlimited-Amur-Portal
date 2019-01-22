@@ -527,7 +527,21 @@
         <action name="modifyMerchant" class="com.ceva.base.ceva.action.LifestyleAction" method="modifyMerchant">
             <result name="success" type="tiles">LifestyleMerchants</result>
             <result name="fail" type="tiles">Home</result>
-        </action>         
+        </action>
+        
+        <action name="addMerchantCard">
+            <result name="success" type="tiles">merchantCard</result>
+            <result name="fail" type="tiles">Home</result>
+        </action> 
+        
+        <action name="cardCreationConfirm" class="com.ceva.base.ceva.action.LifestyleAction" method="cardCreationConfirm">
+            <result name="success" type="tiles">cardCreationConfirm</result>
+            <result name="fail" type="tiles">Home</result>
+        </action>
+        
+        <action name="cardCreationAck" class="com.ceva.base.ceva.action.LifestyleAction" method="cardCreationAck">
+            <result type="json"/>
+        </action>
                
         <action name="lifestyleOffers">
 			<result name="success" type="tiles">merchantOffers</result>

@@ -989,7 +989,7 @@ tbody a.btn {
 	margin: 0 auto;
 }
 
-.form-group input[type='text'], .form-group select, .form-group input[type='email'] {
+.form-group input[type='text'], .form-group select, .form-group input[type='email'], .form-group input[type='date'] {
 	letter-spacing: 0.5px;
 	background-color: rgba(238, 238, 238, 0.5);
 	height: calc(2.25rem + 2px);

@@ -2742,8 +2742,16 @@
         <put-attribute name="body"
             value="/WEB-INF/jsp/AgencyBanking/createMerchantOffers.jsp" />
     </definition>
-       
     
+    <definition name="merchantCard" extends="baseLayout">
+        <put-attribute name="body"
+            value="/WEB-INF/jsp/AgencyBanking/addMerchantCard.jsp" />
+    </definition>
+       
+    <definition name="cardCreationConfirm" extends="baseLayout">
+        <put-attribute name="body"
+            value="/WEB-INF/jsp/AgencyBanking/CardCreationConfirm.jsp" />
+    </definition>
     
     
 	<definition name="Manufacturers" extends="baseLayout">
