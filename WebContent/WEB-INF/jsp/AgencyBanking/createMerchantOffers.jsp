@@ -75,36 +75,7 @@ $(document).ready(function(){
         return regexpr.test(value);
       }, ""); 
        
-    $('#btn-verify').on('click',function(e) { 
-        
-        var offerTitle = $('#offerTitle').val();
-        var offerSubtitle = $('#offerSubtitle').val();
-        var discountType = $('#offerDiscountType').val();
-        var discountAmount = $('#discountAmount').val();
-        var offerMessage = $('#offerMessage').val();
-        var offerImage = $('#offerImage').val();
-       
-        $("#error_dlno").text('');     
-        $("#form1").validate(validationRules); 
-        if($("#form1").valid()) {
-            
-        	/*
-            $("#confirm_offerTitle").val(offerTitle);
-            $("#confirm_offerSubtitle").val(offerSubtitle);
-            $("#confirm_discountType").val(discountType);
-            $("#confirm_discountAmount").val(discountAmount);
-            $("#confirm_offerMessage").val(offerMessage);
-            $("#confirm_offerImage").val(offerImage);
-            
-            $('#my_modal').modal('show');    
-            
-            */
-            
-            $("#form1")[0].action="<%=request.getContextPath()%>/<%=appName %>/confirmOffer.action";
-            $("#form1").submit();
-        }
-        
-    });   
+      
     
     $('#btn-submit').on('click',function(e) {
         $("#confirm_form")[0].action="<%=request.getContextPath()%>/<%=appName %>/confirmOffer.action";
@@ -121,6 +92,66 @@ $(document).ready(function(){
     	document.getElementById("form1").reset(); 
     });
     
+});
+
+$(document).ready(function(){	
+	var submitPath = "<%=request.getContextPath()%>/<%=appName%>/confirmOffer.action";
+	var backPath = "<%=request.getContextPath()%>/<%=appName%>/lifestyleOffers.action";
+	
+	$('#btn-verify').on('click',function() {
+		
+		
+			swal({
+	            title: "Save offer details?",
+	            text: "Press Ok to save.", 
+	            icon: "warning",
+	            buttons: true,
+	            dangerMode: true,
+	        })
+	        .then((willDelete) => {
+	          if (willDelete) {
+	        	  $("#form1").submit(function(e) {
+		      		    e.preventDefault();    
+		      		    var formData = new FormData(this);
+		      			//console.log("Form data :: "+formData);
+		      		    $.ajax({
+		      		        url: submitPath,
+		      		        type: 'POST',
+		      		        data: formData,
+		      		        success: function (response) {
+		      		            //alert(response.responseJSON.remarks);
+		      		          	swal({
+					    		  	title: "Success",
+					    		  	text: "Offer saved successfully.",
+					    		  	icon: "success",
+					    		  	button: "Continue",
+					    		}).then(function(result){				    					    			
+					    			window.location.href = backPath;
+					            });
+		      		        },
+		      		      	error: function (response) {
+		      		      	swal({
+					    		  title: "Sorry!",
+					    		  text: "Offer saving failed. Please try again later.",
+					    		  icon: "error",
+					    		  button: "Continue",
+					    		}).then(function(result){
+					    			window.location.href = backPath;
+					            });
+		      	        	},
+		      		        
+		      		        cache: false,
+		      		        contentType: false,
+		      		        processData: false
+		      		    });
+		      		});
+		      		$("#form1").submit();
+		          } else {
+		            swal("Request Cancelled.");
+		          }
+	        });
+		//} 	
+	}); 
 });
 
 

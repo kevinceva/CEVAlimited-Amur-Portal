@@ -72,7 +72,7 @@ $(document).ready(function () {
         "<td>"+v.email+"</span> </td>"+ 
         "<td>"+riderStatus+"</span></td>"+
         "<td>"+v.createdDate+"</span> </td>"+ 
-        "<td><a id='modify-rider'  href='#' index='"+rowindex+"'  title='Edit Rider' data-rel='tooltip' ><img class='action-button' alt='Edit' src='${pageContext.request.contextPath}/images/edit-button.png'></a> &nbsp;<a id='view-rider' index='"+rowindex+"'  href='#' title='View Rider' data-rel='tooltip' ><img class='action-button' alt='View' src='${pageContext.request.contextPath}/images/view-button.png'></a> </td></tr>";
+        "<td><a id='modify-rider'  href='#' index='"+rowindex+"'  title='Edit Rider' data-toggle='tooltip' ><img class='action-button' alt='Edit' src='${pageContext.request.contextPath}/images/edit-button.png'></a> &nbsp;<a id='view-rider' index='"+rowindex+"'  href='#' title='View Rider' data-toggle='tooltip' ><img class='action-button' alt='View' src='${pageContext.request.contextPath}/images/view-button.png'></a> </td></tr>";
             
             $("#merchantTBody").append(appendTxt);  
             rowindex = ++rowindex;
@@ -210,7 +210,7 @@ $( function() {
         <li class="breadcrumb-item active">Riders</li>
         <li class="function-buttons">
             <div id="add_button">
-                <a href="createRiderPage.action?pid=<%=session.getAttribute("session_refno").toString() %>" class="btn activate" id="rider-creation" title='New Rider Creation' data-rel='popover'  data-content='Creating a new rider'>Create Rider</a>
+                <a href="createRiderPage.action?pid=<%=session.getAttribute("session_refno").toString() %>" class="btn activate" id="rider-creation" title='New Rider Creation' data-toggle='popover'  data-content='Creating a new rider'>Create Rider</a>
             </div>
         </li>
     </ol>

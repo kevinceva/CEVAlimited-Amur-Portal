@@ -99,7 +99,7 @@ $(document).ready(function () {
 		"<td>"+v.AMOUNT+"</span> </td>"+
 		"<td>"+v.MAKER_ID+"</span></td>"+
 		"<td>"+v.MAKER_DATE+"</span></td>"+
-		"<td><a id='biller-account-create' class='btn btn-success' href='#' index="+colindex+" title='Create Biller Account' data-rel='tooltip'><i class='icon icon-plus icon-white'></i></a>&nbsp; <a id='biller-modify' class='btn btn-warning' href='#' index="+colindex+" title='Biller Modify' data-rel='tooltip'><i class='icon icon-edit icon-white'></i></a>&nbsp; <a id='biller-view' class='btn btn-info' href='#' index="+colindex+" title='Biller View' data-rel='tooltip'><i class='icon icon-note icon-white'></i></a>&nbsp; </td></tr>";
+		"<td><a id='biller-account-create' class='btn btn-success' href='#' index="+colindex+" title='Create Biller Account' data-toggle='tooltip'><i class='icon icon-plus icon-white'></i></a>&nbsp; <a id='biller-modify' class='btn btn-warning' href='#' index="+colindex+" title='Biller Modify' data-toggle='tooltip'><i class='icon icon-edit icon-white'></i></a>&nbsp; <a id='biller-view' class='btn btn-info' href='#' index="+colindex+" title='Biller View' data-toggle='tooltip'><i class='icon icon-note icon-white'></i></a>&nbsp; </td></tr>";
 			
 			$("#merchantTBody").append(appendTxt);	
 			rowindex = ++rowindex;
@@ -162,7 +162,7 @@ $(document).ready(function () {
 							val++;
 						}  
 						 
-						var lastTd="<a id='biller-account-modify' class='btn btn-warning' href='#' index="+colindex+" title='Biller Account Modify' data-rel='tooltip'><i class='icon icon-edit icon-white'></i></a>&nbsp; <a class='btn btn-info' href='#' id='biller-account-view'  index="+colindex+" title='View' data-rel='tooltip'><i class='icon icon-page icon-white'></i></a>&nbsp;";
+						var lastTd="<a id='biller-account-modify' class='btn btn-warning' href='#' index="+colindex+" title='Biller Account Modify' data-toggle='tooltip'><i class='icon icon-edit icon-white'></i></a>&nbsp; <a class='btn btn-info' href='#' id='biller-account-view'  index="+colindex+" title='View' data-toggle='tooltip'><i class='icon icon-page icon-white'></i></a>&nbsp;";
 						//var firstTd = "<a href='#' id='SEARCH_NO' value='STORE@"+v.BILLER_ID+"' >"+v.BILLER_ID+"</a>";
 						
 					        var i= t.row.add( [
@@ -365,8 +365,8 @@ $(document).on('click','a',function(event) {
 			
 			<div class="box-content" id="top-layer-anchor">
 				 <div>
-					<a href="#" class="btn btn-success" id="biller-add"   title='Add New Biller' data-rel='popover'  data-content='Creating a new merchant.'><i class='icon icon-plus icon-white'></i>&nbsp;Add New Biller</a> &nbsp; 
-					<a href="#" class="btn btn-success" id="biller-transaction-history"   title='Transaction History' data-rel='popover'  data-content='View Pay bill Transactions.'><i class='icon icon-minus icon-white'></i>&nbsp;Transaction History</a> &nbsp;
+					<a href="#" class="btn btn-success" id="biller-add"   title='Add New Biller' data-toggle='popover'  data-content='Creating a new merchant.'><i class='icon icon-plus icon-white'></i>&nbsp;Add New Biller</a> &nbsp; 
+					<a href="#" class="btn btn-success" id="biller-transaction-history"   title='Transaction History' data-toggle='popover'  data-content='View Pay bill Transactions.'><i class='icon icon-minus icon-white'></i>&nbsp;Transaction History</a> &nbsp;
  				 </div>	
 			</div>
 								  

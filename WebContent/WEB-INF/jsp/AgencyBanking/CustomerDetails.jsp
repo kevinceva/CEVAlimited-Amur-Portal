@@ -68,7 +68,7 @@ $(document).ready(function () {
         "<td>"+v.EMAIL+"</td>"+   
         "<td>"+v.MOBILE_NUMBER+"</span> </td>"+ 
         "<td>"+v.DATE_CREATED+"</span></td>"+
-        "<td><a id='view-customer' index='"+rowindex+"'  href='#' title='View Customer' data-rel='tooltip' ><img class='action-button' alt='View' src='${pageContext.request.contextPath}/images/view-button.png'></i></a> </td></tr>";
+        "<td><a id='view-customer' index='"+rowindex+"'  href='#' title='View Customer' data-toggle='tooltip' ><img class='action-button' alt='View' src='${pageContext.request.contextPath}/images/view-button.png'></i></a> </td></tr>";
             
             $("#merchantTBody").append(appendTxt);  
             rowindex = ++rowindex;

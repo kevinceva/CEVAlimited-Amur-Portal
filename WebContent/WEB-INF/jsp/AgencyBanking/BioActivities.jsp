@@ -71,9 +71,9 @@ input#abbreviation {
 
 			<div class="box-content" id="top-layer-anchor">
 				 <div>
-					<a href="#" class="btn btn-success" id="bio-registration" onClick="bioRegister()"  title='Bio Registration' data-rel='popover'  data-content='Bio Registration.'><i class='icon icon-users icon-white'></i>&nbsp;Bio Registration</a> &nbsp; 
- 					<a href="#" class="btn btn-primary" id="bio-deposit"   title='Bio Deposit' data-rel='popover'  data-content='Bio Deposit'><i class='icon icon-plus icon-white'></i>&nbsp;Bio Deposit</a> &nbsp;
- 					<a href="#" class="btn btn-warning" id="bio-cashwdl"   title='Bio Cash Withdrawal' data-rel='popover'  data-content='Bio Cash Withdrawal'><i class='icon icon-minus icon-white'></i>&nbsp;Bio Cash Withdrawal</a> &nbsp;
+					<a href="#" class="btn btn-success" id="bio-registration" onClick="bioRegister()"  title='Bio Registration' data-toggle='popover'  data-content='Bio Registration.'><i class='icon icon-users icon-white'></i>&nbsp;Bio Registration</a> &nbsp; 
+ 					<a href="#" class="btn btn-primary" id="bio-deposit"   title='Bio Deposit' data-toggle='popover'  data-content='Bio Deposit'><i class='icon icon-plus icon-white'></i>&nbsp;Bio Deposit</a> &nbsp;
+ 					<a href="#" class="btn btn-warning" id="bio-cashwdl"   title='Bio Cash Withdrawal' data-toggle='popover'  data-content='Bio Cash Withdrawal'><i class='icon icon-minus icon-white'></i>&nbsp;Bio Cash Withdrawal</a> &nbsp;
  				 </div>	
 			</div>
 

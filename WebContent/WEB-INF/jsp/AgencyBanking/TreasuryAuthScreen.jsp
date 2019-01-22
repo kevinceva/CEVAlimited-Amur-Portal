@@ -87,7 +87,7 @@ $(document).ready(function () {
 						"<td>"+v.requestedDate+"</span></td>"+
 						"<td>"+v.AUTH_TYPE+"</span></td>"+
 						"<td style='display:none'>"+v.REF_NO+"</span></td>"+
-						"<td><a id='treasury-store-limit-approve' class='"+status_class+"' href='#' index='"+rowindex+"' title='"+text1+"' data-rel='tooltip'>"+text+"</a> &nbsp;<a id='treasury-store-limit-approve-view' class='btn btn-info' href='#' index='"+rowindex+"' title='View Status' data-rel='tooltip'><i class='icon icon-page icon-white'></i></a></tr>";							
+						"<td><a id='treasury-store-limit-approve' class='"+status_class+"' href='#' index='"+rowindex+"' title='"+text1+"' data-toggle='tooltip'>"+text+"</a> &nbsp;<a id='treasury-store-limit-approve-view' class='btn btn-info' href='#' index='"+rowindex+"' title='View Status' data-toggle='tooltip'><i class='icon icon-page icon-white'></i></a></tr>";							
 			$("#storeTBody").append(appendTxt);	
 			rowindex = ++rowindex;
 	});
@@ -175,7 +175,7 @@ $(document).ready(function () {
 						"<td>"+user_status+"</span></td>"+
 						"<td>"+v.terminalRequestedBy+"</span></td>"+
 						"<td>"+v.terminalRequestedDate+"</span></td>"+
-						"<td ><a id='terminal-limit-approve' class='"+status_class+"' href='#' index='"+terminalrowindex+"' title='"+text1+"' data-rel='tooltip'>"+text+"</a> &nbsp;<a id='terminal-limit-approve-view' class='btn btn-info' href='#' index='"+terminalrowindex+"' title='View Status' data-rel='tooltip'><i class='icon icon-page icon-white'></i></a></tr>";
+						"<td ><a id='terminal-limit-approve' class='"+status_class+"' href='#' index='"+terminalrowindex+"' title='"+text1+"' data-toggle='tooltip'>"+text+"</a> &nbsp;<a id='terminal-limit-approve-view' class='btn btn-info' href='#' index='"+terminalrowindex+"' title='View Status' data-toggle='tooltip'><i class='icon icon-page icon-white'></i></a></tr>";
 
 						$("#"+terminalTBody).append(appendTxt);	
 						terminalrowindex = ++terminalrowindex;
@@ -415,8 +415,8 @@ $(document).on('click','a',function(event) {
 			<div class="box span12">
                   <div class="box-header well" data-original-title>Treasury Authorization Requests
 					<div class="box-icon"> 
-						<a href="#" class="btn btn-minimize btn-round" data-rel="tooltip"><i class="icon-chevron-up"></i></a>
-						<a href="#" class="btn btn-close btn-round" data-rel="tooltip"><i class="icon-remove"></i></a> 
+						<a href="#" class="btn btn-minimize btn-round" data-toggle="tooltip"><i class="icon-chevron-up"></i></a>
+						<a href="#" class="btn btn-close btn-round" data-toggle="tooltip"><i class="icon-remove"></i></a> 
 					</div>
 				</div>
                       
@@ -452,8 +452,8 @@ $(document).on('click','a',function(event) {
 			<div class="box span12">
                   <div class="box-header well" data-original-title>Merchant Settlement Authorization Requests
 					<div class="box-icon"> 
-						<a href="#" class="btn btn-minimize btn-round" data-rel="tooltip"><i class="icon-chevron-up"></i></a>
-						<a href="#" class="btn btn-close btn-round" data-rel="tooltip"><i class="icon-remove"></i></a> 
+						<a href="#" class="btn btn-minimize btn-round" data-toggle="tooltip"><i class="icon-chevron-up"></i></a>
+						<a href="#" class="btn btn-close btn-round" data-toggle="tooltip"><i class="icon-remove"></i></a> 
 					</div>
 				</div>
                       

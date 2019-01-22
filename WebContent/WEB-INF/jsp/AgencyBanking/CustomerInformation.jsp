@@ -157,7 +157,7 @@
 		        "<td>"+v.TXN_AMOUNT+"</td>"+   
 		        "<td>"+v.TXN_DATE+"</span> </td>"+ 
 		        "<td>"+v.ORDER_STATUS+"</span></td>";
-		        //"<td><a id='view-order' class='btn btn-success' index='"+rowindex+"'  href='#' title='View Order Contents' data-rel='tooltip' ><i class='icon icon-book icon-white'></i></a> </td></tr>";
+		        //"<td><a id='view-order' class='btn btn-success' index='"+rowindex+"'  href='#' title='View Order Contents' data-toggle='tooltip' ><i class='icon icon-book icon-white'></i></a> </td></tr>";
 		            
 		            $("#merchantTBody").append(appendTxt);  
 		            rowindex = ++rowindex;

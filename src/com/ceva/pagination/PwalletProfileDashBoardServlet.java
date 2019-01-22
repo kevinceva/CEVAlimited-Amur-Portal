@@ -168,7 +168,7 @@ public class PwalletProfileDashBoardServlet extends HttpServlet {
 				ja.put(rs.getString(2));
 				ja.put(rs.getString(4));
 				ja.put(rs.getString(5));
-				ja.put("<p><a class='btn btn-warning' href='#' id='edit-profile' index='"+i+"' title='Edit Profile' data-rel='tooltip'><i class='icon icon-edit icon-white'></i></a>&nbsp;<a class='btn btn-info' href='#' id='view-profile' index='"+i+"' title='View Profile' data-rel='tooltip'><i class='icon icon-page icon-white'></i></a>  &nbsp;<a class='btn btn-warning' href='#' id='profile-account-credit' index='"+i+"' title='Profile Account Credit' data-rel='tooltip'><i class='icon icon-book icon-white'></i></a><a class='btn btn-info' href='#' id='profile-pin-reset' index='"+i+"' title='Profile Pin Reset' data-rel='tooltip'><i class='icon icon-key icon-white'></i></a></p>");
+				ja.put("<p><a class='btn btn-warning' href='#' id='edit-profile' index='"+i+"' title='Edit Profile' data-toggle='tooltip'><i class='icon icon-edit icon-white'></i></a>&nbsp;<a class='btn btn-info' href='#' id='view-profile' index='"+i+"' title='View Profile' data-toggle='tooltip'><i class='icon icon-page icon-white'></i></a>  &nbsp;<a class='btn btn-warning' href='#' id='profile-account-credit' index='"+i+"' title='Profile Account Credit' data-toggle='tooltip'><i class='icon icon-book icon-white'></i></a><a class='btn btn-info' href='#' id='profile-pin-reset' index='"+i+"' title='Profile Pin Reset' data-toggle='tooltip'><i class='icon icon-key icon-white'></i></a></p>");
 
 				array.put(ja); 
 				i++;
@@ -208,7 +208,7 @@ public class PwalletProfileDashBoardServlet extends HttpServlet {
 				ja.put(rs.getString(2));
 				ja.put(rs.getString(4));
 				ja.put(rs.getString(5));
-				ja.put("<p><a class='btn btn-warning' href='#' id='edit-profile' index='"+i+"' title='Edit Profile' data-rel='tooltip'><i class='icon icon-edit icon-white'></i></a>&nbsp;<a class='btn btn-info' href='#' id='view-profile' index='"+i+"' title='View Profile' data-rel='tooltip'><i class='icon icon-page icon-white'></i></a>  &nbsp;<a class='btn btn-warning' href='#' id='profile-account-credit' index='"+i+"' title='Profile Account Credit' data-rel='tooltip'><i class='icon icon-book icon-white'></i></a><a class='btn btn-info' href='#' id='profile-pin-reset' index='"+i+"' title='Profile Pin Reset' data-rel='tooltip'><i class='icon icon-key icon-white'></i></a></p>");
+				ja.put("<p><a class='btn btn-warning' href='#' id='edit-profile' index='"+i+"' title='Edit Profile' data-toggle='tooltip'><i class='icon icon-edit icon-white'></i></a>&nbsp;<a class='btn btn-info' href='#' id='view-profile' index='"+i+"' title='View Profile' data-toggle='tooltip'><i class='icon icon-page icon-white'></i></a>  &nbsp;<a class='btn btn-warning' href='#' id='profile-account-credit' index='"+i+"' title='Profile Account Credit' data-toggle='tooltip'><i class='icon icon-book icon-white'></i></a><a class='btn btn-info' href='#' id='profile-pin-reset' index='"+i+"' title='Profile Pin Reset' data-toggle='tooltip'><i class='icon icon-key icon-white'></i></a></p>");
 
 
 				array.put(ja); 

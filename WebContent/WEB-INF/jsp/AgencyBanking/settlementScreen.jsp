@@ -178,11 +178,11 @@ $(document).ready(function () {
 	 </table>
      <div class="box-content" id="top-layer-anchor">
 			<span>
-				<a href="#" class="btn btn-info" id="add-settlement-bank" title='Add Bank For Settlement' data-rel='popover'  data-content='Add a new bank to process the settlement.'>
+				<a href="#" class="btn btn-info" id="add-settlement-bank" title='Add Bank For Settlement' data-toggle='popover'  data-content='Add a new bank to process the settlement.'>
 				<i class="icon icon-web icon-white"></i>&nbsp;Add Bank </a> &nbsp;							
 			</span>
 			<span>
-				<a href="#" class="btn btn-warning" id="settlement-dashboard" title='Settlement Dashboard' data-rel='popover'  data-content="Viewing the list of registered settlement bank's.">
+				<a href="#" class="btn btn-warning" id="settlement-dashboard" title='Settlement Dashboard' data-toggle='popover'  data-content="Viewing the list of registered settlement bank's.">
 				<i class="icon icon-briefcase icon-white"></i>&nbsp;Settlement Dashboard</a> &nbsp; 
 			</span> 			 
 		</div> 			 

@@ -81,7 +81,7 @@
 					"<td>"+user_status+"</span></td>"+
 					"<td>"+v.requestedBy+"</span></td>"+
 					"<td>"+v.requestedDate+"</span></td>"+
-					"<td><a id='store-credit-approve' class='"+status_class+"' href='#' index='"+rowindex+"' title='"+text1+"' data-rel='tooltip'>"+text+"</a> &nbsp;<a id='store-credit-approve-view' class='btn btn-info' href='#' index='"+rowindex+"' title='View Status' data-rel='tooltip'><i class='icon icon-page icon-white'></i></a></tr>";
+					"<td><a id='store-credit-approve' class='"+status_class+"' href='#' index='"+rowindex+"' title='"+text1+"' data-toggle='tooltip'>"+text+"</a> &nbsp;<a id='store-credit-approve-view' class='btn btn-info' href='#' index='"+rowindex+"' title='View Status' data-toggle='tooltip'><i class='icon icon-page icon-white'></i></a></tr>";
 						
 					$("#storeTBody").append(appendTxt);	
 					rowindex = ++rowindex;
@@ -169,7 +169,7 @@
 										"<td>"+v.terminalReferenceNo+"</span></td>"+
 										"<td> kshs "+v.terminalCreditAmt+" /= </span></td>"+
 										"<td>"+user_status+"</span></td>"+
-										"<td><a id='terminal-credit-approve' class='"+status_class+"' href='#' index='"+terminalrowindex+"' title='"+text1+"' data-rel='tooltip'>"+text+"</a> &nbsp;<a id='terminal-credit-approve-view' class='btn btn-info' href='#' index='"+terminalrowindex+"' title='View Status' data-rel='tooltip'><i class='icon icon-note icon-white'></i></a></tr>";
+										"<td><a id='terminal-credit-approve' class='"+status_class+"' href='#' index='"+terminalrowindex+"' title='"+text1+"' data-toggle='tooltip'>"+text+"</a> &nbsp;<a id='terminal-credit-approve-view' class='btn btn-info' href='#' index='"+terminalrowindex+"' title='View Status' data-toggle='tooltip'><i class='icon icon-note icon-white'></i></a></tr>";
 			
 										$("#"+terminalTBody).append(appendTxt);	
 										terminalrowindex = ++terminalrowindex;

@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.HashMap;
+import java.util.ResourceBundle;
 import java.util.UUID;
 
 import net.sf.json.JSONArray;
@@ -26,6 +27,13 @@ public class ProductsDAO {
 	JSONObject responseJSON = null;
 	String prdId = null;
 	String imgUrl = null;
+	
+	ResourceBundle resourceBundle = ResourceBundle.getBundle("pathinfo_config");
+
+	public String serverIp = resourceBundle.getString("AMUR_WEB_SERVICE");
+	public String cloudinaryApiKey = resourceBundle.getString("CLOUDINARY_KEY");
+	public String cloudinaryApiSecret = resourceBundle.getString("CLOUDINARY_SECRET");
+	public String cloudinaryImgUrl = resourceBundle.getString("CLOUDINARY_IMAGE_URL");
 
 	public ResponseDTO saveDemandProducts(RequestDTO requestDTO) throws SQLException {
 		Connection connection = null;
@@ -350,7 +358,11 @@ public class ProductsDAO {
 
 		HashMap<String, Object> productsMap = null;
 		PreparedStatement productsPstmt = null;
+		PreparedStatement subCatPstmt = null;
+		
 		ResultSet productsRS = null;
+		ResultSet subCatRS = null;
+		
 		String subcatId = null;
 
 		JSONArray productsArray = null; // Hold products from specific subcatId
@@ -361,7 +373,9 @@ public class ProductsDAO {
 		JSONObject json = null;
 		JSONArray prodArray = null;
 
-		String subcatQRY = "SELECT PMS.SUB_CATEGORY_ID FROM PRODUCT_MASTER_SUPPLY PMS, SUB_CATEGORY_MASTER SCM WHERE PMS.SUB_CATEGORY_ID = SCM.SUB_CATEGORY_ID";
+		String subcatQRY = "SELECT DISTINCT PMS.SUB_CATEGORY_ID, SCM.SUB_CATEGORY_NAME FROM PRODUCT_MASTER_SUPPLY PMS, SUB_CATEGORY_MASTER SCM WHERE PMS.SUB_CATEGORY_ID = SCM.SUB_CATEGORY_ID";
+		String prdQRY = "SELECT PRD_ID, PRD_NAME, PRICE_EXCL_VAT FROM PRODUCT_MASTER_SUPPLY WHERE SUB_CATEGORY_ID = ?";
+		
 		try {
 			this.responseDTO = new ResponseDTO();
 
@@ -374,28 +388,21 @@ public class ProductsDAO {
 
 			productsArray = new JSONArray();
 			subcatArray = new JSONArray();
-
-			productsPstmt = connection.prepareStatement(subcatQRY);
-			productsRS = productsPstmt.executeQuery();
-
 			subcatObj = new JSONObject();
 			prodArray = new JSONArray();
-
-			while (productsRS.next()) {
-				subcatArray.add(productsRS.getString(1));
-				System.out.println("Sub category array :: " + subcatArray.toString());
-			}
-
-			for (int i = 0; i < subcatArray.size(); i++) {
-
-				subcatId = subcatArray.getString(i);
-				subcatObj.put("SUB_CATEGORY_ID", subcatId);
-
-				String prdQRY = "SELECT PRD_ID, PRD_NAME, PRICE_EXCL_VAT FROM PRODUCT_MASTER_SUPPLY WHERE SUB_CATEGORY_ID = ?";
+			
+			//Fetching Subcategories
+			subCatPstmt = connection.prepareStatement(subcatQRY);
+			subCatRS = subCatPstmt.executeQuery();
+			while (subCatRS.next()) {
+				subcatObj.put("SUB_CATEGORY_ID", subCatRS.getString(1));
+				subcatObj.put("SUB_CATEGORY_NAME", subCatRS.getString(2));
+				
+				//Fetching Subcategories Product
 				productsPstmt = connection.prepareStatement(prdQRY);
-				productsPstmt.setString(1, subcatId);
+				productsPstmt.setString(1, subCatRS.getString(1));
 				productsRS = productsPstmt.executeQuery();
-
+				
 				while (productsRS.next()) {
 					resultJson.put("PRD_ID", productsRS.getString(1));
 					resultJson.put("PRD_NAME", productsRS.getString(2));
@@ -403,22 +410,21 @@ public class ProductsDAO {
 					productsArray.add(resultJson);
 					resultJson.clear();
 				}
-
-				subcatId = null;
-
-				subcatObj.put("SUB_CAT_PRODUCTS", productsArray);
-				prodArray.add(subcatObj);
+				DBUtils.closeResultSet(productsRS);
+				DBUtils.closePreparedStatement(productsPstmt);
+				
+				subcatObj.put("SUB_CAT_PRODUCTS", productsArray);	
 				productsArray.clear();
+				prodArray.add(subcatObj);
+				subcatObj.clear();
 			}
-
-			System.out.println("All products is :: " + prodArray.toString());
 
 			DBUtils.closeResultSet(productsRS);
 			DBUtils.closePreparedStatement(productsPstmt);
 			DBUtils.closeConnection(connection);
 			json.put("CAT_PRODUCTS", prodArray);
 			productsMap.put("CAT_PRODUCTS", json);
-			this.logger.info("EntityMap [" + productsMap + "]");
+			//this.logger.info("EntityMap [" + productsMap + "]");
 			this.responseDTO.setData(productsMap);
 
 		} catch (SQLException e) {
@@ -441,6 +447,212 @@ public class ProductsDAO {
 
 		return this.responseDTO;
 	}
+	
+	//Fetch product Information
+	public ResponseDTO fetchProductInfo(RequestDTO requestDTO) throws SQLException {
+
+		Connection connection = null;
+		this.logger.debug("Inside [ProductsDAO][fetchProductInfo].. ");
+
+		HashMap<String, Object> productsMap = null;
+		JSONObject resultJson = null;
+		JSONArray productsArray = null;
+		PreparedStatement productsPstmt = null;
+		ResultSet productsRS = null;
+		JSONObject json = null;
+		
+		requestJSON = requestDTO.getRequestJSON();
+		String prdid = requestJSON.getString("prdid");
+
+		String productsQRY = "SELECT PRD_ID, PRD_NAME, PRD_DESC, CATEGORY_ID, SUB_CATEGORY_ID, MANUFACTURER_ID, SKU1, SKU2, PRICE_EXCL_VAT, MARKUP_TYPE, MARKUP_RATE, MARKUP_VALUE,"
+				+ "PRD_SUPPLY_FK, VAT_TYPE, PRICE, REFERRAL_EARN_RATE, REFERRAL_EARN_EXCL_VAT, HEALTH_PREMIUM_RATE, HEALTH_PREMIUM_EXCL_VAT, DISP_ORDER, PRD_IMG1 FROM PRODUCT_MASTER WHERE PRD_ID = ?";
+		try {
+			this.responseDTO = new ResponseDTO();
+
+			connection = connection == null ? DBConnector.getConnection() : connection;
+			this.logger.debug("connection is [" + connection + "]");
+
+			productsMap = new HashMap();
+			resultJson = new JSONObject();
+			productsArray = new JSONArray();
+
+			productsPstmt = connection.prepareStatement(productsQRY);
+			productsPstmt.setString(1, prdid);
+			productsRS = productsPstmt.executeQuery();
+
+			json = new JSONObject();
+			while (productsRS.next()) {
+				json.put("prdid", productsRS.getString(1));
+				json.put("prdName", productsRS.getString(2));
+				json.put("prdDesc", productsRS.getString(3));
+				json.put("catName", productsRS.getString(4));
+				json.put("subCatName", productsRS.getString(5));
+				json.put("manfname", productsRS.getString(6));
+				json.put("skuSize", productsRS.getString(7).replace("null","No Value"));
+				json.put("skuUnit", productsRS.getString(8).replace("null","No Value"));
+				json.put("priceExclVat", productsRS.getString(9));
+				json.put("markupType", productsRS.getString(10));
+				json.put("markupRate", productsRS.getString(11));
+				json.put("markupValue", productsRS.getString(12));
+				json.put("prdSupplyId", productsRS.getString(13));
+				json.put("vatType", productsRS.getString(14));
+				json.put("prdPrice", productsRS.getString(15));
+				json.put("referralRate", productsRS.getString(16));
+				json.put("referralAmt", productsRS.getString(17));
+				json.put("healthPremRate", productsRS.getString(18));
+				json.put("healthPremAmt", productsRS.getString(19));
+				json.put("dispOrder", productsRS.getString(20));
+				
+				String prdImageName = productsRS.getString(21);
+				String prdImg = cloudinaryImgUrl + prdImageName;				
+				json.put("prdImage", prdImg);				
+				json.put("prdImageName", prdImageName);
+				
+				//productsArray.add(json);
+				//json.clear();
+			}
+			DBUtils.closeResultSet(productsRS);
+			DBUtils.closePreparedStatement(productsPstmt);
+			DBUtils.closeConnection(connection);
+			resultJson.put("PRODUCT_INFO", json);
+			productsMap.put("PRODUCT_INFO", resultJson);
+			this.logger.info("EntityMap [" + productsMap + "]");
+			this.responseDTO.setData(productsMap);
+			json.clear();
+
+		} catch (SQLException e) {
+			this.logger.debug("Got SQL Exception in ProductsDAO fetchProductInfo [" + e.getMessage() + "]");
+			e.printStackTrace();
+
+		} catch (Exception e) {
+			this.logger.debug("Got Exception in ProductsDAO fetchProductInfo [" + e.getMessage() + "]");
+			e.printStackTrace();
+		} finally {
+			DBUtils.closeResultSet(productsRS);
+			DBUtils.closePreparedStatement(productsPstmt);
+			DBUtils.closeConnection(connection);
+
+			productsMap = null;
+			resultJson = null;
+			productsArray = null;
+		}
+
+		return this.responseDTO;
+	}
+	
+	
+	
+	
+	
+	//Save demand products changes
+	public ResponseDTO modifyDemandProducts(RequestDTO requestDTO) throws SQLException {
+		Connection connection = null;
+		this.logger.debug("Inside [ProductsDAO][modifyDemandProducts].. ");
+
+		HashMap<String, Object> demandProductMap = null;
+		PreparedStatement demandProductPstmt = null;
+		JSONObject Resp_Message = null;
+
+		try {
+
+			requestJSON = requestDTO.getRequestJSON();
+
+			String prdId = requestJSON.getString("prdid");
+			String catId = requestJSON.getString("catId");
+			String subcatId = requestJSON.getString("subcatId");
+			String manfname = requestJSON.getString("manfname");
+
+			String prdSupplierId = requestJSON.getString("prdSupplierId");
+			String amurDemandName = requestJSON.getString("amurDemandName");
+			String productDemandDesc = requestJSON.getString("productDemandDesc");
+			String skuSize = requestJSON.getString("skuSize");
+			String skuUnit = requestJSON.getString("skuUnit");
+			String sellPriceNoVat = requestJSON.getString("sellPriceNoVat");
+
+			String markupType = requestJSON.getString("markupType");
+			Double markupRate = requestJSON.getDouble("markupRate");
+			String markupAmountNoVat = requestJSON.getString("markupAmountNoVat");
+			
+			String vatType = requestJSON.getString("vatType");
+			
+			Double referralRate = requestJSON.getDouble("referralRate");
+			String referralAmtNoVat = requestJSON.getString("referralAmtNoVat");
+			Double healthPremiumRate = requestJSON.getDouble("healthPremiumRate");
+			String healthPremiumNoVat = requestJSON.getString("healthPremiumNoVat");
+			
+			String sellPrice = requestJSON.getString("sellPriceVat");
+			String productImage = requestJSON.getString("productImage");
+			
+			System.out.println("Product Image :: "+productImage);
+			
+			String prdQry = "UPDATE PRODUCT_MASTER SET CATEGORY_ID = ?, SUB_CATEGORY_ID = ?, MANUFACTURER_ID = ?, PRD_SUPPLY_FK= ?, PRD_NAME = ?, PRD_DESC = ?, SKU1 = ?, SKU2 = ?,"
+					+ "PRICE_EXCL_VAT = ?, MARKUP_TYPE = ?, MARKUP_RATE = ?, MARKUP_VALUE = ?, VAT_TYPE = ?, REFERRAL_EARN_RATE = ?, REFERRAL_EARN_EXCL_VAT = ?, HEALTH_PREMIUM_RATE = ?,"
+					+ "HEALTH_PREMIUM_EXCL_VAT = ?, PRICE = ?, PRD_IMG1 = ? WHERE PRD_ID = ?";
+
+			this.responseDTO = new ResponseDTO();
+
+			connection = connection == null ? DBConnector.getConnection() : connection;
+			this.logger.debug("connection is [" + connection + "]");
+
+			demandProductMap = new HashMap();
+			Resp_Message = new JSONObject();
+
+			demandProductPstmt = connection.prepareStatement(prdQry);
+
+			
+			demandProductPstmt.setString(1, catId);
+			demandProductPstmt.setString(2, subcatId);
+			demandProductPstmt.setString(3, manfname);
+			demandProductPstmt.setString(4, prdSupplierId);
+			demandProductPstmt.setString(5, amurDemandName);
+			demandProductPstmt.setString(6, productDemandDesc);
+			demandProductPstmt.setString(7, skuSize);
+			demandProductPstmt.setString(8, skuUnit);
+			demandProductPstmt.setString(9, sellPriceNoVat);
+			demandProductPstmt.setString(10, markupType);
+			demandProductPstmt.setDouble(11, markupRate);
+			demandProductPstmt.setString(12, markupAmountNoVat);
+			
+			demandProductPstmt.setString(13, vatType);
+
+			demandProductPstmt.setDouble(14, referralRate);
+			demandProductPstmt.setString(15, referralAmtNoVat);
+
+			demandProductPstmt.setDouble(16, healthPremiumRate);
+			demandProductPstmt.setString(17, healthPremiumNoVat);
+			demandProductPstmt.setString(18, sellPrice);
+			demandProductPstmt.setString(19, productImage);
+			demandProductPstmt.setString(20, prdId);
+
+			demandProductPstmt.executeQuery();
+			Resp_Message.put("Response_Message", "Product modified saved.");
+
+			demandProductMap.put("Response_Message", Resp_Message);
+			this.logger.info("EntityMap [" + demandProductMap + "]");
+			this.responseDTO.setData(demandProductMap);
+
+		} catch (SQLException e) {
+			this.logger.debug("Got SQL Exception in saveDemandProducts ProductsDAO [" + e.getMessage() + "]");
+			e.printStackTrace();
+			Resp_Message.put("Response_Message",
+					"Got SQL Exception in saveDemandProducts ProductsDAO [" + e.getMessage() + "]");
+
+		} catch (Exception e) {
+			this.logger.debug("Got Exception in saveDemandProducts ProductsDAO [" + e.getMessage() + "]");
+			e.printStackTrace();
+			Resp_Message.put("Response_Message",
+					"Got Exception in saveDemandProducts ProductsDAO [" + e.getMessage() + "]");
+		} finally {
+			DBUtils.closePreparedStatement(demandProductPstmt);
+			DBUtils.closeConnection(connection);
+			demandProductMap = null;
+			Resp_Message = null;
+		}
+
+		return this.responseDTO;
+	}
+	
+	
 
 	// Generate
 	// timestamp...............................................................

@@ -169,7 +169,7 @@ public class PwalletOrgDashBoardServlet extends HttpServlet {
 				ja.put(rs.getString(3));
 				ja.put(rs.getString(4));
 				ja.put(rs.getString(5));
-				ja.put("<p><a class='btn btn-warning' index='"+i+"' href='#' id='edit-organization'  title='Edit Organization' data-rel='tooltip'><i class='icon icon-edit icon-white'></i></a>&nbsp;<a class='btn btn-info' href='#' id='view-organization' index='"+i+"'  title='View Organization' data-rel='tooltip'><i class='icon icon-page icon-white'></i></a>  &nbsp;<a class='btn btn-primary' href='#' index='"+i+"' id='account-credit'  title='Account Credit' data-rel='tooltip'><i class='icon icon-calendar icon-white'></i></a>&nbsp;<a class='btn btn-success' href='#' id='profile-bulk-disbursment' index='"+i+"'  title='Profile Bulk Disbursment' data-rel='tooltip' data-content='Uploading a new bulk disbursment for organaization.'><i class='icon icon-compose icon-white'></i></a></p>");
+				ja.put("<p><a class='btn btn-warning' index='"+i+"' href='#' id='edit-organization'  title='Edit Organization' data-toggle='tooltip'><i class='icon icon-edit icon-white'></i></a>&nbsp;<a class='btn btn-info' href='#' id='view-organization' index='"+i+"'  title='View Organization' data-toggle='tooltip'><i class='icon icon-page icon-white'></i></a>  &nbsp;<a class='btn btn-primary' href='#' index='"+i+"' id='account-credit'  title='Account Credit' data-toggle='tooltip'><i class='icon icon-calendar icon-white'></i></a>&nbsp;<a class='btn btn-success' href='#' id='profile-bulk-disbursment' index='"+i+"'  title='Profile Bulk Disbursment' data-toggle='tooltip' data-content='Uploading a new bulk disbursment for organaization.'><i class='icon icon-compose icon-white'></i></a></p>");
 
 				array.put(ja); 
 				i++;
@@ -211,7 +211,7 @@ public class PwalletOrgDashBoardServlet extends HttpServlet {
 				ja.put(rs.getString(3));
 				ja.put(rs.getString(4));
 				ja.put(rs.getString(5));
-				ja.put("<p><a class='btn btn-warning' index='"+i+"' href='#' id='edit-organization'  title='Edit Organization' data-rel='tooltip'><i class='icon icon-edit icon-white'></i></a>&nbsp;<a class='btn btn-info' href='#' id='view-organization' index='"+i+"'  title='View Organization' data-rel='tooltip'><i class='icon icon-page icon-white'></i></a>  &nbsp;<a class='btn btn-primary' href='#' index='"+i+"' id='account-credit'  title='Account Credit' data-rel='tooltip'><i class='icon icon-calendar icon-white'></i></a>&nbsp;<a class='btn btn-success' href='#' id='profile-bulk-disbursment' index='"+i+"'  title='Profile Bulk Disbursment' data-rel='tooltip' data-content='Uploading a new bulk disbursment for organaization.'><i class='icon icon-compose icon-white'></i></a></p>");
+				ja.put("<p><a class='btn btn-warning' index='"+i+"' href='#' id='edit-organization'  title='Edit Organization' data-toggle='tooltip'><i class='icon icon-edit icon-white'></i></a>&nbsp;<a class='btn btn-info' href='#' id='view-organization' index='"+i+"'  title='View Organization' data-toggle='tooltip'><i class='icon icon-page icon-white'></i></a>  &nbsp;<a class='btn btn-primary' href='#' index='"+i+"' id='account-credit'  title='Account Credit' data-toggle='tooltip'><i class='icon icon-calendar icon-white'></i></a>&nbsp;<a class='btn btn-success' href='#' id='profile-bulk-disbursment' index='"+i+"'  title='Profile Bulk Disbursment' data-toggle='tooltip' data-content='Uploading a new bulk disbursment for organaization.'><i class='icon icon-compose icon-white'></i></a></p>");
 
 
 				array.put(ja); 

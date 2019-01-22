@@ -231,7 +231,7 @@ $(document).on('click','a',function(event) {
 			
 			 <div class="box-content" id="top-layer-anchor">
 				 <div>
-					<a href="#" class="btn btn-info" id="upload-tms-version" title='Upload TMS New Version' data-rel='popover' data-content='Upload TMS New Version'><i class='icon icon-plus icon-white'></i>&nbsp;Upload TMS New Version</a>		 			
+					<a href="#" class="btn btn-info" id="upload-tms-version" title='Upload TMS New Version' data-toggle='popover' data-content='Upload TMS New Version'><i class='icon icon-plus icon-white'></i>&nbsp;Upload TMS New Version</a>		 			
 				</div>	
 			</div> 
 			

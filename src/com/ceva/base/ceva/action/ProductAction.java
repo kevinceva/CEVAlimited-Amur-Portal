@@ -2,6 +2,8 @@ package com.ceva.base.ceva.action;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.UUID;
 
@@ -14,14 +16,20 @@ import net.sf.json.JSONObject;
 import org.apache.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
 
+import com.ceva.base.common.dao.CategoryManagementDAO;
 import com.ceva.base.common.dao.LifestyleDAO;
+import com.ceva.base.common.dao.OrdersDAO;
 import com.ceva.base.common.dao.ProductsDAO;
+import com.ceva.base.common.dao.SupplierDAO;
 import com.ceva.base.common.dto.RequestDTO;
 import com.ceva.base.common.dto.ResponseDTO;
 import com.ceva.base.common.utils.CevaCommonConstants;
 import com.opensymphony.xwork2.ActionSupport;
 import com.ceva.base.common.bean.TwoWaySMSBean;
 import com.ceva.util.HttpPostRequestHandler;
+
+import com.cloudinary.*;
+import com.cloudinary.utils.ObjectUtils;
 
 public class ProductAction extends ActionSupport {
 
@@ -31,8 +39,11 @@ public class ProductAction extends ActionSupport {
 	private static final long serialVersionUID = 1L;
 	Logger logger = Logger.getLogger(ProductAction.class);
 	ResourceBundle resourceBundle = ResourceBundle.getBundle("pathinfo_config");
+	//public String discountImagePath = resourceBundle.getString("DISCOUNT_IMAGE");
 
 	public String serverIp = resourceBundle.getString("AMUR_WEB_SERVICE");
+	public String cloudinaryApiKey = resourceBundle.getString("CLOUDINARY_KEY");
+	public String cloudinaryApiSecret = resourceBundle.getString("CLOUDINARY_SECRET");
 	// public String referralRate = resourceBundle.getString("REFERRAL_RATE");
 	// public String healthPremium = resourceBundle.getString("HEALTHPREMIUM");
 
@@ -41,6 +52,8 @@ public class ProductAction extends ActionSupport {
 	JSONObject responseJSON = null;
 	JSONObject catalogRespJSON = null;
 	JSONObject manfRespJSON = null;
+	JSONObject productJSON = null;
+	JSONObject supplyProductJSON = null;
 
 	private HttpSession session = null;
 
@@ -120,7 +133,11 @@ public class ProductAction extends ActionSupport {
 	public String vatRate2;
 	public String buyPriceVat;
 
+	public String priceVatType;
+	public String prdImageName;
+
 	private File offerImage = null;
+	private File prdImg = null;
 
 	public String remarks;
 	private String productInfoPage = null;
@@ -413,6 +430,8 @@ public class ProductAction extends ActionSupport {
 			requestJSON.put("sellPriceVat", sellPriceVat);
 			requestJSON.put("productImage", offerImage.getName());
 
+			System.out.println("Response :: " + requestJSON.toString());
+
 			requestDTO.setRequestJSON(requestJSON);
 			productDAO = new ProductsDAO();
 			responseDTO = productDAO.saveDemandProducts(requestDTO);
@@ -447,6 +466,143 @@ public class ProductAction extends ActionSupport {
 			e.printStackTrace();
 			Resp_Message.put("Response_Message",
 					"Got Exception in createDemandProducts ProductAction [" + e.getMessage() + "]");
+		}
+
+		return result;
+
+	}
+
+	// Edit Product Information
+	public String modifyProductInformation() {
+
+		logger.info("Inside ProductAction modifyProductInformation.");
+		ProductsDAO productDAO = null;
+		ArrayList<String> errors = null;
+		JSONObject Resp_Message = null;
+
+		Cloudinary cloudinary = null;
+
+		try {
+
+			Map config = new HashMap();
+			config.put("cloud_name", "cevaltd");
+			config.put("api_key", "456274844924271");
+			config.put("api_secret", "occwGsWdj0YbeTbOVczQSBhMStE");
+			cloudinary = new Cloudinary(config);
+
+			String prdid = getPrdid();
+			String catname = getCatname();
+			String subcatname = getSubcatname();
+			String manfname = getManfname();
+			String prdSupplierId = getPrdSupplierId();
+			String amurDemandName = getAmurDemandName();
+			String productDemandDesc = getProductDemandDesc();
+			String skuSize = getSkuSize();
+			String skuUnit = getSkuUnit();
+			String sellPriceNoVat = getSellPriceNoVat();
+			String markupType = getMarkupType();
+			String markupRate = getMarkupRate();
+			String markupAmountNoVat = getMarkupAmountNoVat();
+			String priceVatType = getPriceVatType();
+			String prdImageName = getPrdImageName();
+
+			String referralRate = getReferralRate();
+			String referralAmtNoVat = getReferralAmtNoVat();
+			String healthPremiumRate = getHealthPremiumRate();
+			String healthPremiumNoVat = getHealthPremiumNoVat();
+			File prdImg = getPrdImg();
+
+			Double mkpRate = (Double.parseDouble(markupRate)) / 100;
+			Double refRate = (Double.parseDouble(referralRate)) / 100;
+			Double healthRate = (Double.parseDouble(healthPremiumRate)) / 100;
+
+			System.out.println("mkp :: " + mkpRate);
+			System.out.println("ref :: " + refRate);
+			System.out.println("healthRate :: " + healthRate);
+
+			String sellPriceVat = getSellPriceVat();
+
+			String newImage;
+
+			if (prdImg != null) {
+
+				if (prdImg.renameTo(new File(prdImg.getPath().replace(prdImg.getName(), ""),
+						prdImg.getName().replaceAll("\\.tmp$", "")))) {
+					System.out.println("File is moved successful!");
+				} else {
+					System.out.println("File is failed to move!");
+				}
+
+				System.out.println("File path :: " + prdImg.getPath());
+
+				File toUpload = new File(prdImg.getPath().replace(prdImg.getName(), ""),
+						prdImg.getName().replaceAll("\\.tmp$", ""));
+				Map uploadResult = cloudinary.uploader().upload(toUpload,
+						ObjectUtils.asMap("folder", "all/", "public_id", "" + prdImageName + ""));
+				String imageUrl = uploadResult.get("secure_url").toString();
+				String imgNewName = uploadResult.get("public_id").toString();
+				System.out.println("Image url :: " + imageUrl);
+				System.out.println("Image name :: " + imgNewName.replaceAll("all/", ""));
+				newImage = imgNewName.replaceAll("all/", "");
+			} else {
+				newImage = prdImageName;
+				System.out.println("Image name = " + newImage);
+			}
+
+			requestJSON = new JSONObject();
+			requestDTO = new RequestDTO();
+			Resp_Message = new JSONObject();
+
+			requestJSON.put("prdid", prdid);
+			requestJSON.put("catId", catname);
+			requestJSON.put("subcatId", subcatname);
+			requestJSON.put("manfname", manfname);
+
+			requestJSON.put("prdSupplierId", prdSupplierId);
+			requestJSON.put("amurDemandName", amurDemandName);
+			requestJSON.put("productDemandDesc", productDemandDesc);
+			requestJSON.put("skuSize", skuSize);
+			requestJSON.put("skuUnit", skuUnit);
+			requestJSON.put("sellPriceNoVat", sellPriceNoVat);
+
+			requestJSON.put("markupType", markupType);
+			requestJSON.put("markupRate", mkpRate);
+			requestJSON.put("markupAmountNoVat", markupAmountNoVat);
+
+			requestJSON.put("vatType", priceVatType);
+
+			requestJSON.put("referralRate", refRate);
+			requestJSON.put("referralAmtNoVat", referralAmtNoVat);
+			requestJSON.put("healthPremiumRate", healthRate);
+			requestJSON.put("healthPremiumNoVat", healthPremiumNoVat);
+
+			requestJSON.put("sellPriceVat", sellPriceVat);
+			requestJSON.put("productImage", newImage);
+
+			requestDTO.setRequestJSON(requestJSON);
+			productDAO = new ProductsDAO();
+			responseDTO = productDAO.modifyDemandProducts(requestDTO);
+			logger.debug("Response DTO [" + responseDTO + "]");
+
+			/*
+			 * if (responseDTO != null && responseDTO.getErrors().size() == 0) {
+			 * responseJSON = (JSONObject) responseDTO.getData().get("Response_Message");
+			 * logger.debug("Response JSON [" + responseJSON + "]");
+			 * responseJSON.put("remarks", "SUCCESS");
+			 * 
+			 * // insert audit trace here
+			 * 
+			 * result = "success"; } else { errors = (ArrayList<String>)
+			 * responseDTO.getErrors(); for (int i = 0; i < errors.size(); i++) {
+			 * addActionError(errors.get(i)); } responseJSON.put("remarks", "FAILURE");
+			 * result = "fail"; }
+			 */
+
+		} catch (Exception e) {
+			this.logger.debug("Got Exception in ProductAction modifyProductInformation. [" + e.getMessage() + "]");
+			e.printStackTrace();
+			Resp_Message.put("Response_Message",
+					"Got Exception in ProductAction modifyProductInformation. [" + e.getMessage() + "]");
 		}
 
 		return result;
@@ -651,14 +807,6 @@ public class ProductAction extends ActionSupport {
 					+ discount + "/" + quantity + "/" + reorderlvl + "/" + provider + "/" + mkrid + "/"
 					+ wholesaleprice;
 
-			/*
-			 * http://104.42.234.123:5555/amurcore/amur/catalog//modifyproduct/{prdId}/{
-			 * prdName}/{prdDesc}/
-			 * {categoryId}/{subCategoryId}/{manufacturerId}/{modelBrandNo}/{price}/{
-			 * discountType}/{discount}/{quantity}/
-			 * {recorderLevel}/{serviceProvider}/{createdBy}
-			 */
-
 			logger.debug("Web Service URL  :::: " + webServiceURL);
 			String json1 = httpPostRequestHandler.sendRestPostRequest(webServiceURL);
 			JSONObject obj = JSONObject.fromObject(json1);
@@ -698,43 +846,116 @@ public class ProductAction extends ActionSupport {
 
 	}
 
-	public String productInformation() {
-		logger.debug("Inside productInformation..");
-		ArrayList<String> errors = null;
-		JSONObject requestJSON = null;
-		JSONArray disctypeJsonArray = null;
+	/*
+	 * public String productInformation() {
+	 * logger.debug("Inside productInformation.."); ArrayList<String> errors = null;
+	 * JSONObject requestJSON = null; JSONArray disctypeJsonArray = null;
+	 * ProductsDAO productsDAO = null; try { String prdid = getPrdid(); String type
+	 * = getType();
+	 * 
+	 * System.out.println("prdid [" + prdid + "] type[" + type + "]"); requestJSON =
+	 * new JSONObject(); requestJSON.put("prdId", prdid);
+	 * 
+	 * requestDTO = new RequestDTO(); requestDTO.setRequestJSON(requestJSON);
+	 * productsDAO = new ProductsDAO(); responseDTO =
+	 * productsDAO.fetchProductCatalog(requestDTO); logger.debug("Response DTO [" +
+	 * responseDTO + "]");
+	 * 
+	 * requestDTO = new RequestDTO(); requestDTO.setRequestJSON(requestJSON);
+	 * productsDAO = new ProductsDAO(); responseDTO =
+	 * productsDAO.fetchDemandProducts(requestDTO); logger.debug("Response DTO [" +
+	 * responseDTO + "]");
+	 * 
+	 * requestDTO = new RequestDTO(); requestDTO.setRequestJSON(requestJSON);
+	 * productsDAO = new ProductsDAO(); responseDTO =
+	 * productsDAO.fetchDemandProducts(requestDTO); logger.debug("Response DTO [" +
+	 * responseDTO + "]");
+	 * 
+	 * if (responseDTO != null && responseDTO.getErrors().size() == 0) {
+	 * responseJSON = (JSONObject) responseDTO.getData().get("DEMAND_PRODUCTS");
+	 * responseJSON = (JSONObject) responseDTO.getData().get("DEMAND_PRODUCTS");
+	 * responseJSON = (JSONObject) responseDTO.getData().get("DEMAND_PRODUCTS");
+	 * logger.debug("Response JSON [" + responseJSON + "]"); result = "success"; }
+	 * else { errors = (ArrayList<String>) responseDTO.getErrors(); for (int i = 0;
+	 * i < errors.size(); i++) { addActionError(errors.get(i)); } result = "fail"; }
+	 * 
+	 * /* session = ServletActionContext.getRequest().getSession();
+	 * requestJSON.put("TYPE", getType()); requestJSON.put("MAKER_ID",
+	 * session.getAttribute(CevaCommonConstants.MAKER_ID) .toString());
+	 *
+	 * 
+	 * logger.debug("Web Service URL  :::: " + webServiceURL); String json1 =
+	 * httpPostRequestHandler.sendRestPostRequest(webServiceURL); JSONObject obj =
+	 * JSONObject.fromObject(json1); logger.debug("End to Sent Mobile Otp >> [" +
+	 * obj + "] obj to string[" + obj.toString() + "]"); responseJSON = obj;
+	 * responseJSON.put("type", type); responseJSON.put("prdid", prdid);
+	 * responseJSON.put("disctype_json", disctypeJsonArray);
+	 * 
+	 * logger.debug("fetching catalog"); String catalogURL = serverIp +
+	 * "/amurcore/amur/catalog/fetchcatalog"; logger.debug("catalogURL  :::: " +
+	 * catalogURL); String catalogJson =
+	 * httpPostRequestHandler.sendRestPostRequest(catalogURL); JSONObject catalogobj
+	 * = JSONObject.fromObject(catalogJson); logger.debug("catalogobj [" +
+	 * catalogobj + "] catalogobj to string[" + catalogobj.toString() + "]");
+	 * catalogRespJSON = catalogobj;
+	 * 
+	 * logger.debug("fetching manufacturer"); String manfURL = serverIp +
+	 * "/amurcore/amur/catalog/fetchmanufacturers"; logger.debug("manfURL  :::: " +
+	 * manfURL); String manfJson =
+	 * httpPostRequestHandler.sendRestPostRequest(manfURL); JSONObject manfobj =
+	 * JSONObject.fromObject(manfJson); logger.debug("manfobj [" + catalogobj +
+	 * "] catalogobj to string[" + manfobj.toString() + "]"); manfRespJSON =
+	 * manfobj;
+	 * 
+	 * result = "success"; System.out.println("resultJson [" +
+	 * responseJSON.toString() + "] catalogRespJSON [" + catalogRespJSON +
+	 * "] manfRespJSON [" + manfRespJSON + "] result[" + result + "]");
+	 * 
+	 * if (getType().equalsIgnoreCase("Modify")) { productInfoPage =
+	 * "productModifyInformation"; } else if (getType().equalsIgnoreCase("View")) {
+	 * productInfoPage = "productViewInformation"; } else if
+	 * (getType().equalsIgnoreCase("ActiveDeactive")) { productInfoPage =
+	 * "productActivate"; } else { productInfoPage = "productViewInformation"; }
+	 * 
+	 * logger.debug(" productInfoPage [" + productInfoPage + "]");
+	 * 
+	 * } catch (Exception e) { result = "fail"; e.printStackTrace();
+	 * addActionError("Internal error occured."); } finally { errors = null; }
+	 * 
+	 * return result; }
+	 */
+
+	public String fetchProductInfo() {
+
+		System.out.println("Inside [ProductAction] [fetchProductInfo]");
+		CategoryManagementDAO categoryMgt = null;
 		ProductsDAO productsDAO = null;
+		SupplierDAO supplierDAO = null;
+		ArrayList<String> errors = null;
 		try {
+
+			requestJSON = new JSONObject();
+			catalogRespJSON = new JSONObject();
+			manfRespJSON = new JSONObject();
+			productJSON = new JSONObject();
+			supplyProductJSON = new JSONObject();
+
+			requestDTO = new RequestDTO();
+
 			String prdid = getPrdid();
 			String type = getType();
 
-			System.out.println("prdid [" + prdid + "] type[" + type + "]");
-			requestJSON = new JSONObject();
-			requestJSON.put("prdId", prdid);
-			
-			requestDTO = new RequestDTO();
+			requestJSON.put("prdid", prdid);
 			requestDTO.setRequestJSON(requestJSON);
-			productsDAO = new ProductsDAO();
-			responseDTO = productsDAO.fetchProductCatalog(requestDTO);
+
+			// Fetching product category and subcategory
+			categoryMgt = new CategoryManagementDAO();
+			responseDTO = categoryMgt.fetchAllCategories(requestDTO);
 			logger.debug("Response DTO [" + responseDTO + "]");
-			
-			requestDTO = new RequestDTO();
-			requestDTO.setRequestJSON(requestJSON);
-			productsDAO = new ProductsDAO();
-			responseDTO = productsDAO.fetchDemandProducts(requestDTO);
-			logger.debug("Response DTO [" + responseDTO + "]");
-			
-			requestDTO = new RequestDTO();
-			requestDTO.setRequestJSON(requestJSON);
-			productsDAO = new ProductsDAO();
-			responseDTO = productsDAO.fetchDemandProducts(requestDTO);
-			logger.debug("Response DTO [" + responseDTO + "]");
-			
+
 			if (responseDTO != null && responseDTO.getErrors().size() == 0) {
-				responseJSON = (JSONObject) responseDTO.getData().get("DEMAND_PRODUCTS");
-				responseJSON = (JSONObject) responseDTO.getData().get("DEMAND_PRODUCTS");
-				responseJSON = (JSONObject) responseDTO.getData().get("DEMAND_PRODUCTS");
-				logger.debug("Response JSON [" + responseJSON + "]");
+				catalogRespJSON = (JSONObject) responseDTO.getData().get("CATEGORIES");
+				logger.debug("Category Info Response JSON :: [" + catalogRespJSON + "]");
 				result = "success";
 			} else {
 				errors = (ArrayList<String>) responseDTO.getErrors();
@@ -744,68 +965,89 @@ public class ProductAction extends ActionSupport {
 				result = "fail";
 			}
 
-			/*
-			 * session = ServletActionContext.getRequest().getSession();
-			 * requestJSON.put("TYPE", getType()); requestJSON.put("MAKER_ID",
-			 * session.getAttribute(CevaCommonConstants.MAKER_ID) .toString());
-			 */
+			// Fetching Suppliers
+			supplierDAO = new SupplierDAO();
+			responseDTO = supplierDAO.fetchAllSuppliers(requestDTO);
+			logger.debug("Response DTO [" + responseDTO + "]");
 
-			logger.debug("Web Service URL  :::: " + webServiceURL);
-			String json1 = httpPostRequestHandler.sendRestPostRequest(webServiceURL);
-			JSONObject obj = JSONObject.fromObject(json1);
-			logger.debug("End to Sent Mobile Otp >> [" + obj + "] obj to string[" + obj.toString() + "]");
-			responseJSON = obj;
-			responseJSON.put("type", type);
-			responseJSON.put("prdid", prdid);
-			responseJSON.put("disctype_json", disctypeJsonArray);
+			if (responseDTO != null && responseDTO.getErrors().size() == 0) {
+				manfRespJSON = (JSONObject) responseDTO.getData().get("SUPPLIER_LIST");
+				logger.debug("Response JSON [" + manfRespJSON + "]");
+				result = "success";
+			} else {
+				errors = (ArrayList<String>) responseDTO.getErrors();
+				for (int i = 0; i < errors.size(); i++) {
+					addActionError(errors.get(i));
+				}
+				result = "fail";
+			}
 
-			logger.debug("fetching catalog");
-			String catalogURL = serverIp + "/amurcore/amur/catalog/fetchcatalog";
-			logger.debug("catalogURL  :::: " + catalogURL);
-			String catalogJson = httpPostRequestHandler.sendRestPostRequest(catalogURL);
-			JSONObject catalogobj = JSONObject.fromObject(catalogJson);
-			logger.debug("catalogobj [" + catalogobj + "] catalogobj to string[" + catalogobj.toString() + "]");
-			catalogRespJSON = catalogobj;
+			// Fetch Supply Products
+			productsDAO = new ProductsDAO();
+			responseDTO = productsDAO.fetchSupplyCatalog(requestDTO);
+			logger.debug("Response DTO [" + responseDTO + "]");
 
-			logger.debug("fetching manufacturer");
-			String manfURL = serverIp + "/amurcore/amur/catalog/fetchmanufacturers";
-			logger.debug("manfURL  :::: " + manfURL);
-			String manfJson = httpPostRequestHandler.sendRestPostRequest(manfURL);
-			JSONObject manfobj = JSONObject.fromObject(manfJson);
-			logger.debug("manfobj [" + catalogobj + "] catalogobj to string[" + manfobj.toString() + "]");
-			manfRespJSON = manfobj;
+			if (responseDTO != null && responseDTO.getErrors().size() == 0) {
+				supplyProductJSON = (JSONObject) responseDTO.getData().get("CAT_PRODUCTS");
+				logger.debug("Supply Product JSON [" + supplyProductJSON + "]");
+				result = "success";
+			} else {
+				errors = (ArrayList<String>) responseDTO.getErrors();
+				for (int i = 0; i < errors.size(); i++) {
+					addActionError(errors.get(i));
+				}
+				result = "fail";
+			}
 
-			result = "success";
-			System.out.println("resultJson [" + responseJSON.toString() + "] catalogRespJSON [" + catalogRespJSON
-					+ "] manfRespJSON [" + manfRespJSON + "] result[" + result + "]");
+			// Fetchin product Info
+			productsDAO = new ProductsDAO();
+			responseDTO = productsDAO.fetchProductInfo(requestDTO);
+			logger.debug("Response DTO [" + responseDTO + "]");
+
+			if (responseDTO != null && responseDTO.getErrors().size() == 0) {
+				productJSON = (JSONObject) responseDTO.getData().get("PRODUCT_INFO");
+				logger.debug("Response JSON [" + productJSON + "]");
+				result = "success";
+			} else {
+				errors = (ArrayList<String>) responseDTO.getErrors();
+				for (int i = 0; i < errors.size(); i++) {
+					addActionError(errors.get(i));
+				}
+				result = "fail";
+			}
+
+			logger.debug("Response JSON [" + productJSON + "]");
+
+			// responseJSON.put("Type", type);
 
 			if (getType().equalsIgnoreCase("Modify")) {
 				productInfoPage = "productModifyInformation";
 			} else if (getType().equalsIgnoreCase("View")) {
-				productInfoPage = "productViewInformation";
+				// productInfoPage = "productViewInformation";
+				productInfoPage = "productModifyInformation";
 			} else if (getType().equalsIgnoreCase("ActiveDeactive")) {
 				productInfoPage = "productActivate";
 			} else {
 				productInfoPage = "productViewInformation";
 			}
 
-			logger.debug(" productInfoPage [" + productInfoPage + "]");
-
 		} catch (Exception e) {
 			result = "fail";
-			e.printStackTrace();
+			logger.debug("Exception in [ProductAction] [fetchProductInfo] [" + e.getMessage() + "]");
 			addActionError("Internal error occured.");
 		} finally {
+			requestDTO = null;
+			responseDTO = null;
+			requestJSON = null;
+
 			errors = null;
+			categoryMgt = null;
 		}
 
 		return result;
 	}
-	
-	
-	
-	
-	/*public String productInformation() {
+
+	public String productInformation() {
 		logger.debug("Inside productInformation..");
 		ArrayList<String> errors = null;
 		JSONObject disctypeJson = null;
@@ -836,7 +1078,7 @@ public class ProductAction extends ActionSupport {
 			 * session = ServletActionContext.getRequest().getSession();
 			 * requestJSON.put("TYPE", getType()); requestJSON.put("MAKER_ID",
 			 * session.getAttribute(CevaCommonConstants.MAKER_ID) .toString());
-			 *
+			 */
 
 			logger.debug("Web Service URL  :::: " + webServiceURL);
 			String json1 = httpPostRequestHandler.sendRestPostRequest(webServiceURL);
@@ -888,175 +1130,127 @@ public class ProductAction extends ActionSupport {
 		}
 
 		return result;
-	}*/
-	
-	
-	
-
-	public String productModifyConfirm() {
-		logger.debug("Inside productModifyConfirm...");
-
-		JSONObject disctypeJson = null;
-		JSONArray disctypeJsonArray = null;
-
-		try {
-
-			disctypeJsonArray = new JSONArray();
-			disctypeJson = new JSONObject();
-			disctypeJson.put("disctype", "F");
-			disctypeJson.put("typedesc", "Flat");
-			disctypeJsonArray.add(disctypeJson);
-			disctypeJson.clear();
-			disctypeJson.put("disctype", "P");
-			disctypeJson.put("typedesc", "Percentage");
-			disctypeJsonArray.add(disctypeJson);
-			disctypeJson.clear();
-
-			HttpPostRequestHandler httpPostRequestHandler = new HttpPostRequestHandler();
-
-			responseJSON = new JSONObject();
-			responseJSON.put("prdid", getPrdid());
-			responseJSON.put("prdname", getPrdname());
-			responseJSON.put("catname", getCatname());
-			responseJSON.put("subcatname", getSubcatname());
-			responseJSON.put("manfname", getManfname());
-			responseJSON.put("prddesc", getPrddesc());
-			responseJSON.put("pic1", getPic1());
-			responseJSON.put("modelno", getModelno());
-			responseJSON.put("pcode", getPcode());
-			responseJSON.put("disctype", getDisctype());
-			responseJSON.put("discount", getDiscount());
-			responseJSON.put("quantity", getQuantity());
-			responseJSON.put("reordrlvl", getReordrlvl());
-			responseJSON.put("provider", getProvider());
-			responseJSON.put("type", getType());
-			responseJSON.put("wholesaleprice", getWholesaleprice());
-			responseJSON.put("disctype_json", disctypeJsonArray);
-
-			logger.debug("responseJSON[" + responseJSON + "]");
-
-			logger.debug("fetching catalog");
-			String catalogURL = serverIp + "/amurcore/amur/catalog/fetchcatalog";
-			logger.debug("catalogURL  :::: " + catalogURL);
-			String catalogJson = httpPostRequestHandler.sendRestPostRequest(catalogURL);
-			JSONObject catalogobj = JSONObject.fromObject(catalogJson);
-			logger.debug("catalogobj [" + catalogobj + "] catalogobj to string[" + catalogobj.toString() + "]");
-			catalogRespJSON = catalogobj;
-
-			logger.debug("fetching manufacturer");
-			String manfURL = serverIp + "/amurcore/amur/catalog/fetchmanufacturers";
-			logger.debug("manfURL  :::: " + manfURL);
-			String manfJson = httpPostRequestHandler.sendRestPostRequest(manfURL);
-			JSONObject manfobj = JSONObject.fromObject(manfJson);
-			logger.debug("manfobj [" + catalogobj + "] catalogobj to string[" + manfobj.toString() + "]");
-			manfRespJSON = manfobj;
-
-			if (getType().equalsIgnoreCase("Modify")) {
-				productInfoPage = "productModifyConfirm";
-			} else if (getType().equalsIgnoreCase("ActiveDeactive")) {
-				productInfoPage = "productActivate";
-			}
-
-			result = "success";
-			return result;
-		} catch (Exception e) {
-			result = "fail";
-			e.printStackTrace();
-			return result;
-		}
-
 	}
 
-	public String productModifyAck() {
-
-		logger.debug("inside [ProductAction][productModifyAck].. ");
-		JSONObject disctypeJson = null;
-		JSONArray disctypeJsonArray = null;
-		try {
-			disctypeJsonArray = new JSONArray();
-			disctypeJson = new JSONObject();
-			disctypeJson.put("disctype", "F");
-			disctypeJson.put("typedesc", "Flat");
-			disctypeJsonArray.add(disctypeJson);
-			disctypeJson.clear();
-			disctypeJson.put("disctype", "P");
-			disctypeJson.put("typedesc", "Percentage");
-			disctypeJsonArray.add(disctypeJson);
-			disctypeJson.clear();
-
-			session = ServletActionContext.getRequest().getSession();
-
-			String type = getType();
-			String prdid = getPrdid();
-			String prdName = getPrdname();
-			String prdDesc = getPrddesc().replace(' ', '+');
-			String catid = getCatid();
-			String catname = getCatname();
-			String subcatid = getSubcatid();
-			String subcatname = getSubcatname();
-			String manfid = getManfid();
-			String manfname = getManfname();
-			String modelno = getModelno().replace(' ', '+');
-			String price = getPcode();
-			String disctype = getDisctype();
-			String discount = getDiscount();
-			String quantity = getQuantity();
-			String reorderlvl = getReordrlvl();
-			String provider = getProvider();
-			String wholesaleprice = getWholesaleprice().replace(' ', '+');
-			String mkrid = session.getAttribute(CevaCommonConstants.MAKER_ID).toString();
-
-			if ("Percentage".equalsIgnoreCase(disctype))
-				disctype = "P";
-			else
-				disctype = "F";
-
-			System.out.println("prdid [" + prdid + "] type[" + type + "] prdName[" + prdName + "] prdDesc[" + prdDesc
-					+ "] catid[" + catid + "] subcatid[" + subcatid + "] manfid[" + manfid + "]");
-			System.out.println(
-					"modelno [" + modelno + "] price[" + price + "] disctype[" + disctype + "] discount[" + discount
-							+ "] quantity[" + quantity + "] reorderlvl[" + reorderlvl + "] provider[" + provider + "]");
-			System.out.println(("mkrid[" + mkrid + "]"));
-
-			HttpPostRequestHandler httpPostRequestHandler = new HttpPostRequestHandler();
-			String webServiceURL = serverIp + "/amurcore/amur/catalog//modifyproduct/" + prdid + "/" + prdName + "/"
-					+ prdDesc + "/" + catid + "/" + subcatid + "/" + manfid + "/" + modelno + "/" + price + "/"
-					+ disctype + "/" + discount + "/" + quantity + "/" + reorderlvl + "/" + provider + "/" + mkrid + "/"
-					+ wholesaleprice;
-
-			logger.debug("Web Service URL  :::: " + webServiceURL);
-			String json1 = httpPostRequestHandler.sendRestPostRequest(webServiceURL);
-			JSONObject obj = JSONObject.fromObject(json1);
-			logger.debug("End to Sent Mobile Otp >> [" + obj + "] obj to string[" + obj.toString() + "]");
-			responseJSON = obj;
-			if ("SUCCESS".equalsIgnoreCase(obj.getString("STATUS"))) {
-				responseJSON.put("remarks", "SUCCESS");
-				result = "success";
-			} else {
-				responseJSON.put("remarks", "FAILURE");
-				result = "fail";
-			}
-			responseJSON.put("type", type);
-			responseJSON.put("disctype_json", disctypeJsonArray);
-
-			System.out.println("resultJson [" + responseJSON.toString() + "] result[" + result + "]");
-		} catch (Exception e) {
-			result = "fail";
-			/*
-			 * logger.debug("Exception in [ProductAction][fetchProducts] [" + e.getMessage()
-			 * + "]");
-			 */
-			e.printStackTrace();
-			addActionError("Internal error occured.");
-		} finally {
-			requestDTO = null;
-			responseDTO = null;
-			requestJSON = null;
-		}
-		result = "success";
-		return result;
-
-	}
+	/*
+	 * public String productModifyConfirm() {
+	 * logger.debug("Inside productModifyConfirm...");
+	 * 
+	 * JSONObject disctypeJson = null; JSONArray disctypeJsonArray = null;
+	 * 
+	 * try {
+	 * 
+	 * disctypeJsonArray = new JSONArray(); disctypeJson = new JSONObject();
+	 * disctypeJson.put("disctype", "F"); disctypeJson.put("typedesc", "Flat");
+	 * disctypeJsonArray.add(disctypeJson); disctypeJson.clear();
+	 * disctypeJson.put("disctype", "P"); disctypeJson.put("typedesc",
+	 * "Percentage"); disctypeJsonArray.add(disctypeJson); disctypeJson.clear();
+	 * 
+	 * HttpPostRequestHandler httpPostRequestHandler = new HttpPostRequestHandler();
+	 * 
+	 * responseJSON = new JSONObject(); responseJSON.put("prdid", getPrdid());
+	 * responseJSON.put("prdname", getPrdname()); responseJSON.put("catname",
+	 * getCatname()); responseJSON.put("subcatname", getSubcatname());
+	 * responseJSON.put("manfname", getManfname()); responseJSON.put("prddesc",
+	 * getPrddesc()); responseJSON.put("pic1", getPic1());
+	 * responseJSON.put("modelno", getModelno()); responseJSON.put("pcode",
+	 * getPcode()); responseJSON.put("disctype", getDisctype());
+	 * responseJSON.put("discount", getDiscount()); responseJSON.put("quantity",
+	 * getQuantity()); responseJSON.put("reordrlvl", getReordrlvl());
+	 * responseJSON.put("provider", getProvider()); responseJSON.put("type",
+	 * getType()); responseJSON.put("wholesaleprice", getWholesaleprice());
+	 * responseJSON.put("disctype_json", disctypeJsonArray);
+	 * 
+	 * logger.debug("responseJSON[" + responseJSON + "]");
+	 * 
+	 * logger.debug("fetching catalog"); String catalogURL = serverIp +
+	 * "/amurcore/amur/catalog/fetchcatalog"; logger.debug("catalogURL  :::: " +
+	 * catalogURL); String catalogJson =
+	 * httpPostRequestHandler.sendRestPostRequest(catalogURL); JSONObject catalogobj
+	 * = JSONObject.fromObject(catalogJson); logger.debug("catalogobj [" +
+	 * catalogobj + "] catalogobj to string[" + catalogobj.toString() + "]");
+	 * catalogRespJSON = catalogobj;
+	 * 
+	 * logger.debug("fetching manufacturer"); String manfURL = serverIp +
+	 * "/amurcore/amur/catalog/fetchmanufacturers"; logger.debug("manfURL  :::: " +
+	 * manfURL); String manfJson =
+	 * httpPostRequestHandler.sendRestPostRequest(manfURL); JSONObject manfobj =
+	 * JSONObject.fromObject(manfJson); logger.debug("manfobj [" + catalogobj +
+	 * "] catalogobj to string[" + manfobj.toString() + "]"); manfRespJSON =
+	 * manfobj;
+	 * 
+	 * if (getType().equalsIgnoreCase("Modify")) { productInfoPage =
+	 * "productModifyConfirm"; } else if
+	 * (getType().equalsIgnoreCase("ActiveDeactive")) { productInfoPage =
+	 * "productActivate"; }
+	 * 
+	 * result = "success"; return result; } catch (Exception e) { result = "fail";
+	 * e.printStackTrace(); return result; }
+	 * 
+	 * }
+	 * 
+	 * public String productModifyAck() {
+	 * 
+	 * logger.debug("inside [ProductAction][productModifyAck].. "); JSONObject
+	 * disctypeJson = null; JSONArray disctypeJsonArray = null; try {
+	 * disctypeJsonArray = new JSONArray(); disctypeJson = new JSONObject();
+	 * disctypeJson.put("disctype", "F"); disctypeJson.put("typedesc", "Flat");
+	 * disctypeJsonArray.add(disctypeJson); disctypeJson.clear();
+	 * disctypeJson.put("disctype", "P"); disctypeJson.put("typedesc",
+	 * "Percentage"); disctypeJsonArray.add(disctypeJson); disctypeJson.clear();
+	 * 
+	 * session = ServletActionContext.getRequest().getSession();
+	 * 
+	 * String type = getType(); String prdid = getPrdid(); String prdName =
+	 * getPrdname(); String prdDesc = getPrddesc().replace(' ', '+'); String catid =
+	 * getCatid(); String catname = getCatname(); String subcatid = getSubcatid();
+	 * String subcatname = getSubcatname(); String manfid = getManfid(); String
+	 * manfname = getManfname(); String modelno = getModelno().replace(' ', '+');
+	 * String price = getPcode(); String disctype = getDisctype(); String discount =
+	 * getDiscount(); String quantity = getQuantity(); String reorderlvl =
+	 * getReordrlvl(); String provider = getProvider(); String wholesaleprice =
+	 * getWholesaleprice().replace(' ', '+'); String mkrid =
+	 * session.getAttribute(CevaCommonConstants.MAKER_ID).toString();
+	 * 
+	 * if ("Percentage".equalsIgnoreCase(disctype)) disctype = "P"; else disctype =
+	 * "F";
+	 * 
+	 * System.out.println("prdid [" + prdid + "] type[" + type + "] prdName[" +
+	 * prdName + "] prdDesc[" + prdDesc + "] catid[" + catid + "] subcatid[" +
+	 * subcatid + "] manfid[" + manfid + "]"); System.out.println( "modelno [" +
+	 * modelno + "] price[" + price + "] disctype[" + disctype + "] discount[" +
+	 * discount + "] quantity[" + quantity + "] reorderlvl[" + reorderlvl +
+	 * "] provider[" + provider + "]"); System.out.println(("mkrid[" + mkrid +
+	 * "]"));
+	 * 
+	 * HttpPostRequestHandler httpPostRequestHandler = new HttpPostRequestHandler();
+	 * String webServiceURL = serverIp + "/amurcore/amur/catalog//modifyproduct/" +
+	 * prdid + "/" + prdName + "/" + prdDesc + "/" + catid + "/" + subcatid + "/" +
+	 * manfid + "/" + modelno + "/" + price + "/" + disctype + "/" + discount + "/"
+	 * + quantity + "/" + reorderlvl + "/" + provider + "/" + mkrid + "/" +
+	 * wholesaleprice;
+	 * 
+	 * logger.debug("Web Service URL  :::: " + webServiceURL); String json1 =
+	 * httpPostRequestHandler.sendRestPostRequest(webServiceURL); JSONObject obj =
+	 * JSONObject.fromObject(json1); logger.debug("End to Sent Mobile Otp >> [" +
+	 * obj + "] obj to string[" + obj.toString() + "]"); responseJSON = obj; if
+	 * ("SUCCESS".equalsIgnoreCase(obj.getString("STATUS"))) {
+	 * responseJSON.put("remarks", "SUCCESS"); result = "success"; } else {
+	 * responseJSON.put("remarks", "FAILURE"); result = "fail"; }
+	 * responseJSON.put("type", type); responseJSON.put("disctype_json",
+	 * disctypeJsonArray);
+	 * 
+	 * System.out.println("resultJson [" + responseJSON.toString() + "] result[" +
+	 * result + "]"); } catch (Exception e) { result = "fail"; /*
+	 * logger.debug("Exception in [ProductAction][fetchProducts] [" + e.getMessage()
+	 * + "]");
+	 *
+	 * e.printStackTrace(); addActionError("Internal error occured."); } finally {
+	 * requestDTO = null; responseDTO = null; requestJSON = null; } result =
+	 * "success"; return result;
+	 * 
+	 * }
+	 */
 
 	public String viewProduct() {
 
@@ -1157,12 +1351,28 @@ public class ProductAction extends ActionSupport {
 		this.catalogRespJSON = catalogRespJSON;
 	}
 
+	public JSONObject getProductJSON() {
+		return productJSON;
+	}
+
+	public void setProductJSON(JSONObject productJSON) {
+		this.productJSON = productJSON;
+	}
+
 	public JSONObject getManfRespJSON() {
 		return manfRespJSON;
 	}
 
 	public void setManfRespJSON(JSONObject manfRespJSON) {
 		this.manfRespJSON = manfRespJSON;
+	}
+
+	public JSONObject getSupplyProductJSON() {
+		return supplyProductJSON;
+	}
+
+	public void setSupplyProductJSON(JSONObject supplyProductJSON) {
+		this.supplyProductJSON = supplyProductJSON;
 	}
 
 	public String getPrdname() {
@@ -1635,6 +1845,30 @@ public class ProductAction extends ActionSupport {
 
 	public void setSkuUnit(String skuUnit) {
 		this.skuUnit = skuUnit;
+	}
+
+	public String getPriceVatType() {
+		return priceVatType;
+	}
+
+	public void setPriceVatType(String priceVatType) {
+		this.priceVatType = priceVatType;
+	}
+
+	public String getPrdImageName() {
+		return prdImageName;
+	}
+
+	public void setPrdImageName(String prdImageName) {
+		this.prdImageName = prdImageName;
+	}
+
+	public File getPrdImg() {
+		return prdImg;
+	}
+
+	public void setPrdImg(File prdImg) {
+		this.prdImg = prdImg;
 	}
 
 }

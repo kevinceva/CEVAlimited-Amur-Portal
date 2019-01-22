@@ -42,7 +42,7 @@ $(document).ready(function(){
 			//var json = jQuery.parseJSON(orderData);
 		    //var json = JSON.parse(orderData);
 		    
-		    console.log("json[  "+json+"  ]");
+		    //console.log("json[  "+json+"  ]");
 		    var val = 1;
 		    var rowindex = 0;
 		    var colindex = 1;
@@ -75,7 +75,7 @@ $(document).ready(function(){
 		        "<td style='display:none'>"+v.PRD_ID+" </td>"+
 		        "<td>"+v.PRD_DESC+"</td>"+   
 		        "<td>"+v.PRD_PRICE+"</span> </td>"+
-		        "<td><a id='modify-product' href='#' index='"+rowindex+"' data-toggle='tooltip' data-placement='bottom' title='Edit Product' ><img class='action-button' alt='Edit' src='${pageContext.request.contextPath}/images/edit-button.png'></a> &nbsp;&nbsp;<a id='view-product' index='"+rowindex+"'  href='#' title='View Product' data-rel='tooltip' ><img class='action-button' alt='Edit' src='${pageContext.request.contextPath}/images/view-button.png'></a> </td></tr>";
+		        "<td><a id='modify-product' href='#' index='"+rowindex+"' data-toggle='tooltip' data-placement='bottom' title='Edit Product' ><img class='action-button' alt='Edit' src='${pageContext.request.contextPath}/images/edit-button.png'></a> &nbsp;&nbsp;<a id='view-product' index='"+rowindex+"'  href='#' title='View Product' data-toggle='tooltip' ><img class='action-button' alt='Edit' src='${pageContext.request.contextPath}/images/view-button.png'></a> </td></tr>";
 				   
 		            $("#demandTBody").append(appendTxt);  
 		            rowindex = ++rowindex;
@@ -148,7 +148,7 @@ $(document).ready(function(){
 	        "<td><id='SEARCH_NO' value='prdid@"+v.PRD_ID+"' aria-controls='DataTables_Table_0'>"+v.PRD_NAME+"</span> </td>"+ 
 	        "<td style='display:none'>"+v.PRD_ID+" </td>"+ 
 	        "<td>"+v.PRD_PRICE+"</span> </td>"+
-	        "<td><a id='modify-product' href='#' index='"+rowindex+"' data-toggle='tooltip' data-placement='bottom' title='Edit Product' ><img class='action-button' alt='Edit' src='${pageContext.request.contextPath}/images/edit-button.png'></a> &nbsp;&nbsp;<a id='view-product' index='"+rowindex+"'  href='#' title='View Product' data-rel='tooltip' ><img class='action-button' alt='Edit' src='${pageContext.request.contextPath}/images/view-button.png'></a> </td></tr>";
+	        "<td><a id='modify-product' href='#' index='"+rowindex+"' data-toggle='tooltip' data-placement='bottom' title='Edit Product' ><img class='action-button' alt='Edit' src='${pageContext.request.contextPath}/images/edit-button.png'></a> &nbsp;&nbsp;<a id='view-product' index='"+rowindex+"'  href='#' title='View Product' data-toggle='tooltip' ><img class='action-button' alt='Edit' src='${pageContext.request.contextPath}/images/view-button.png'></a> </td></tr>";
 			   
 	            $("#supplyTBody").append(appendTxt);  
 	            rowindex = ++rowindex;
@@ -221,7 +221,7 @@ $(document).ready(function () {
         "<td style='display:none'>"+v.prdId+" </td>"+
         "<td>"+v.prdDesc.replace(/[+]/g, " ")+"</td>"+   
         "<td>"+v.price.toFixed(2)+"</span> </td>"+ 
-        "<td><a id='modify-product' href='#' index='"+rowindex+"' data-toggle='tooltip' data-placement='bottom' title='Edit Product' ><img class='action-button' alt='Edit' src='${pageContext.request.contextPath}/images/edit-button.png'></a> &nbsp;&nbsp;<a id='view-product' index='"+rowindex+"'  href='#' title='View Product' data-rel='tooltip' ><img class='action-button' alt='Edit' src='${pageContext.request.contextPath}/images/view-button.png'></a> </td></tr>";
+        "<td><a id='modify-product' href='#' index='"+rowindex+"' data-toggle='tooltip' data-placement='bottom' title='Edit Product' ><img class='action-button' alt='Edit' src='${pageContext.request.contextPath}/images/edit-button.png'></a> &nbsp;&nbsp;<a id='view-product' index='"+rowindex+"'  href='#' title='View Product' data-toggle='tooltip' ><img class='action-button' alt='Edit' src='${pageContext.request.contextPath}/images/view-button.png'></a> </td></tr>";
 		   
             $("#merchantTBody").append(appendTxt);  
             rowindex = ++rowindex;
@@ -367,7 +367,7 @@ $(document).ready(function() {
 			</div> -->
         <li class="function-buttons">
             <div id="add_button">
-                <a href="createProduct.action?pid=<%=session.getAttribute("session_refno").toString() %>" class="btn btn-success" id="product-creation" title='New Product Creation' data-rel='popover'  data-content='Creating a new product'>Create Product</a>
+                <a href="createProduct.action?pid=<%=session.getAttribute("session_refno").toString() %>" class="btn btn-success" id="product-creation" title='New Product Creation' data-toggle='popover'  data-content='Creating a new product'>Create Product</a>
             </div>
         </li>
     </ol>

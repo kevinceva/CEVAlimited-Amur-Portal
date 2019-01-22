@@ -64,7 +64,7 @@ $(document).ready(function () {
 	        "<td>"+v.AMOUNT+"</td>"+ 
 	        "<td>"+v.DATE_CREATED+"</td>"+
 	        //"<td>"+v.OFFER_MESSAGE+"</td>"+
-	        "<td><a id='view-offer' class='btn btn-success' href='#' index='"+rowindex+"' title='View Offer' data-rel='tooltip'>View</a> &nbsp;<a id='send-alert' class='btn btn-primary' index='"+rowindex+"'  href='#' title='Send Alert' data-rel='tooltip'>Send</a> </td></tr>";
+	        "<td><a id='view-offer' class='btn btn-success' href='#' index='"+rowindex+"' title='View Offer' data-toggle='tooltip'>View</a> &nbsp;<a id='send-alert' class='btn btn-primary' index='"+rowindex+"'  href='#' title='Send Alert' data-toggle='tooltip'>Send</a> </td></tr>";
 	            
 	            $("#offerTBody").append(appendTxt);  
 	            rowindex = ++rowindex;

@@ -24,7 +24,22 @@
 		<!-- Fetching Dashboard Data -->
 		<action name="dashboardData" class="com.ceva.base.ceva.action.OrderAction" method="fetchOrdersDetails">
 			<result type="json"/>
-		</action>	
+		</action>
+		
+		<action name="printOrderReceipt" class="com.ceva.base.ceva.action.DashboardAction" method="printReceipt">
+			<result type="json"/>
+		</action>
+
+		<!-- <action name="printOrderReceipt" class="com.ceva.base.ceva.action.DashboardAction" method="printReceipt">
+			<result name="success" type="stream">
+                <param name="contentType">application/pdff</param>
+                <param name="contentLength">${contentLength}</param>
+                <param name="inputName">inputStream</param>
+                <param name="contentDisposition">attachment;filename="${fileName}"</param>
+                <param name="bufferSize">1024</param>
+            </result>
+            <result name="fail" type="tiles">Home</result>
+		</action> -->
 
 		<action name="livedata" class="livedata" method="getUserAssinedDashLinks">
 			<result type="json" />
@@ -499,7 +514,7 @@
             <result name="fail" type="tiles">Home</result>
         </action>
         
-        <action name="createMerchant" class="com.ceva.base.ceva.action.LifestyleAction" method="callServlet">
+        <action name="createMerchant" class="com.ceva.base.ceva.action.LifestyleAction" method="fetchMerchantCategories">
             <result name="success" type="tiles">CreateMerchant</result>
             <result name="fail" type="tiles">CreateMerchant</result>
         </action>
@@ -507,8 +522,13 @@
         <action name="confirmMerchant" class="com.ceva.base.ceva.action.LifestyleAction" method="createMerchant">
             <result name="success" type="tiles">LifestyleMerchants</result>
             <result name="fail" type="tiles">Home</result>
-        </action>
+        </action> 
         
+        <action name="modifyMerchant" class="com.ceva.base.ceva.action.LifestyleAction" method="modifyMerchant">
+            <result name="success" type="tiles">LifestyleMerchants</result>
+            <result name="fail" type="tiles">Home</result>
+        </action>         
+               
         <action name="lifestyleOffers">
 			<result name="success" type="tiles">merchantOffers</result>
 			<result name="fail" type="tiles">Home</result>
@@ -520,9 +540,7 @@
 		</action>
 		
 		<action name="confirmOffer" class="com.ceva.base.ceva.action.LifestyleAction" method="createMerchantOffer">
-			<result name="success" type="tiles">merchantOffers</result>
-            <result name="input" type="tiles">merchantOffers</result>
-            <result name="fail" type="tiles">Home</result>
+			<result type="json" />
         </action>
         
         <action name="sendOfferAlert" class="com.ceva.base.ceva.action.LifestyleAction" method="sendOfferAlert">
@@ -684,7 +702,7 @@
 		</action>
 		
 		<action name="productInformation"
-			class="com.ceva.base.ceva.action.ProductAction" method="productInformation">
+			class="com.ceva.base.ceva.action.ProductAction" method="fetchProductInfo">
 			<result name="success" type="tiles">${productInfoPage}</result>
 			<result name="fail" type="tiles">Home</result>
 		</action>
@@ -765,7 +783,12 @@
 			<result name="fail" type="tiles">Home</result>
 		</action>
 		
-		<action name="createCategory" class="com.ceva.base.ceva.action.CategoryAction" method="createCategory">
+		<!-- <action name="category" class="com.ceva.base.ceva.action.CategoryAction" method="fetchCatalog">
+			<result name="success" type="tiles">CategoryGridScreen</result>
+			<result name="fail" type="tiles">Home</result>
+		</action> -->
+		
+		<action name="createCategory">
 			<result name="success" type="tiles">createCategory</result>
 			<result name="fail" type="tiles">Home</result>
 		</action>
@@ -828,12 +851,12 @@
 			<result name="fail" type="tiles">Home</result>
 		</action-->			
 		
-		<action name="productModifyConfirm" class="com.ceva.base.ceva.action.ProductAction" method="productModifyConfirm">
+		<!-- <action name="productModifyConfirm" class="com.ceva.base.ceva.action.ProductAction" method="modifyProductInformation">
 			<result name="success" type="tiles">${productInfoPage}</result>
 			<result name="fail" type="tiles">Home</result>
-		</action>	
+		</action>	 -->
 		
-		<action name="productModifyAck" class="com.ceva.base.ceva.action.ProductAction" method="productModifyAck">
+		<action name="productModifyConfirm" class="com.ceva.base.ceva.action.ProductAction" method="modifyProductInformation">
 			<result type="json"/>
 		</action>
 		

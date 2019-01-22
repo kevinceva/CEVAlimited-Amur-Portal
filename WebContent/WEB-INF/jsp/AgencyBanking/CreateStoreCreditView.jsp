@@ -152,8 +152,8 @@ function insertStoreLimit(){
 					<div class="box span12">
 						  <div class="box-header well" data-original-title>Store Details
 							<div class="box-icon"> 
-								<a href="#" class="btn btn-minimize btn-round" data-rel="tooltip"><i class="icon-chevron-up"></i></a>
-								<a href="#" class="btn btn-close btn-round" data-rel="tooltip"><i class="icon-remove"></i></a> 
+								<a href="#" class="btn btn-minimize btn-round" data-toggle="tooltip"><i class="icon-chevron-up"></i></a>
+								<a href="#" class="btn btn-close btn-round" data-toggle="tooltip"><i class="icon-remove"></i></a> 
 							</div>
 						</div>  
 					
@@ -200,8 +200,8 @@ function insertStoreLimit(){
 					<div class="box span12">
 						  <div class="box-header well" data-original-title>Store Credit Details
 							<div class="box-icon"> 
-								<a href="#" class="btn btn-minimize btn-round" data-rel="tooltip"><i class="icon-chevron-up"></i></a>
-								<a href="#" class="btn btn-close btn-round" data-rel="tooltip"><i class="icon-remove"></i></a> 
+								<a href="#" class="btn btn-minimize btn-round" data-toggle="tooltip"><i class="icon-chevron-up"></i></a>
+								<a href="#" class="btn btn-close btn-round" data-toggle="tooltip"><i class="icon-remove"></i></a> 
 							</div>
 						</div>  
 						<div id="storeCreditDetails1" class="box-content">
@@ -234,8 +234,8 @@ function insertStoreLimit(){
 					<div class="box span12">
 						  <div class="box-header well" data-original-title>Terminal Credit Details
 							<div class="box-icon"> 
-								<a href="#" class="btn btn-minimize btn-round" data-rel="tooltip"><i class="icon-chevron-up"></i></a>
-								<a href="#" class="btn btn-close btn-round" data-rel="tooltip"><i class="icon-remove"></i></a> 
+								<a href="#" class="btn btn-minimize btn-round" data-toggle="tooltip"><i class="icon-chevron-up"></i></a>
+								<a href="#" class="btn btn-close btn-round" data-toggle="tooltip"><i class="icon-remove"></i></a> 
 							</div>
 						</div>  
 						<div id="terminalCreditDetails1" class="box-content">

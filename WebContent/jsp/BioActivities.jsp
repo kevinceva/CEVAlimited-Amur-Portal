@@ -72,13 +72,13 @@ height: 40px !important;padding-top: 30px !important;
 			<div class="box-content" id="top-layer-anchor">
 				 <div style="text-align: center; text-decoration: none;">
 					<p>
-						<a style="width:200px;height: 40px !important;padding-top: 30px !important;" href="BioRegister1.jsp" class="btn btn-success" id="bio-registration"   title='Bio Registration' data-rel='popover'  data-content='Bio Registration.'><i class='icon icon-users icon-white'></i>&nbsp;Bio Registration</a> &nbsp; 
-	 					<a style="width:200px;height: 40px !important;padding-top: 30px !important;" href="BioCashDeposit.jsp" class="btn btn-primary" id="bio-deposit"   title='Bio Deposit' data-rel='popover'  data-content='Bio Deposit'><i class='icon icon-plus icon-white'></i>&nbsp;Bio Deposit</a> &nbsp;
-	 					<a style="width:200px;height: 40px !important;padding-top: 30px !important;" href="BioCashWdl.jsp" class="btn btn-warning" id="bio-cashwdl"   title='Bio Cash Withdrawal' data-rel='popover'  data-content='Bio Cash Withdrawal'><i class='icon icon-minus icon-white'></i>&nbsp;Bio Cash Withdrawal</a> &nbsp;
+						<a style="width:200px;height: 40px !important;padding-top: 30px !important;" href="BioRegister1.jsp" class="btn btn-success" id="bio-registration"   title='Bio Registration' data-toggle='popover'  data-content='Bio Registration.'><i class='icon icon-users icon-white'></i>&nbsp;Bio Registration</a> &nbsp; 
+	 					<a style="width:200px;height: 40px !important;padding-top: 30px !important;" href="BioCashDeposit.jsp" class="btn btn-primary" id="bio-deposit"   title='Bio Deposit' data-toggle='popover'  data-content='Bio Deposit'><i class='icon icon-plus icon-white'></i>&nbsp;Bio Deposit</a> &nbsp;
+	 					<a style="width:200px;height: 40px !important;padding-top: 30px !important;" href="BioCashWdl.jsp" class="btn btn-warning" id="bio-cashwdl"   title='Bio Cash Withdrawal' data-toggle='popover'  data-content='Bio Cash Withdrawal'><i class='icon icon-minus icon-white'></i>&nbsp;Bio Cash Withdrawal</a> &nbsp;
  					</p>
  					<p>
-	 					<a style="width:200px;height: 40px !important;padding-top: 30px !important;" href="BioProfileBalance.jsp" class="btn btn-link" id="bio-profile-balance"   title='Bio Profile Balance Enquiry' data-rel='popover'  data-content='Bio Profile Balance Enquiry'><i class='icon icon-users icon-white'></i>&nbsp;Bio Profile Balance</a> &nbsp;
-	 					<a style="width:200px;height: 40px !important;padding-top: 30px !important;" href="BioTransactionHistory.jsp" class="btn btn-info" id="bio-profile-transaction"   title='Bio Profile Transaction History' data-rel='popover'  data-content='Bio Profile Transaction History'><i class='icon icon-users icon-white'></i>&nbsp;Bio Profile Transaction History</a> &nbsp;
+	 					<a style="width:200px;height: 40px !important;padding-top: 30px !important;" href="BioProfileBalance.jsp" class="btn btn-link" id="bio-profile-balance"   title='Bio Profile Balance Enquiry' data-toggle='popover'  data-content='Bio Profile Balance Enquiry'><i class='icon icon-users icon-white'></i>&nbsp;Bio Profile Balance</a> &nbsp;
+	 					<a style="width:200px;height: 40px !important;padding-top: 30px !important;" href="BioTransactionHistory.jsp" class="btn btn-info" id="bio-profile-transaction"   title='Bio Profile Transaction History' data-toggle='popover'  data-content='Bio Profile Transaction History'><i class='icon icon-users icon-white'></i>&nbsp;Bio Profile Transaction History</a> &nbsp;
  					</p>
  				 </div>	
 			</div>

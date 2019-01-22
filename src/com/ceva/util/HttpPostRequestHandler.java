@@ -19,7 +19,7 @@ public class HttpPostRequestHandler {
 		HttpClient client = new DefaultHttpClient();
 		HttpPost post = new HttpPost(url);
 		post.setHeader("channel", "WEB");
-		post.setHeader("version", "1.5");
+		post.setHeader("version", "1.6");
 		logger.debug("URL:::: " + url);
 		HttpResponse response = client.execute(post);
 		BufferedReader rd = new BufferedReader(new InputStreamReader(response

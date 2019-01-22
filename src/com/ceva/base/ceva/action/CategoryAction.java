@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
+import java.util.ResourceBundle;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -17,6 +18,8 @@ import org.apache.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
 
 import com.ceva.base.common.dao.CallCenterDAO;
+import com.ceva.base.common.dao.CategoryManagementDAO;
+import com.ceva.base.common.dao.OrdersDAO;
 import com.ceva.base.common.dto.RequestDTO;
 import com.ceva.base.common.dto.ResponseDTO;
 import com.ceva.base.common.utils.CevaCommonConstants;
@@ -31,6 +34,9 @@ public class CategoryAction extends ActionSupport {
 	 */
 	private static final long serialVersionUID = 1L;
 	Logger logger = Logger.getLogger(CategoryAction.class);
+	ResourceBundle resourceBundle = ResourceBundle.getBundle("pathinfo_config");
+	public String serverIp = resourceBundle.getString("AMUR_WEB_SERVICE");
+	
 	
 	String result;
 	JSONObject requestJSON = null;
@@ -110,9 +116,8 @@ public String fetchCategories(){
 	
 	try {
 		producatJsonArray = new JSONArray();
-		//http://104.42.234.123:5555/amurcore/amur/catalog/fetchproducts;
-			HttpPostRequestHandler httpPostRequestHandler = new HttpPostRequestHandler();
-		String webServiceURL = "http://104.42.234.123:5555/amurcore/amur/catalog/fetchcatalog";
+		HttpPostRequestHandler httpPostRequestHandler = new HttpPostRequestHandler();
+		String webServiceURL = serverIp+"/amurcore/amur/catalog/fetchcatalog";
 
 		logger.debug("Web Service URL  :::: " + webServiceURL);
 		String json1 = httpPostRequestHandler.sendRestPostRequest(webServiceURL);
@@ -135,6 +140,48 @@ public String fetchCategories(){
 	result = "success";
 	return result;
 
+}
+
+public String fetchCatalog() {
+	logger.info("Inside fetchCatalog");
+	CategoryManagementDAO categoryManagementDAO = null;
+	ArrayList<String> errors = null;
+	try {
+
+		requestJSON = new JSONObject();
+		requestDTO = new RequestDTO();
+		requestDTO.setRequestJSON(requestJSON);
+		logger.debug("Request DTO [" + requestDTO + "]");
+		categoryManagementDAO = new CategoryManagementDAO();
+		responseDTO = categoryManagementDAO.fetchAllCategories(requestDTO);
+		logger.debug("Response DTO [" + responseDTO + "]");
+
+		if (responseDTO != null && responseDTO.getErrors().size() == 0) {
+			responseJSON = (JSONObject) responseDTO.getData().get("CATEGORY_JSON");
+			logger.debug("Response JSON [" + responseJSON + "]");
+			result = "success";
+		} else {
+			errors = (ArrayList<String>) responseDTO.getErrors();
+			for (int i = 0; i < errors.size(); i++) {
+				addActionError(errors.get(i));
+			}
+			result = "fail";
+		}
+	} catch (Exception e) {
+		result = "fail";
+		logger.debug("Exception in [OrderAction][fetchOrdersDetails] [" + e.getMessage() + "]");
+		addActionError("Internal error occured.");
+	} finally {
+		requestDTO = null;
+		responseDTO = null;
+		requestJSON = null;
+
+		errors = null;
+		categoryManagementDAO = null;
+	}
+
+	return result;
+	
 }
 
 public String createCategory() {
@@ -219,7 +266,7 @@ public String categoryCreateAck() {
 		
 		HttpPostRequestHandler httpPostRequestHandler = new HttpPostRequestHandler();		
 		logger.debug("fetching catalog");
-		String catalogURL = "http://104.42.234.123:5555/amurcore/amur/catalog/createcategory/"+URLEncoder.encode(catname, "UTF-8")+"/"+URLEncoder.encode(catdesc, "UTF-8")+"/A/"+mkrid;
+		String catalogURL = serverIp+"/amurcore/amur/catalog/createcategory/"+URLEncoder.encode(catname, "UTF-8")+"/"+URLEncoder.encode(catdesc, "UTF-8")+"/A/"+mkrid;
 		logger.debug("catalogURL  :::: " + catalogURL);
 		String catalogJson = httpPostRequestHandler.sendRestPostRequest(catalogURL);
 		JSONObject catalogobj = JSONObject.fromObject(catalogJson);
@@ -268,7 +315,7 @@ public String categoryInformation() {
 		
 		HttpPostRequestHandler httpPostRequestHandler = new HttpPostRequestHandler();		
 		logger.debug("fetching catalog");
-		String catalogURL = "http://104.42.234.123:5555/amurcore/amur/catalog/fetchcatalog";
+		String catalogURL = serverIp+"/amurcore/amur/catalog/fetchcatalog";
 		logger.debug("catalogURL  :::: " + catalogURL);
 		String catalogJson = httpPostRequestHandler.sendRestPostRequest(catalogURL);
 		JSONObject catalogobj = JSONObject.fromObject(catalogJson);
@@ -373,7 +420,7 @@ public String categoryModifyAck() {
 		
 		HttpPostRequestHandler httpPostRequestHandler = new HttpPostRequestHandler();		
 		logger.debug("fetching catalog");
-		String catalogURL = "http://104.42.234.123:5555/amurcore/amur/catalog/modifycategory/"+catid+"/"+URLEncoder.encode(catname, "UTF-8")+"/"+URLEncoder.encode(catdesc, "UTF-8")+"/"+mkrid;
+		String catalogURL = serverIp+"/amurcore/amur/catalog/modifycategory/"+catid+"/"+URLEncoder.encode(catname, "UTF-8")+"/"+URLEncoder.encode(catdesc, "UTF-8")+"/"+mkrid;
 		logger.debug("catalogURL  :::: " + catalogURL);
 		String catalogJson = httpPostRequestHandler.sendRestPostRequest(catalogURL);
 		JSONObject catalogobj = JSONObject.fromObject(catalogJson);
@@ -417,7 +464,7 @@ public String subcatInformation() {
 		
 		HttpPostRequestHandler httpPostRequestHandler = new HttpPostRequestHandler();		
 		logger.debug("fetching catalog");
-		String catalogURL = "http://104.42.234.123:5555/amurcore/amur/catalog/viewsubcategory/"+subcatid;
+		String catalogURL = serverIp+"/amurcore/amur/catalog/viewsubcategory/"+subcatid;
 		logger.debug("catalogURL  :::: " + catalogURL);
 		String catalogJson = httpPostRequestHandler.sendRestPostRequest(catalogURL);
 		JSONObject catalogobj = JSONObject.fromObject(catalogJson);
@@ -523,7 +570,7 @@ public String subcatModifyAck() {
 		
 		HttpPostRequestHandler httpPostRequestHandler = new HttpPostRequestHandler();		
 		logger.debug("fetching catalog");
-		String catalogURL = "http://104.42.234.123:5555/amurcore/amur/catalog/modifysubcategory/"+subcatid+"/"+catid+"/"+URLEncoder.encode(subcatname, "UTF-8")+"/"+URLEncoder.encode(subcatdesc, "UTF-8")+"/"+mkrid;
+		String catalogURL = serverIp+"/amurcore/amur/catalog/modifysubcategory/"+subcatid+"/"+catid+"/"+URLEncoder.encode(subcatname, "UTF-8")+"/"+URLEncoder.encode(subcatdesc, "UTF-8")+"/"+mkrid;
 		logger.debug("catalogURL  :::: " + catalogURL);
 		String catalogJson = httpPostRequestHandler.sendRestPostRequest(catalogURL);
 		JSONObject catalogobj = JSONObject.fromObject(catalogJson);
@@ -583,16 +630,7 @@ public String createSubCategory() {
 		String type = getType();
 		
 		System.out.println("catid["+catid+"] type["+type+"]");
-		
-		/*HttpPostRequestHandler httpPostRequestHandler = new HttpPostRequestHandler();		
-		logger.debug("fetching catalog");
-		String catalogURL = "http://104.42.234.123:5555/amurcore/amur/catalog/viewsubcategory/"+subcatid;
-		logger.debug("catalogURL  :::: " + catalogURL);
-		String catalogJson = httpPostRequestHandler.sendRestPostRequest(catalogURL);
-		JSONObject catalogobj = JSONObject.fromObject(catalogJson);
-		logger.debug("catalogobj [" + catalogobj + "] catalogobj to string["+catalogobj.toString()+"]");
-		responseJSON = catalogobj;*/
-		
+	
 		responseJSON.put("catid", catid);
 		responseJSON.put("type", type);
 		
@@ -664,7 +702,7 @@ public String subcatCreateAck() {
 		
 		HttpPostRequestHandler httpPostRequestHandler = new HttpPostRequestHandler();		
 		logger.debug("fetching catalog");
-		String catalogURL = "http://104.42.234.123:5555/amurcore/amur/catalog/createsubcategory/"+catid+"/"+URLEncoder.encode(subcatname, "UTF-8")+"/"+URLEncoder.encode(subcatdesc, "UTF-8")+"/"+mkrid;
+		String catalogURL = serverIp+"/amurcore/amur/catalog/createsubcategory/"+catid+"/"+URLEncoder.encode(subcatname, "UTF-8")+"/"+URLEncoder.encode(subcatdesc, "UTF-8")+"/"+mkrid;
 		logger.debug("catalogURL  :::: " + catalogURL);
 		String catalogJson = httpPostRequestHandler.sendRestPostRequest(catalogURL);
 		JSONObject catalogobj = JSONObject.fromObject(catalogJson);

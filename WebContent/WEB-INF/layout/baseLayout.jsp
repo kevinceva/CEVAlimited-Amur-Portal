@@ -20,6 +20,8 @@
 	rel="stylesheet" />
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/vendor/font-awesome/css/font-awesome.min.css">
+<link href="${pageContext.request.contextPath}/css/font-awesome/css/font-awesome.min.css"	rel="stylesheet" type="text/css" />
+<link href="${pageContext.request.contextPath}/css/font-awesome/css/font-awesome-ie7.min.css"	rel="stylesheet" type="text/css" />
 <!-- <link
 	href="https://fonts.googleapis.com/css?family=Saira+Condensed:400,700"
 	rel="stylesheet"> -->
@@ -47,7 +49,7 @@
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/vendor/datatables/datatables.min.js"></script>
 <script type="text/javascript"
-	src="${pageContext.request.contextPath}/js/printThis.js"></script>
+	src="${pageContext.request.contextPath}/js/print.min.js"></script>
 
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/jquery-ui-1.11.2.css">
@@ -197,6 +199,11 @@ label.error {
 	$('.endDate').datepicker({
 		format : 'dd-mm-yyyy'
 	});
+</script>
+<script>
+$(document).ready(function(){
+    $("[data-toggle='tooltip']").tooltip();   
+});
 </script>
 </html>
 

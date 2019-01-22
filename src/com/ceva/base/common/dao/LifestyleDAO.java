@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.HashMap;
+import java.util.ResourceBundle;
 import java.util.UUID;
 
 import net.sf.json.JSONArray;
@@ -27,6 +28,9 @@ public class LifestyleDAO {
 	JSONObject requestJSON2 = null;
 	JSONObject responseJSON2 = null;
 	ResponseDTO responseDTO2 = null;
+	
+	ResourceBundle resourceBundle = ResourceBundle.getBundle("pathinfo_config");
+	public String cloudinaryUrl = resourceBundle.getString("CLOUDINARY_IMAGE_URL");
 
 	// Save Merchant...............................................................
 	public ResponseDTO saveMerchant(RequestDTO requestDTO) throws SQLException {
@@ -40,13 +44,29 @@ public class LifestyleDAO {
 		try {
 
 			requestJSON = requestDTO.getRequestJSON();
+			
+			
+			/*requestJSON.put("merchantId", merchantId);
+			requestJSON.put("merchantName", merchantName);
+			requestJSON.put("merchantEmail", merchantEmail);
+			requestJSON.put("merchantTillNo", merchantTillNo);
+			requestJSON.put("merchantMobile", merchantMobile);
+			requestJSON.put("merchantAddress", merchantAddress);
+			requestJSON.put("merchantCategory", merchantCategory);
+			requestJSON.put("merchantSubCategory", merchantSubCategory);*/
 
 			String merchantId = requestJSON.getString("merchantId");
 			String merchantName = requestJSON.getString("merchantName");
 			String merchantEmail = requestJSON.getString("merchantEmail");
 			String merchantTillNo = requestJSON.getString("merchantTillNo");
+			String merchantMobile = requestJSON.getString("merchantMobile");
+			String merchantAddress = requestJSON.getString("merchantAddress");
+			String merchantCategory = requestJSON.getString("merchantCategory");
+			String merchantSubCategory = requestJSON.getString("merchantSubCategory");
+			String merchantImageUrl = requestJSON.getString("merchantImageUrl");
 
-			String merchantQry = "INSERT INTO MERCHANT_MASTER(MERCHANT_ID_PK, MERCHANT_NAME, MPESA_TILL_NO, MERCHANT_EMAIL, DATE_CREATED) values (?,?,?,?,?)";
+			String merchantQry = "INSERT INTO MERCHANT_MASTER(MERCHANT_ID_PK, MERCHANT_NAME, MPESA_TILL_NO, MERCHANT_EMAIL, DATE_CREATED, MERCHANT_MOBILE_NUMBER, MERCHANT_ADDRESS, MERCHANT_CATEGORY_FK,"
+					+ " MERCHANT_SUBCATEGORY_FK, MERCHANTIMAGE, STATUS) values (?,?,?,?,?,?,?,?,?,?,?)";
 
 			this.responseDTO = new ResponseDTO();
 
@@ -63,7 +83,13 @@ public class LifestyleDAO {
 			merchantPstmt.setString(3, merchantTillNo);
 			merchantPstmt.setString(4, merchantEmail);
 			merchantPstmt.setTimestamp(5, getCurrentTimeStamp());
-
+			merchantPstmt.setString(6, merchantMobile);
+			merchantPstmt.setString(7, merchantAddress);
+			merchantPstmt.setString(8, merchantCategory);
+			merchantPstmt.setString(9, merchantSubCategory);
+			merchantPstmt.setString(10, merchantImageUrl);
+			merchantPstmt.setString(11, "A");
+			
 			merchantPstmt.executeQuery();
 			Resp_Message.put("Response_Message", "Merchant successfully saved.");
 
@@ -90,6 +116,93 @@ public class LifestyleDAO {
 
 		return this.responseDTO;
 	}
+	
+	// Save Merchant...............................................................
+		public ResponseDTO modifyMerchant(RequestDTO requestDTO) throws SQLException {
+			Connection connection = null;
+			this.logger.debug("Inside [LifestyleDAO][modifyMerchant].. ");
+
+			HashMap<String, Object> merchantMap = null;
+			PreparedStatement merchantPstmt = null;
+			JSONObject Resp_Message = null;
+
+			try {
+
+				requestJSON = requestDTO.getRequestJSON();
+				
+				
+				/*requestJSON.put("merchantId", merchantId);
+				requestJSON.put("merchantName", merchantName);
+				requestJSON.put("merchantEmail", merchantEmail);
+				requestJSON.put("merchantTillNo", merchantTillNo);
+				requestJSON.put("merchantCategory", merchantCategory);
+				requestJSON.put("merchantSubCategory", merchantSubCategory);
+				requestJSON.put("merchantImageUrl", merchantImageUrl);
+				requestJSON.put("merchantMobile", merchantMobile);
+				requestJSON.put("merchantAddress", merchantAddress);*/
+
+				String merchantId = requestJSON.getString("merchantId");
+				String merchantName = requestJSON.getString("merchantName");
+				String merchantEmail = requestJSON.getString("merchantEmail");
+				String merchantTillNo = requestJSON.getString("merchantTillNo");
+				String merchantMobile = requestJSON.getString("merchantMobile");
+				String merchantAddress = requestJSON.getString("merchantAddress");
+				String merchantCategory = requestJSON.getString("merchantCategory");
+				String merchantSubCategory = requestJSON.getString("merchantSubCategory");
+				String merchantImageUrl = requestJSON.getString("merchantImageUrl");
+				String merchantStatus = requestJSON.getString("merchantStatus");
+
+				String merchantQry = "UPDATE MERCHANT_MASTER SET MERCHANT_NAME = ?, MPESA_TILL_NO = ?, MERCHANT_EMAIL = ?, DATE_CREATED = ?, MERCHANT_MOBILE_NUMBER = ?, "
+						+ "MERCHANT_ADDRESS = ?, MERCHANT_CATEGORY_FK = ?, MERCHANT_SUBCATEGORY_FK = ?, MERCHANTIMAGE = ?, STATUS = ? WHERE MERCHANT_ID_PK = ?";
+
+				this.responseDTO = new ResponseDTO();
+
+				connection = connection == null ? DBConnector.getConnection() : connection;
+				this.logger.debug("connection is [" + connection + "]");
+
+				merchantMap = new HashMap();
+				Resp_Message = new JSONObject();
+
+				merchantPstmt = connection.prepareStatement(merchantQry);
+
+				merchantPstmt.setString(1, merchantName);
+				merchantPstmt.setString(2, merchantTillNo);
+				merchantPstmt.setString(3, merchantEmail);
+				merchantPstmt.setTimestamp(4, getCurrentTimeStamp());
+				merchantPstmt.setString(5, merchantMobile);
+				merchantPstmt.setString(6, merchantAddress);
+				merchantPstmt.setString(7, merchantCategory);
+				merchantPstmt.setString(8, merchantSubCategory);
+				merchantPstmt.setString(9, merchantImageUrl);
+				merchantPstmt.setString(10, merchantStatus);
+				merchantPstmt.setString(11, merchantId);
+				
+				merchantPstmt.executeQuery();
+				Resp_Message.put("Response_Message", "Merchant successfully edited.");
+
+				merchantMap.put("Response_Message", Resp_Message);
+				this.logger.info("EntityMap [" + merchantMap + "]");
+				this.responseDTO.setData(merchantMap);
+
+			} catch (SQLException e) {
+				this.logger.debug("Got SQL Exception in modifyMerchant LifestyleDAO [" + e.getMessage() + "]");
+				e.printStackTrace();
+				Resp_Message.put("Response_Message",
+						"Got SQL Exception in modifyMerchant LifestyleDAO [" + e.getMessage() + "]");
+
+			} catch (Exception e) {
+				this.logger.debug("Got Exception in modifyMerchant LifestyleDAO [" + e.getMessage() + "]");
+				e.printStackTrace();
+				Resp_Message.put("Response_Message", "Got Exception in modifyMerchant LifestyleDAO [" + e.getMessage() + "]");
+			} finally {
+				DBUtils.closePreparedStatement(merchantPstmt);
+				DBUtils.closeConnection(connection);
+				merchantMap = null;
+				Resp_Message = null;
+			}
+
+			return this.responseDTO;
+		}
 
 	// Save Merchant Offer..........................................................
 	public ResponseDTO saveMerchantOffer(RequestDTO requestDTO) throws SQLException {
@@ -112,7 +225,6 @@ public class LifestyleDAO {
 			String offerImage = requestJSON.getString("Offer_Image");
 			String discountType = requestJSON.getString("discountType");
 			String discountAmount = requestJSON.getString("discountAmount");
-			String offerImageUrl = "Amur_Images/discounts/" + offerImage.replaceAll("\\.tmp$", ".jpg");
 
 			String merchantQry = "INSERT INTO MERCHANT_OFFERS(OFFER_ID, MERCHANT_ID, OFFER_TITLE, OFFER_SUBTITLE, OFFER_IMAGE, OFFER_TYPE, AMOUNT, DATE_CREATED, OFFER_MESSAGE) values (?,?,?,?,?,?,?,?,?)";
 
@@ -130,7 +242,7 @@ public class LifestyleDAO {
 			merchantPstmt.setString(2, merchantId);
 			merchantPstmt.setString(3, offerTitle);
 			merchantPstmt.setString(4, offerSubtitle);
-			merchantPstmt.setString(5, offerImageUrl);
+			merchantPstmt.setString(5, offerImage);
 			merchantPstmt.setString(6, discountType);
 			merchantPstmt.setString(7, discountAmount);
 			merchantPstmt.setTimestamp(8, getCurrentTimeStamp());
@@ -174,7 +286,7 @@ public class LifestyleDAO {
 		JSONObject alertJSON = null;
 		JSONObject alertBody = null;
 		JSONObject payload = null;
-		
+
 		String usertag = null;
 		String title = null;
 		String subtitle = null;
@@ -191,13 +303,13 @@ public class LifestyleDAO {
 		String alertId = null;
 		String offerId = null;
 		int retryCount = 0;
-		
+
 		HashMap<String, Object> alertsMap = null;
 		PreparedStatement alertsPstmt = null;
 		JSONObject Resp_Message = null;
 
 		try {
-			
+
 			alertJSON = new JSONObject();
 			customerJSON = new JSONObject();
 			requestJSON = requestDTO.getRequestJSON();
@@ -205,41 +317,41 @@ public class LifestyleDAO {
 			offerId = requestJSON.getString("offerId");
 			customerJSON = requestJSON.getJSONObject("CUSTOMERS");
 			alertJSON = requestJSON.getJSONObject("OFFER_DETAILS");
-			System.out.println("Alert JSON :: "+alertJSON.toString());
+			System.out.println("Alert JSON :: " + alertJSON.toString());
 			msgDate = getCurrentTimeStamp();
-			
+
 			alertsMap = new HashMap();
 			Resp_Message = new JSONObject();
 			payload = new JSONObject();
-		
-			//Retrieve alerts details and packaging alert message.........................................
+
+			// Retrieve alerts details and packaging alert
+			// message.........................................
 			JSONArray numberArray = customerJSON.getJSONArray("CUSTOMERS");
 
 			for (int i = 0; i < numberArray.size(); i++) {
-				
-				
+
 				customerId = numberArray.getJSONObject(i).getString("CUSTOMER_ID");
 				usertag = numberArray.getJSONObject(i).getString("MOBILE_NUMBER");
 				email = numberArray.getJSONObject(i).getString("EMAIL");
 
-				alertBody = new JSONObject();		
+				alertBody = new JSONObject();
 				alertBody.put("UserTag", usertag);
-								
+
 				JSONArray alertArray = alertJSON.getJSONArray("OFFER_DETAILS");
 
 				for (int j = 0; j < alertArray.size(); j++) {
-										
+
 					title = alertArray.getJSONObject(j).getString("OFFER_TITLE");
 					subtitle = alertArray.getJSONObject(j).getString("OFFER_SUBTITLE");
 					message = alertArray.getJSONObject(j).getString("OFFER_MESSAGE");
 					type = alertArray.getJSONObject(j).getString("OFFER_TYPE");
 					imageurl = alertArray.getJSONObject(j).getString("OFFER_IMAGE");
-					message += "#"+offerId;
+					message += "#" + offerId;
 					status = "Success";
 					retryCount = 0;
-					
-					System.out.println("Message payload :: "+message);
-										
+
+					System.out.println("Message payload :: " + message);
+
 					payload.put("TITLE", title);
 					payload.put("SUBTITLE", subtitle);
 					payload.put("MESSAGE", message);
@@ -247,16 +359,17 @@ public class LifestyleDAO {
 					payload.put("IMAGEURL", imageurl);
 					payload.put("STATUS", status);
 					alertBody.put("Payload", payload);
-					
+
 				}
-				
+
 				appl = "PUSH";
 				fetchStatus = "P";
 				subject = "Amur Offer";
 				alertId = generateUniqueId();
-				
-				//Insert into alerts table..................................................................
-				
+
+				// Insert into alerts
+				// table..................................................................
+
 				String alertsQry = "INSERT INTO ALERTS(CIN, MSG_DATE, EMAIL_ID, MOBILE_NO, MESSAGE, APPL, FETCH_STATUS, SUBJECT, RETRY_COUNT, UNIQUE_ID) values (?,?,?,?,?,?,?,?,?,?)";
 
 				this.responseDTO = new ResponseDTO();
@@ -279,17 +392,17 @@ public class LifestyleDAO {
 				alertsPstmt.setString(8, subject);
 				alertsPstmt.setInt(9, retryCount);
 				alertsPstmt.setString(10, alertId);
-				
+
 				alertsPstmt.executeQuery();
 				Resp_Message.put("Response_Message", "Merchant Offer successfully saved.");
 
 				alertsMap.put("Response_Message", Resp_Message);
 				this.logger.info("EntityMap [" + alertsMap + "]");
-				this.responseDTO.setData(alertsMap);	
-				
+				this.responseDTO.setData(alertsMap);
+
 				alertBody = null;
 			}
-			
+
 			Resp_Message.put("Response_Message", "Alerts sending in progress.");
 			alertsMap.put("Response_Message", Resp_Message);
 
@@ -323,7 +436,7 @@ public class LifestyleDAO {
 		ResultSet merchantsRS = null;
 		JSONObject json = null;
 
-		String merchantsQRY = "SELECT MERCHANT_ID_PK, MERCHANT_NAME, MERCHANT_EMAIL, MPESA_TILL_NO, to_char( DATE_CREATED , 'DD-MM-YYYY HH:MM:SS' ) FROM MERCHANT_MASTER";
+		String merchantsQRY = "SELECT MERCHANT_ID_PK, MERCHANT_NAME, MERCHANT_EMAIL, MPESA_TILL_NO, to_char( DATE_CREATED , 'DD-MM-YYYY HH:MM:SS' ), MERCHANT_MOBILE_NUMBER, MERCHANT_ADDRESS, STATUS FROM MERCHANT_MASTER";
 		try {
 			this.responseDTO = new ResponseDTO();
 
@@ -344,6 +457,9 @@ public class LifestyleDAO {
 				json.put("MERCHANT_EMAIL", merchantsRS.getString(3));
 				json.put("MERCHANT_TILL_NO", merchantsRS.getString(4));
 				json.put("DATE_CREATED", merchantsRS.getString(5));
+				json.put("MERCHANT_MOBILE", merchantsRS.getString(6));
+				json.put("MERCHANT_ADDRESS", merchantsRS.getString(7));
+				json.put("MERCHANT_STATUS", merchantsRS.getString(8));
 				merchantsArray.add(json);
 				json.clear();
 			}
@@ -442,8 +558,86 @@ public class LifestyleDAO {
 
 		return this.responseDTO;
 	}
+	
+	//Fetch Merchant Information
+		public ResponseDTO fetchMerchantInformation(RequestDTO requestDTO) throws SQLException {
 
-	// Fetch Offer Details..................................................................
+			Connection connection = null;
+			this.logger.debug("Inside [LifestyleDAO][fetchMerchantInformation].. ");
+
+			HashMap<String, Object> merchantMap = null;
+			JSONObject resultJson = null;
+			JSONArray merchantArray = null;
+			PreparedStatement merchantPstmt = null;
+			ResultSet merchantRS = null;
+			JSONObject json = null;
+			
+			requestJSON = requestDTO.getRequestJSON();
+			String merchantID = requestJSON.getString("merchantID");
+			String merchantImageName = null;
+
+			String merchantQRY = "SELECT MERCHANT_ID_PK, MERCHANT_NAME, MPESA_TILL_NO, MERCHANT_EMAIL, MERCHANT_CATEGORY_FK, MERCHANT_SUBCATEGORY_FK, MERCHANTIMAGE, MERCHANT_MOBILE_NUMBER,"
+					+ "MERCHANT_ADDRESS, STATUS FROM MERCHANT_MASTER WHERE MERCHANT_ID_PK = ?";
+			try {
+				this.responseDTO = new ResponseDTO();
+
+				connection = connection == null ? DBConnector.getConnection() : connection;
+				this.logger.debug("connection is [" + connection + "]");
+
+				merchantMap = new HashMap();
+				resultJson = new JSONObject();
+				merchantArray = new JSONArray();
+
+				merchantPstmt = connection.prepareStatement(merchantQRY);
+				merchantPstmt.setString(1, merchantID);
+				merchantRS = merchantPstmt.executeQuery();
+
+				json = new JSONObject();
+				while (merchantRS.next()) {
+					json.put("MERCHANT_ID", merchantRS.getString(1));
+					json.put("MERCHANT_NAME", merchantRS.getString(2));
+					json.put("MPESA_TILL_NO", merchantRS.getString(3));
+					json.put("MERCHANT_EMAIL", merchantRS.getString(4));
+					json.put("MERCHANT_CATEGORY", merchantRS.getString(5));
+					json.put("MERCHANT_SUBCATEGORY", merchantRS.getString(6));
+					json.put("MERCHANT_IMAGE_NAME", merchantRS.getString(7));
+					//json.put("MERCHANTIMAGE", cloudinaryUrl + merchantRS.getString(7));
+					json.put("MERCHANTIMAGE", merchantRS.getString(7));
+					json.put("MERCHANT_MOBILE", merchantRS.getString(8));
+					json.put("MERCHANT_ADDRESS", merchantRS.getString(9));
+					json.put("STATUS", merchantRS.getString(10));
+				}
+				DBUtils.closeResultSet(merchantRS);
+				DBUtils.closePreparedStatement(merchantPstmt);
+				DBUtils.closeConnection(connection);
+				resultJson.put("MERCHANT_INFO", json);
+				merchantMap.put("MERCHANT_INFO", resultJson);
+				this.logger.info("EntityMap [" + merchantMap + "]");
+				this.responseDTO.setData(merchantMap);
+				json.clear();
+
+			} catch (SQLException e) {
+				this.logger.debug("Got SQL Exception in LifestyleDAO fetchMerchantInformation [" + e.getMessage() + "]");
+				e.printStackTrace();
+
+			} catch (Exception e) {
+				this.logger.debug("Got Exception in LifestyleDAO fetchMerchantInformation [" + e.getMessage() + "]");
+				e.printStackTrace();
+			} finally {
+				DBUtils.closeResultSet(merchantRS);
+				DBUtils.closePreparedStatement(merchantPstmt);
+				DBUtils.closeConnection(connection);
+
+				merchantMap = null;
+				resultJson = null;
+				merchantArray = null;
+			}
+
+			return this.responseDTO;
+		}
+
+	// Fetch Offer
+	// Details..................................................................
 	public ResponseDTO fetchOfferDetails(RequestDTO requestDTO) {
 		Connection connection = null;
 		this.logger.debug("Inside [LifestyleDAO][fetchOfferDetails].. ");
@@ -519,16 +713,108 @@ public class LifestyleDAO {
 		return this.responseDTO;
 	}
 
+	// Fetch
+	// Merchants..................................................................
+	public ResponseDTO fetchMerchantsCategories(RequestDTO requestDTO) {
+		Connection connection = null;
+		this.logger.debug("Inside [LifetsyleDAO][fetchMerchantsCategories].. ");
+
+		HashMap<String, Object> merchantsCatMap = null;
+		JSONObject resultJson = null;
+		JSONArray merchantsCatArray = null;
+		JSONArray merchantsSubArray = null;
+		
+		PreparedStatement merchantsCatPstmt = null;
+		PreparedStatement merchantsSubPstmt = null;
+		
+		ResultSet merchantsCatRS = null;
+		ResultSet merchantsSubRS = null;
+		JSONObject json = null;
+		JSONObject subJson = null;
+
+		String merchantsCatQRY = "SELECT CATEGORY_ID, CATEGORY_NAME FROM MERCHANT_CATEGORY";
+		String merchantSubQRY = "SELECT SUBCATEGORY_ID, SUBCATEGORY_NAME FROM MERCHANT_SUBCATEGORY WHERE CATEGORY_FK = ?";
+		try {
+			this.responseDTO = new ResponseDTO();
+
+			connection = connection == null ? DBConnector.getConnection() : connection;
+			this.logger.debug("connection is [" + connection + "]");
+
+			merchantsCatMap = new HashMap();
+			resultJson = new JSONObject();
+			merchantsCatArray = new JSONArray();
+			merchantsSubArray = new JSONArray();
+
+			merchantsCatPstmt = connection.prepareStatement(merchantsCatQRY);
+			merchantsCatRS = merchantsCatPstmt.executeQuery();
+
+			json = new JSONObject();
+			subJson = new JSONObject();
+			
+			while (merchantsCatRS.next()) {
+				json.put("CATEGORY_ID", merchantsCatRS.getString(1));
+				json.put("CATEGORY_NAME", merchantsCatRS.getString(2));
+				
+				//Fetch merchant sub category
+				merchantsSubPstmt = connection.prepareStatement(merchantSubQRY);
+				merchantsSubPstmt.setString(1, merchantsCatRS.getString(1));
+				merchantsSubRS = merchantsSubPstmt.executeQuery();
+				
+				while(merchantsSubRS.next()) {
+					subJson.put("SUBCATEGORY_ID", merchantsSubRS.getString(1));
+					subJson.put("SUBCATEGORY_NAME", merchantsSubRS.getString(2));
+					merchantsSubArray.add(subJson);
+					subJson.clear();
+				}
+				DBUtils.closeResultSet(merchantsSubRS);
+				DBUtils.closePreparedStatement(merchantsSubPstmt);
+				
+				json.put("SUBCATEGORIES", merchantsSubArray);
+				merchantsSubArray.clear();
+				merchantsCatArray.add(json);
+				json.clear();
+				
+			}
+			
+			DBUtils.closeResultSet(merchantsCatRS);
+			DBUtils.closePreparedStatement(merchantsCatPstmt);
+			DBUtils.closeConnection(connection);
+			resultJson.put("MERCHANTS_CATEGORIES", merchantsCatArray);
+			merchantsCatMap.put("MERCHANTS_CATEGORIES", resultJson);
+			this.logger.info("EntityMap [" + merchantsCatMap + "]");
+			this.responseDTO.setData(merchantsCatMap);
+
+		} catch (SQLException e) {
+			this.logger.debug("Got SQL Exception in LifetsyleDAO fetchMerchants [" + e.getMessage() + "]");
+			e.printStackTrace();
+
+		} catch (Exception e) {
+			this.logger.debug("Got Exception in LifetsyleDAO fetchMerchants [" + e.getMessage() + "]");
+			e.printStackTrace();
+		} finally {
+			DBUtils.closeResultSet(merchantsCatRS);
+			DBUtils.closePreparedStatement(merchantsCatPstmt);
+			DBUtils.closeConnection(connection);
+
+			merchantsCatMap = null;
+			resultJson = null;
+			merchantsCatArray = null;
+		}
+
+		return this.responseDTO;
+	}
+
 	// Generate
 	// timestamp...............................................................
 	private static java.sql.Timestamp getCurrentTimeStamp() {
 		java.util.Date today = new java.util.Date();
 		return new java.sql.Timestamp(today.getTime());
 	}
-	
-	//Generate Unique ID ......................................................
-	public String generateUniqueId(){
-		return UUID.randomUUID().toString().substring(0,8).toUpperCase()+UUID.randomUUID().toString().substring(0,8).toUpperCase();		
+
+	// Generate Unique ID ......................................................
+	public String generateUniqueId() {
+		return UUID.randomUUID().toString().substring(0, 8).toUpperCase()
+				+ UUID.randomUUID().toString().substring(0, 8).toUpperCase();
 	}
 
 }

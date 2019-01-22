@@ -114,8 +114,8 @@ function updateStoreLimit(){
 				<div class="box span12">
 					  <div class="box-header well" data-original-title>Store Information
 						<div class="box-icon"> 
-							<a href="#" class="btn btn-minimize btn-round" data-rel="tooltip"><i class="icon-chevron-up"></i></a>
-							<a href="#" class="btn btn-close btn-round" data-rel="tooltip"><i class="icon-remove"></i></a> 
+							<a href="#" class="btn btn-minimize btn-round" data-toggle="tooltip"><i class="icon-chevron-up"></i></a>
+							<a href="#" class="btn btn-close btn-round" data-toggle="tooltip"><i class="icon-remove"></i></a> 
 						</div>
 					</div>
                       
@@ -162,8 +162,8 @@ function updateStoreLimit(){
 						<div class="box span12">
 						  <div class="box-header well" data-original-title>Store Limit Details
 							<div class="box-icon"> 
-								<a href="#" class="btn btn-minimize btn-round" data-rel="tooltip"><i class="icon-chevron-up"></i></a>
-								<a href="#" class="btn btn-close btn-round" data-rel="tooltip"><i class="icon-remove"></i></a> 
+								<a href="#" class="btn btn-minimize btn-round" data-toggle="tooltip"><i class="icon-chevron-up"></i></a>
+								<a href="#" class="btn btn-close btn-round" data-toggle="tooltip"><i class="icon-remove"></i></a> 
 							</div>
 						</div>
                       
@@ -218,8 +218,8 @@ function updateStoreLimit(){
 						<div class="box span12">
 						  <div class="box-header well" data-original-title>Terminal Limit Details
 							<div class="box-icon"> 
-								<a href="#" class="btn btn-minimize btn-round" data-rel="tooltip"><i class="icon-chevron-up"></i></a>
-								<a href="#" class="btn btn-close btn-round" data-rel="tooltip"><i class="icon-remove"></i></a> 
+								<a href="#" class="btn btn-minimize btn-round" data-toggle="tooltip"><i class="icon-chevron-up"></i></a>
+								<a href="#" class="btn btn-close btn-round" data-toggle="tooltip"><i class="icon-remove"></i></a> 
 							</div>
 						</div>
                       

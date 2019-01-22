@@ -347,11 +347,11 @@ $(document).on('click','a',function(event) {
 		 </div>
 		<div class="box-content" id="top-layer-anchor">
 			<span>
-				<a href="#" class="btn btn-info" id="group-creation" title='New Group Creation' data-rel='popover'  data-content='Creating a new group.'>
+				<a href="#" class="btn btn-info" id="group-creation" title='New Group Creation' data-toggle='popover'  data-content='Creating a new group.'>
 				<i class="icon icon-web icon-white"></i>&nbsp;New Group Creation</a> &nbsp;							
 			</span>
 			<span>
-				<a href="#" class="btn btn-warning" id="dashboard" title='View Users' data-rel='popover'  data-content='Viewing the registered users.'>
+				<a href="#" class="btn btn-warning" id="dashboard" title='View Users' data-toggle='popover'  data-content='Viewing the registered users.'>
 				<i class="icon icon-briefcase icon-white"></i>&nbsp;View Users</a> &nbsp; 
 			</span> 			 
 		</div> 
@@ -409,9 +409,9 @@ $(document).on('click','a',function(event) {
 										 </s:else> 
 									</s:iterator>  
 									<td class="center" >
-										<a id="create-user" class="btn btn-info"  href="#" index="<s:property value='#userStatus.index' />" title="Create User" data-rel="tooltip" ><i class="icon icon-plus icon-white"></i></a>&nbsp;
-										<a id="modify-group"  class="btn btn-warning" href="#" index="<s:property value='#userStatus.index' />"  title="Modify Group" data-rel="tooltip" ><i class="icon icon-edit icon-white"></i></a> &nbsp;&nbsp;
-										<a id="view-group" class="btn btn-success" index="<s:property value='#userStatus.index' />"  href="#" title="View Group" data-rel="tooltip" ><i class="icon icon-book icon-white"></i></a>&nbsp;
+										<a id="create-user" class="btn btn-info"  href="#" index="<s:property value='#userStatus.index' />" title="Create User" data-toggle="tooltip" ><i class="icon icon-plus icon-white"></i></a>&nbsp;
+										<a id="modify-group"  class="btn btn-warning" href="#" index="<s:property value='#userStatus.index' />"  title="Modify Group" data-toggle="tooltip" ><i class="icon icon-edit icon-white"></i></a> &nbsp;&nbsp;
+										<a id="view-group" class="btn btn-success" index="<s:property value='#userStatus.index' />"  href="#" title="View Group" data-toggle="tooltip" ><i class="icon icon-book icon-white"></i></a>&nbsp;
 								</td>
 								</tr> 
 							</s:iterator>
@@ -511,12 +511,12 @@ $(document).on('click','a',function(event) {
 			 	  				
 							 	  				<td> 
 													<p style="display:inline-flex;"> 
-														<a class='<s:property value="#statusclass" />' href='#' id='activ-deactiv-user' index="<s:property value='#userInDetStatus1.index' />" title='<s:property value="#text1" />'  data-rel='tooltip' > <i class='icon <s:property value="#text" /> icon-white'></i> </a>&nbsp;
-														<a class='btn btn-success' href='#' id='view-user' index="<s:property value='#userInDetStatus1.index' />" title='View User' data-rel='tooltip'> <i class='icon icon-book icon-white'></i></a>&nbsp;
-														<a class='btn btn-warning' href='#' id='modify-user' index="<s:property value='#userInDetStatus1.index' />"  title='Modify User' data-rel='tooltip'><i class='icon icon-edit icon-white'></i></a>&nbsp;
-														<a  class='btn btn-warning' id='assign-report-user'  href='#' index="<s:property value='#userInDetStatus1.index' />" title='Assign Reports' data-rel='tooltip'><i class='icon icon-pdf icon-white'></i></a>&nbsp;
-														<a  class='btn btn-info' id='assign-dashboard-user'  href='#' index="<s:property value='#userInDetStatus1.index' />" title='Assign Dashboards' data-rel='tooltip' ><i class='icon icon-plus icon-white'></i></a>&nbsp;
-														<a  class='btn btn-primary' href='#' id='password-reset' index="<s:property value='#userInDetStatus1.index' />" title='Password Reset' data-rel='tooltip'><i class='icon icon-redo icon-white'></i></a>
+														<a class='<s:property value="#statusclass" />' href='#' id='activ-deactiv-user' index="<s:property value='#userInDetStatus1.index' />" title='<s:property value="#text1" />'  data-toggle='tooltip' > <i class='icon <s:property value="#text" /> icon-white'></i> </a>&nbsp;
+														<a class='btn btn-success' href='#' id='view-user' index="<s:property value='#userInDetStatus1.index' />" title='View User' data-toggle='tooltip'> <i class='icon icon-book icon-white'></i></a>&nbsp;
+														<a class='btn btn-warning' href='#' id='modify-user' index="<s:property value='#userInDetStatus1.index' />"  title='Modify User' data-toggle='tooltip'><i class='icon icon-edit icon-white'></i></a>&nbsp;
+														<a  class='btn btn-warning' id='assign-report-user'  href='#' index="<s:property value='#userInDetStatus1.index' />" title='Assign Reports' data-toggle='tooltip'><i class='icon icon-pdf icon-white'></i></a>&nbsp;
+														<a  class='btn btn-info' id='assign-dashboard-user'  href='#' index="<s:property value='#userInDetStatus1.index' />" title='Assign Dashboards' data-toggle='tooltip' ><i class='icon icon-plus icon-white'></i></a>&nbsp;
+														<a  class='btn btn-primary' href='#' id='password-reset' index="<s:property value='#userInDetStatus1.index' />" title='Password Reset' data-toggle='tooltip'><i class='icon icon-redo icon-white'></i></a>
 													</p>
 												</td>
 			                      		</tr>
@@ -597,9 +597,9 @@ $(document).on('click','a',function(event) {
 											</td>
 											<!-- Actions To Be Displayed..... --> 
 											<td ><span>
-												<a class='btn btn-warning' href='#' id='modify-user-rights' index='<s:property value="#userInDetStatus1.index" />' title='Modify Rights' data-rel='tooltip'> 
+												<a class='btn btn-warning' href='#' id='modify-user-rights' index='<s:property value="#userInDetStatus1.index" />' title='Modify Rights' data-toggle='tooltip'> 
 													<i class='icon icon-edit icon-white'></i></a>&nbsp;
-												<a  class='btn btn-info' href='#' id='view-user-rights' index='<s:property value="#userInDetStatus1.index" />' title='View User Rights' data-rel='tooltip'>
+												<a  class='btn btn-info' href='#' id='view-user-rights' index='<s:property value="#userInDetStatus1.index" />' title='View User Rights' data-toggle='tooltip'>
 													<i class='icon icon-book icon-white'></i></a>
 												</span>
 											</td>

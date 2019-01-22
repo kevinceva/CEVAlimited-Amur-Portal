@@ -169,7 +169,7 @@ public class BinManagementDashBoardServlet extends HttpServlet {
 				ja.put(rs.getString(5));
 				ja.put(rs.getString(6));
 				ja.put(rs.getString(7));
-				ja.put("<p>  &nbsp;<a class='btn btn-primary' href='#' index='"+i+"' id='bin-active-deactive'  title='Bin Active/De-Active' data-rel='tooltip'><i class='icon icon-calendar icon-white'></i></a>&nbsp;</p>");
+				ja.put("<p>  &nbsp;<a class='btn btn-primary' href='#' index='"+i+"' id='bin-active-deactive'  title='Bin Active/De-Active' data-toggle='tooltip'><i class='icon icon-calendar icon-white'></i></a>&nbsp;</p>");
 
 				array.put(ja); 
 				i++;
@@ -221,7 +221,7 @@ public class BinManagementDashBoardServlet extends HttpServlet {
 				
 				//System.out.println("labelInfo::"+labelInfo);
 				
-				ja.put("<p>  &nbsp;<a class='btn btn-success' href='#' index='"+i+"' id='bin-active-deactive'  title='Bin Active/De-Active' data-rel='tooltip'><i class='"+labelInfo+"'></i></a>&nbsp;</p>");
+				ja.put("<p>  &nbsp;<a class='btn btn-success' href='#' index='"+i+"' id='bin-active-deactive'  title='Bin Active/De-Active' data-toggle='tooltip'><i class='"+labelInfo+"'></i></a>&nbsp;</p>");
 
 
 				array.put(ja); 

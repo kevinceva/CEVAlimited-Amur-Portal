@@ -94,7 +94,7 @@ $(document).ready(function () {
 		"<td>"+v.SERVICE_NAME+"</span> </td>"+ 
 		"<td>"+v.MAKER_ID+"</span> </td>"+ 
 		"<td>"+v.MAKER_DTTM+"</span></td>"+
-		"<td><p><a id='sub-service-create' class='btn btn-success' href='#' index='"+colindex+"' title='Create Sub Service' data-rel='tooltip'><i class='icon icon-plus icon-white'></i></a>&nbsp;<a  id='service-view' class='btn btn-info' href='#' index='"+colindex+"' title='View' data-rel='tooltip'><i class='icon icon-note icon-white'></i></a></p></td></tr>";
+		"<td><p><a id='sub-service-create' class='btn btn-success' href='#' index='"+colindex+"' title='Create Sub Service' data-toggle='tooltip'><i class='icon icon-plus icon-white'></i></a>&nbsp;<a  id='service-view' class='btn btn-info' href='#' index='"+colindex+"' title='View' data-toggle='tooltip'><i class='icon icon-note icon-white'></i></a></p></td></tr>";
 			
 			$("#merchantTBody").append(appendTxt);	
 			rowindex = ++rowindex;
@@ -156,7 +156,7 @@ $(document).ready(function () {
 							val++;
 						}  
 						 
-						var lastTd="<p> <a  class='btn btn-warning' href='#' id='fee-create' index='"+colindex+"' title='Create Fee' data-rel='tooltip'><i class='icon icon-plus icon-white'></i></a>&nbsp;<a  class='btn btn-info' href='#' id='sub-service-view' index='"+colindex+"' title='View' data-rel='tooltip'><i class='icon icon-note icon-white'></i></a></p> &nbsp;&nbsp;";
+						var lastTd="<p> <a  class='btn btn-warning' href='#' id='fee-create' index='"+colindex+"' title='Create Fee' data-toggle='tooltip'><i class='icon icon-plus icon-white'></i></a>&nbsp;<a  class='btn btn-info' href='#' id='sub-service-view' index='"+colindex+"' title='View' data-toggle='tooltip'><i class='icon icon-note icon-white'></i></a></p> &nbsp;&nbsp;";
 						var firstTd = "<a href='#' id='SEARCH_NO' value='SUBSERVICE@"+v.SUB_SERVICE_CODE+"' >"+v.SUB_SERVICE_CODE+"</a>";
 						
 					        var i= t.row.add( [
@@ -204,7 +204,7 @@ $(document).ready(function () {
 							val++;
 						}  
 						 
-						var lastTd="<p><a class='btn btn-warning' href='#' id='fee-view'  title='View' data-rel='tooltip'><i class='icon icon-note icon-white'></i></a> </p> &nbsp;";
+						var lastTd="<p><a class='btn btn-warning' href='#' id='fee-view'  title='View' data-toggle='tooltip'><i class='icon icon-note icon-white'></i></a> </p> &nbsp;";
 						var firstTd = "<a href='#' id='SEARCH_NO' value='FEE-"+v.FEE_CODE+"' >"+v.FEE_CODE+"</a>";
 							
 							var i=terminalTable.row.add( [

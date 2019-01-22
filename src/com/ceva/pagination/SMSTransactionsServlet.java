@@ -208,7 +208,7 @@ public class SMSTransactionsServlet extends HttpServlet {
 				ja.put(rs.getString(2));
 				ja.put(rs.getString(3));
 				ja.put(rs.getString(4));
-				ja.put("<p>  &nbsp;<a class='btn btn-primary' href='#' index='"+i+"' id='"+uId1+"'  title='Reply' data-rel='tooltip'><i class='icon icon-reply icon-white'></i></a>&nbsp;<a class='btn btn-primary' href='#' index='"+i+"' id='"+uId2+"'  title='Edit' data-rel='tooltip'><i class='icon icon-edit icon-white'></i></a>&nbsp;<a class='btn btn-primary' href='#' index='"+i+"' id='"+uId3+"'  title='Not Relevant' data-rel='tooltip'><i class='icon icon-cancel icon-white'></i></a>&nbsp;</p>");
+				ja.put("<p>  &nbsp;<a class='btn btn-primary' href='#' index='"+i+"' id='"+uId1+"'  title='Reply' data-toggle='tooltip'><i class='icon icon-reply icon-white'></i></a>&nbsp;<a class='btn btn-primary' href='#' index='"+i+"' id='"+uId2+"'  title='Edit' data-toggle='tooltip'><i class='icon icon-edit icon-white'></i></a>&nbsp;<a class='btn btn-primary' href='#' index='"+i+"' id='"+uId3+"'  title='Not Relevant' data-toggle='tooltip'><i class='icon icon-cancel icon-white'></i></a>&nbsp;</p>");
 				array.put(ja); 
 				i++;
 			}
@@ -265,7 +265,7 @@ public class SMSTransactionsServlet extends HttpServlet {
 				ja.put(rs.getString(2));
 				ja.put(rs.getString(3));
 				ja.put(rs.getString(4));
-				ja.put("<p>  &nbsp;<a class='btn btn-primary' href='#' index='"+i+"' id='"+uId1+"'  title='Reply' data-rel='tooltip'><i class='icon icon-reply icon-white'></i></a>&nbsp;<a class='btn btn-primary' href='#' index='"+i+"' id='"+uId2+"'  title='Edit' data-rel='tooltip'><i class='icon icon-edit icon-white'></i></a>&nbsp;<a class='btn btn-primary' href='#' index='"+i+"' id='"+uId3+"'  title='Not Relevant' data-rel='tooltip'><i class='icon icon-cancel icon-white'></i></a>&nbsp;</p>");
+				ja.put("<p>  &nbsp;<a class='btn btn-primary' href='#' index='"+i+"' id='"+uId1+"'  title='Reply' data-toggle='tooltip'><i class='icon icon-reply icon-white'></i></a>&nbsp;<a class='btn btn-primary' href='#' index='"+i+"' id='"+uId2+"'  title='Edit' data-toggle='tooltip'><i class='icon icon-edit icon-white'></i></a>&nbsp;<a class='btn btn-primary' href='#' index='"+i+"' id='"+uId3+"'  title='Not Relevant' data-toggle='tooltip'><i class='icon icon-cancel icon-white'></i></a>&nbsp;</p>");
 				array.put(ja); 
 				i++;
 			}

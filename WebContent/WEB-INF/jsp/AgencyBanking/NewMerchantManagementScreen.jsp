@@ -96,7 +96,7 @@ $(document).ready(function () {
 		"<td>"+v.merchantName+"</span> </td>"+ 
 		"<td>"+v.status+"</span> </td>"+ 
 		"<td>"+v.makerDate+"</span></td>"+
-		"<td><a id='store-create' class='btn btn-success' href='#' index="+colindex+" title='Create Store' data-rel='tooltip'><i class='icon icon-plus icon-white'></i></a>&nbsp; <a id='merchant-modify' class='btn btn-warning' href='#' index="+colindex+" title='Merchant Modify' data-rel='tooltip'><i class='icon icon-edit icon-white'></i></a>&nbsp; <a id='merchant-view' class='btn btn-info' href='#' index="+colindex+" title='View' data-rel='tooltip'><i class='icon icon-note icon-white'></i></a>&nbsp; &nbsp;<a id='merchant-terminate' class='btn btn btn-danger' href='#' index="+colindex+" title='Merchant Terminate' data-rel='tooltip' ><i class='icon icon-unlocked icon-white'></i></a> </td></tr>";
+		"<td><a id='store-create' class='btn btn-success' href='#' index="+colindex+" title='Create Store' data-toggle='tooltip'><i class='icon icon-plus icon-white'></i></a>&nbsp; <a id='merchant-modify' class='btn btn-warning' href='#' index="+colindex+" title='Merchant Modify' data-toggle='tooltip'><i class='icon icon-edit icon-white'></i></a>&nbsp; <a id='merchant-view' class='btn btn-info' href='#' index="+colindex+" title='View' data-toggle='tooltip'><i class='icon icon-note icon-white'></i></a>&nbsp; &nbsp;<a id='merchant-terminate' class='btn btn btn-danger' href='#' index="+colindex+" title='Merchant Terminate' data-toggle='tooltip' ><i class='icon icon-unlocked icon-white'></i></a> </td></tr>";
 			
 			$("#merchantTBody").append(appendTxt);	
 			rowindex = ++rowindex;
@@ -158,7 +158,7 @@ $(document).ready(function () {
 							val++;
 						}  
 						 
-						var lastTd="<a class='btn btn-success' href='#' id='terminal-create'  index="+colindex+" title='Create Terminal' data-rel='tooltip' ><i class='icon icon-plus icon-white'></i></a>&nbsp; <a class='btn btn-warning' href='#' id='store-modify' index="+colindex+" title='Modify' data-rel='tooltip' ><i class='icon icon-edit icon-white'></i></a>&nbsp; <a class='btn btn-info' href='#' id='store-view'  index="+colindex+" title='View' data-rel='tooltip' ><i class='icon icon-page icon-white'></i></a>&nbsp;&nbsp;<a id='store-terminate' class='btn btn btn-danger' href='#' index="+colindex+" title='Store Terminate' data-rel='tooltip' ><i class='icon icon-unlocked icon-white'></i></a> &nbsp;&nbsp;";
+						var lastTd="<a class='btn btn-success' href='#' id='terminal-create'  index="+colindex+" title='Create Terminal' data-toggle='tooltip' ><i class='icon icon-plus icon-white'></i></a>&nbsp; <a class='btn btn-warning' href='#' id='store-modify' index="+colindex+" title='Modify' data-toggle='tooltip' ><i class='icon icon-edit icon-white'></i></a>&nbsp; <a class='btn btn-info' href='#' id='store-view'  index="+colindex+" title='View' data-toggle='tooltip' ><i class='icon icon-page icon-white'></i></a>&nbsp;&nbsp;<a id='store-terminate' class='btn btn btn-danger' href='#' index="+colindex+" title='Store Terminate' data-toggle='tooltip' ><i class='icon icon-unlocked icon-white'></i></a> &nbsp;&nbsp;";
 						var firstTd = "<a href='#' id='SEARCH_NO' value='STORE@"+v.storeId+"' >"+v.storeId+"</a>";
 						
 					        var i= t.row.add( [
@@ -209,7 +209,7 @@ $(document).ready(function () {
 							val++;
 						}  
 						 
-						var lastTd="<p><a class='btn btn-success' href='#' id='terminal-assign-services' index='' title='Assign Services' data-rel='tooltip'><i class='icon icon-plus icon-white'></i></a>&nbsp; <a class='btn btn-info' href='#' id='terminal-services-view' index='' title='View Services' data-rel='tooltip' ><i class='icon icon-page icon-white'></i></a>&nbsp; <a class='btn btn-success' href='#' id='terminal-assign-user' index='' title='Assign Users' data-rel='tooltip' ><i class='icon icon-star-on icon-white'></i></a> </p> <p>	<a class='btn btn-warning' href='#' id='terminal-modify' index='' title='Modify' data-rel='tooltip' ><i class='icon icon-edit icon-white'></i></a>&nbsp; <a class='btn btn-info' href='#' 	id='terminal-view' 	index='' title='View' data-rel='tooltip' ><i class='icon icon-note icon-white'></i></a>&nbsp;&nbsp;<a class='btn btn-success' href='#' id='terminal-terminate' index='' title='' data-rel='tooltip' ><i class='icon icon-unlocked icon-white'></i></a> </p> &nbsp;";
+						var lastTd="<p><a class='btn btn-success' href='#' id='terminal-assign-services' index='' title='Assign Services' data-toggle='tooltip'><i class='icon icon-plus icon-white'></i></a>&nbsp; <a class='btn btn-info' href='#' id='terminal-services-view' index='' title='View Services' data-toggle='tooltip' ><i class='icon icon-page icon-white'></i></a>&nbsp; <a class='btn btn-success' href='#' id='terminal-assign-user' index='' title='Assign Users' data-toggle='tooltip' ><i class='icon icon-star-on icon-white'></i></a> </p> <p>	<a class='btn btn-warning' href='#' id='terminal-modify' index='' title='Modify' data-toggle='tooltip' ><i class='icon icon-edit icon-white'></i></a>&nbsp; <a class='btn btn-info' href='#' 	id='terminal-view' 	index='' title='View' data-toggle='tooltip' ><i class='icon icon-note icon-white'></i></a>&nbsp;&nbsp;<a class='btn btn-success' href='#' id='terminal-terminate' index='' title='' data-toggle='tooltip' ><i class='icon icon-unlocked icon-white'></i></a> </p> &nbsp;";
 						var firstTd = "<a href='#' id='SEARCH_NO' value='TERMINAL-"+v.terminalID+"' >"+v.terminalID+"</a>";
 							
 							var i=terminalTable.row.add( [
@@ -489,8 +489,8 @@ $(document).on('click','a',function(event) {
 			
 			<div class="box-content" id="top-layer-anchor">
 				 <div>
-					<a href="#" class="btn btn-success" id="merchant-add"   title='Add New Merchant' data-rel='popover'  data-content='Creating a new merchant.'><i class='icon icon-plus icon-white'></i>&nbsp;Add New Merchant</a> &nbsp; 
- 					<a href="#" class="btn btn-primary" id="merchant-dashboard"   title='Dashboard' data-rel='popover'  data-content='Viewing the Merchants,Stores & Terminals.'><i class='icon icon-users icon-white'></i>&nbsp;Merchant Dashboard</a> &nbsp;
+					<a href="#" class="btn btn-success" id="merchant-add"   title='Add New Merchant' data-toggle='popover'  data-content='Creating a new merchant.'><i class='icon icon-plus icon-white'></i>&nbsp;Add New Merchant</a> &nbsp; 
+ 					<a href="#" class="btn btn-primary" id="merchant-dashboard"   title='Dashboard' data-toggle='popover'  data-content='Viewing the Merchants,Stores & Terminals.'><i class='icon icon-users icon-white'></i>&nbsp;Merchant Dashboard</a> &nbsp;
  				 </div>	
 			</div>
 								  

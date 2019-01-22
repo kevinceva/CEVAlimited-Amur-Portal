@@ -849,7 +849,7 @@ div.tab button:hover {
 
 .form-group label {
 	color: #2f3c4d;;
-	text-align: right;
+	text-align: left !important;
 	font-weight: 500;
 	font-size: 11px;
 	letter-spacing: 0.5px;
@@ -943,6 +943,11 @@ a.btn {
 	border-radius: 3px;
 }
 
+tbody a.btn {
+	margin: 0;
+	color: #fff;
+}
+
 #view-offer, #send-alert {
 	margin: -5px 0 !important;
 }
@@ -1022,13 +1027,24 @@ a.btn {
 	padding: 3px 3px;
 }
 
+#prdImgPrev {
+	width: 200px;
+	height: auto;
+}
+
 
 .form-table td {
-	width: 50%;
+	width: 25%;
 }
 
 .form-group textarea {
 	
+}
+
+#merchantImageView, #merchantImageViewConfirm{
+	height: 150px;
+	width: auto;
+	border-radius: 3px;
 }
 
 .amur_forms {
@@ -1128,7 +1144,6 @@ a.btn {
 }
 
 .modal-header {
-	width: 750px;
 	height: 40px;
 	line-height: 40px;
 	padding: 0 10px;
@@ -1166,6 +1181,9 @@ a.btn {
 	font-weight: 700;
 }
 
+.btn-status {
+	padding: 0 5px;
+}
 
 /*-------------------------------modal print-------------------------------*/
 @media print and (color) {

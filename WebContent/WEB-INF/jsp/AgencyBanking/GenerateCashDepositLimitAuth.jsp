@@ -84,7 +84,7 @@ var linkStatus = new Array();
 						"<td>"+v.requestedBy+"</span></td>"+
 						"<td>"+v.requestedDate+"</span></td>"+
 						//"<td class='center '><a id='store-cd-limit-approve' class='btn btn-danger' href='#' index='"+rowindex+"'>Approve/Reject</a> &nbsp;<a id='store-cd-limit-approve-view' class='btn btn-danger' href='#' index='"+rowindex+"'>View Status</a></tr>";
-						"<td class='center'><a id='store-cd-limit-approve' class='"+status_class+"' href='#' index='"+rowindex+"' title='"+text1+"' data-rel='tooltip'>"+text+"</a> &nbsp;<a id='store-cd-limit-approve-view' class='btn btn-info' href='#' index='"+rowindex+"' title='View Status' data-rel='tooltip'><i class='icon icon-page icon-white'></i></a></tr>";							
+						"<td class='center'><a id='store-cd-limit-approve' class='"+status_class+"' href='#' index='"+rowindex+"' title='"+text1+"' data-toggle='tooltip'>"+text+"</a> &nbsp;<a id='store-cd-limit-approve-view' class='btn btn-info' href='#' index='"+rowindex+"' title='View Status' data-toggle='tooltip'><i class='icon icon-page icon-white'></i></a></tr>";							
 					$("#storeTBody").append(appendTxt);	
 					rowindex = ++rowindex;
 			});

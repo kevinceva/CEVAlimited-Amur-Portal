@@ -23,7 +23,7 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.export.JRCsvExporter;
 import net.sf.jasperreports.engine.export.JRCsvExporterParameter;
-import net.sf.jasperreports.engine.export.JRHtmlExporter;
+//import net.sf.jasperreports.engine.export.JRHtmlExporter;
 import net.sf.jasperreports.engine.export.JRHtmlExporterParameter;
 import net.sf.jasperreports.engine.export.JRTextExporter;
 import net.sf.jasperreports.engine.export.JRTextExporterParameter;
@@ -208,8 +208,8 @@ public class ReportController {
 					logger.debug("Starting Time to generate Report ["
 							+ genFileName + ".html" + "] [   "
 							+ GenUtils.getCurrentTime());
-					generateHTMLOutput(jasperPrint, outPath, srcFileName,
-							genFileName, mapPrams);
+					/*generateHTMLOutput(jasperPrint, outPath, srcFileName,
+							genFileName, mapPrams);*/
 					logger.debug("Ending Time to generate Report ["
 							+ genFileName + ".html" + "] [   "
 							+ GenUtils.getCurrentTime());
@@ -448,7 +448,7 @@ public class ReportController {
 					JRXlsAbstractExporterParameter.IS_DETECT_CELL_TYPE,
 					Boolean.valueOf(true));
 			exporter.setParameter(
-					JRXlsAbstractExporterParameter.IS_AUTO_DETECT_CELL_TYPE,
+					JRXlsAbstractExporterParameter.IS_DETECT_CELL_TYPE,
 					Boolean.valueOf(true));
 			exporter.setParameter(
 					JRXlsAbstractExporterParameter.CHARACTER_ENCODING, "UTF-8");
@@ -614,7 +614,7 @@ public class ReportController {
 		}
 	}
 
-	public void generateHTMLOutput(JasperPrint jasperPrint,
+	/*public void generateHTMLOutput(JasperPrint jasperPrint,
 			String destinationPath, String fileName, String genFileName,
 			HashMap<String, Object> params) throws IOException, JRException,
 			Exception {
@@ -656,5 +656,5 @@ public class ReportController {
 			rptFileName = null;
 			strFileName = null;
 		}
-	}
+	}*/
 }

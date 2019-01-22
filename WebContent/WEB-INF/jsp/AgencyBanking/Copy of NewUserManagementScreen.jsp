@@ -166,8 +166,8 @@
 		  <div id="tabs-1">
 			    <div class="box-content" id="top-layer-anchor">
 					 <div>
-						<a href="#" class="btn btn-success" id="merchant-add"   title='Add New Merchant' data-rel='popover'  data-content='Creating a new merchant.'><i class='icon icon-plus icon-white'></i>&nbsp;Add New Merchant</a> &nbsp; 
-	 					<a href="#" class="btn btn-primary" id="merchant-dashboard"   title='Dashboard' data-rel='popover'  data-content='Viewing the Merchants,Stores & Terminals.'><i class='icon icon-users icon-white'></i>&nbsp;Merchant Dashboard</a> &nbsp;
+						<a href="#" class="btn btn-success" id="merchant-add"   title='Add New Merchant' data-toggle='popover'  data-content='Creating a new merchant.'><i class='icon icon-plus icon-white'></i>&nbsp;Add New Merchant</a> &nbsp; 
+	 					<a href="#" class="btn btn-primary" id="merchant-dashboard"   title='Dashboard' data-toggle='popover'  data-content='Viewing the Merchants,Stores & Terminals.'><i class='icon icon-users icon-white'></i>&nbsp;Merchant Dashboard</a> &nbsp;
 	 				 </div>	
 				</div>
 				
@@ -242,12 +242,12 @@
 														 <td class='hidden-phone'><s:property value="value" /></td>
 													 </s:elseif>
 												</s:iterator> 
-												<td><a id='store-create' class='btn btn-success' href='#' index="<s:property value='#userInDetStatus1.index' />" title='Create Store' data-rel='tooltip'><i class='icon icon-plus icon-white'></i></a>&nbsp;
-													<a id='merchant-modify' class='btn btn-warning' href='#' index="<s:property value='#userInDetStatus1.index' />" title='Merchant Modify' data-rel='tooltip'><i class='icon icon-edit icon-white'></i></a>&nbsp;
-													<a id='merchant-view' class='btn btn-info' href='#' index="<s:property value='#userInDetStatus1.index' />" title='View' data-rel='tooltip'><i class='icon icon-note icon-white'></i></a>&nbsp;
+												<td><a id='store-create' class='btn btn-success' href='#' index="<s:property value='#userInDetStatus1.index' />" title='Create Store' data-toggle='tooltip'><i class='icon icon-plus icon-white'></i></a>&nbsp;
+													<a id='merchant-modify' class='btn btn-warning' href='#' index="<s:property value='#userInDetStatus1.index' />" title='Merchant Modify' data-toggle='tooltip'><i class='icon icon-edit icon-white'></i></a>&nbsp;
+													<a id='merchant-view' class='btn btn-info' href='#' index="<s:property value='#userInDetStatus1.index' />" title='View' data-toggle='tooltip'><i class='icon icon-note icon-white'></i></a>&nbsp;
 													 
 													<s:if test="#attr.labelstatus != 'true'" > 
-														<a id='merchant-terminate' class='btn <s:property value="#statusclass" />' href='#' index="<s:property value='#userInDetStatus1.index' />" title='<s:property value="#text1" />' data-rel='tooltip' ><i class='icon <s:property value="#text" /> icon-white'></i></a>&nbsp; 
+														<a id='merchant-terminate' class='btn <s:property value="#statusclass" />' href='#' index="<s:property value='#userInDetStatus1.index' />" title='<s:property value="#text1" />' data-toggle='tooltip' ><i class='icon <s:property value="#text" /> icon-white'></i></a>&nbsp; 
 													</s:if>
 													
 												</td>

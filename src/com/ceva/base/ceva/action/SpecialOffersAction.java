@@ -31,10 +31,11 @@ import com.ceva.util.HttpPostRequestHandler;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
-public class SpecialOffersAction extends ActionSupport implements 
-ServletRequestAware, ServletContextAware, ModelDriven<TravelOffers> {
+public class SpecialOffersAction extends ActionSupport {
 	
 	Logger logger = Logger.getLogger(SpecialOffersAction.class);
+	ResourceBundle resourceBundle = ResourceBundle.getBundle("pathinfo_config");
+	public String serverIp = resourceBundle.getString("AMUR_WEB_SERVICE");
 	
 	String result;
 	JSONObject requestJSON = null;
@@ -68,49 +69,6 @@ ServletRequestAware, ServletContextAware, ModelDriven<TravelOffers> {
 		return super.execute();
 	}
 	
-	/*public String fetchSpecialOffers(){
-		
-		System.out.println("Inside Special Offers Action");
-		
-		logger.debug("inside [SpecialOffersAction][fetchSpecialOffers].. ");
-		SpecialOffersDAO offersDAO = null;
-		ArrayList<String> errors = null;
-		try {
-			requestJSON = new JSONObject();
-			requestDTO = new RequestDTO();
-			requestDTO.setRequestJSON(requestJSON);
-			logger.debug("Request DTO [" + requestDTO + "]");
-			offersDAO = new SpecialOffersDAO();
-			responseDTO = offersDAO.fetchSpecialOffersDetails(requestDTO);
-			logger.debug("Response DTO [" + responseDTO + "]");
-
-			if (responseDTO != null && responseDTO.getErrors().size() == 0) {
-				responseJSON = (JSONObject) responseDTO.getData().get("OFFER_LIST");
-				logger.debug("Response JSON [" + responseJSON + "]");
-				result = "success";
-			} else {
-				errors = (ArrayList<String>) responseDTO.getErrors();
-				for (int i = 0; i < errors.size(); i++) {
-					addActionError(errors.get(i));
-				}
-				result = "fail";
-			}
-		} catch (Exception e) {
-			result = "fail";
-			logger.debug("Exception in [SpecialOffersAction][fetchSpecialOffers] [" + e.getMessage()
-					+ "]");
-			addActionError("Internal error occured.");
-		} finally {
-			requestDTO = null;
-			responseDTO = null;
-			requestJSON = null;
-
-			errors = null;
-			offersDAO = null;
-		}
-		
-		return "success";
-	}*/
 	
 	public String fetchSpecialOffers(){
 		
@@ -121,7 +79,7 @@ ServletRequestAware, ServletContextAware, ModelDriven<TravelOffers> {
 		try {
 			offersJsonArray = new JSONArray();
 			HttpPostRequestHandler httpPostRequestHandler = new HttpPostRequestHandler();
-			String webServiceURL = "http://104.42.234.123:5555/amurcore/amur/travel/fetchtraveloffers";
+			String webServiceURL = serverIp+"/amurcore/amur/travel/fetchtraveloffers";
 
 			logger.debug("Web Service URL  :::: " + webServiceURL);
 			String json1 = httpPostRequestHandler.sendRestPostRequest(webServiceURL);
@@ -181,7 +139,7 @@ ServletRequestAware, ServletContextAware, ModelDriven<TravelOffers> {
 			
 			System.out.println("prdid ["+offerid+"] type["+type+"]");
 			HttpPostRequestHandler httpPostRequestHandler = new HttpPostRequestHandler();
-			String webServiceURL = "http://104.42.234.123:5555/amurcore/amur/travel/viewtraveloffer/"+offerid;
+			String webServiceURL = serverIp+"/amurcore/amur/travel/viewtraveloffer/"+offerid;
 
 			logger.debug("Web Service URL  :::: " + webServiceURL);
 			String json1 = httpPostRequestHandler.sendRestPostRequest(webServiceURL);
@@ -252,7 +210,7 @@ ServletRequestAware, ServletContextAware, ModelDriven<TravelOffers> {
 			System.out.println("Travel info"+info);
 			
 			HttpPostRequestHandler httpPostRequestHandler = new HttpPostRequestHandler();
-			String webServiceURL = "http://104.42.234.123:5555/amurcore/amur/travel/createtraveloffer/"
+			String webServiceURL = serverIp+"/amurcore/amur/travel/createtraveloffer/"
 			+dealname+"/"+country+"/"+startdate+"/"+enddate+"/"+operatorname+"/"+category+"/"+price+"/"+availablebookings+"/"
 			+itinerary+"/"+info+"/"+term+"/"+userid;
 
@@ -301,14 +259,12 @@ ServletRequestAware, ServletContextAware, ModelDriven<TravelOffers> {
 		String offerId = obj.getString("offerId");	
 		
 		try {
-			/*http://104.42.234.123:1234/amurcore/amur/travel/modifytraveloffer/{travelOfferId}/{dealName}/{dealCountry}/{startDate}/{endDate}/{operatorName}/{offerType}/{amount}/{maxBookings}/{travelItinerary}/{importantInfo}/{terms}/{createdBy}*/
 			
-			//String offerid = getPrdid();
 			String type = getType();
 			
 			System.out.println("prdid ["+offerId+"] type["+type+"]");
 			HttpPostRequestHandler httpPostRequestHandler = new HttpPostRequestHandler();
-			String webServiceURL = "http://104.42.234.123:5555/amurcore/amur/travel/modifytraveloffer/"+offerId+"/"
+			String webServiceURL = serverIp+"/amurcore/amur/travel/modifytraveloffer/"+offerId+"/"
 			+dealname+"/"+country+"/"+startdate+"/"+enddate+"/"+operatorname+"/"+category+"/"+price+"/"+availablebookings+"/"
 			+travelitinerary+"/"+importantinfo+"/"+terms+"/"+userid;
 
@@ -409,7 +365,7 @@ ServletRequestAware, ServletContextAware, ModelDriven<TravelOffers> {
 	}
 
 
-	@Override
+	/*@Override
 	public void setServletContext(ServletContext arg0) {
 		// TODO Auto-generated method stub
 		this.context = arg0;
@@ -425,7 +381,7 @@ ServletRequestAware, ServletContextAware, ModelDriven<TravelOffers> {
 	public TravelOffers getModel() {
 		// TODO Auto-generated method stub
 		return travelsBean;
-	}
+	}*/
 
 	public String getItinerary() {
 		return itinerary;

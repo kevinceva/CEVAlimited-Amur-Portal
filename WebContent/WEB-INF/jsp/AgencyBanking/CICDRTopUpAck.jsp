@@ -101,7 +101,7 @@ var toDisp = '${type}';
 			
 <%-- 			<div class="box-content" id="top-layer-anchor">
 				<span>
-				<!-- 	<a href="#" class="btn btn-info" id="sms-details" title='SMS' data-rel='popover'  data-content='SMS Details.'>
+				<!-- 	<a href="#" class="btn btn-info" id="sms-details" title='SMS' data-toggle='popover'  data-content='SMS Details.'>
 					<i class="icon icon-web icon-white"></i>&nbsp;SMS Details</a> &nbsp; -->
 					 <input type="button" class="btn btn-info" type="text"  name="agents" id="agents" value="Agents"   ></input>							
 				</span>

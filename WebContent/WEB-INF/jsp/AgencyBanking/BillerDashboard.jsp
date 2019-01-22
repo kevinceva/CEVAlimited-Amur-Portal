@@ -157,7 +157,7 @@ $(document).on('click','a',function(event) {
 		
 	<div class="box-content" id="top-layer-anchor">
 		 <div>
-			<a href="#" class="btn btn-success" id="create-new-biller" title='Add New Biller' data-rel='popover' data-content='Creating a new biller.'><i class='icon icon-plus icon-white'></i>&nbsp;Add New Biller</a>
+			<a href="#" class="btn btn-success" id="create-new-biller" title='Add New Biller' data-toggle='popover' data-content='Creating a new biller.'><i class='icon icon-plus icon-white'></i>&nbsp;Add New Biller</a>
 			 </div>	
 	</div>
 			
@@ -214,9 +214,9 @@ $(document).on('click','a',function(event) {
 											<td class='hidden-phone'><s:property value="#billerData['makerDttm']" />  </td>
 											<td> 
 												 <p>
-													 <a class='btn btn-warning' href='#' id='biller-edit' index="<s:property value='#billerDataStatus.index' />" title='Edit Biller' data-rel='tooltip'><i class='icon icon-edit icon-white'></i></a>&nbsp;
-													 <a class='btn btn-info' href='#' id='biller-view' index="<s:property value='#billerDataStatus.index' />" title='View Biller' data-rel='tooltip'><i class='icon icon-page icon-white'></i></a>&nbsp;
-													 <a class='btn btn-success' href='#' id='biller-upload-data' index="<s:property value='#billerDataStatus.index' />" title='Upload Biller Data' data-rel='tooltip'><i class='icon icon-star-on icon-white'></i></a>
+													 <a class='btn btn-warning' href='#' id='biller-edit' index="<s:property value='#billerDataStatus.index' />" title='Edit Biller' data-toggle='tooltip'><i class='icon icon-edit icon-white'></i></a>&nbsp;
+													 <a class='btn btn-info' href='#' id='biller-view' index="<s:property value='#billerDataStatus.index' />" title='View Biller' data-toggle='tooltip'><i class='icon icon-page icon-white'></i></a>&nbsp;
+													 <a class='btn btn-success' href='#' id='biller-upload-data' index="<s:property value='#billerDataStatus.index' />" title='Upload Biller Data' data-toggle='tooltip'><i class='icon icon-star-on icon-white'></i></a>
 												</p>
 											</td> 
 			                      		</tr>

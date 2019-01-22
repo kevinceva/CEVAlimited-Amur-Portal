@@ -232,18 +232,7 @@ $(function(){
 			<fieldset>
 				<table width="100%" border="0" cellpadding="5" cellspacing="1" 
 					id="table table-striped table-bordered bootstrap-datatable">
-						<%-- <tr  id="tr-mobile">
-							<td  >&nbsp;</td>
-							<td  > <label for="Mobile"><strong>Mobile / Poilcy Number</strong></label></td>
-							<td  class="mobile"><strong> <input name="name" type="text"  id="mob" name="mobile" /></strong></td>
-							</select></td>
-						</tr> --%>
-						<%-- <tr  id="tr-policy">
-							<td  >&nbsp;</td>
-							<td  > <label for="Policy"><strong>Poilcy Number</strong></label></td>
-							<td  class="policy"><strong> <input name="name" type="text"  id="pno" name="policy" /></strong></td>
-							</select></td>
-						</tr> --%>						
+									
 						<tr  id="tr-reportname">
 							<td  >&nbsp;</td>
 							<td  > <label for="Report Name"><strong>Report Name<font color="red">*</font></strong></label></td>
@@ -408,32 +397,15 @@ $(function(){
 						&& fromDate!="" 
 						&& toDate!="" 
 						&& v_reportName != 'Not Required') {   
-					/*  var v_region  = $("#region").text()  == null ? 'NO' :  setSelValues("region") ; 
-					 var v_headOffice  = $("#headOffice").text() == null ? 'NO' :  setSelValues("headOffice") ; 
-					 var v_Location = $("#Location").text() == null ? 'NO' :  setSelValues("Location") ; 
-					 var v_userid =  $("#userid").val() == null  ? 'NO' :  setSelValues("userid") ;   */
 					 var v_bank = $("#bank option:selected").val();
-					/*  var v_txnType =  $("#txnType").text()  == null ? '-NO-' :  setSelValues("txnType") ; 
-					 var v_custprof =  $("#custprof").val() == null  ? '-NO-' :  setSelValues("custprof") ;  */
-					 
-					 
 					 var v_cid  = $("#cid").val()  == null ? '-NO-' :  $("#cid").val() ; 
 					 var v_mob  = $("#mob").val()  == null ? '-NO-' :  $("#mob").val() ; 
 					 var v_pno  = $("#pno").val()  == null ? '-NO-' :  $("#pno").val() ; 
-					 
-/* 					 alert("value of 222222222  mob:"+v_mob+"------"+v_cid+"------"+v_pno);
- */					 
+			 
 					 var v_reportName_1 = "";
 					 var flag = false;
 					 var extraParam = "";
-						
-				/* 	 v_region  = (v_region == '' || v_region.indexOf("Not Required") != -1 ) ? 'NO' :  v_region ; 
-					 v_headOffice  = (v_headOffice == '' || v_headOffice.indexOf("Not Required") != -1 ) ? 'NO' :  v_headOffice ; 
-					 v_Location = (v_Location == '' || v_Location.indexOf("Not Required") != -1 ) ? 'NO' :  v_Location ; 
-					 v_userid =  (v_userid == '' || v_userid.indexOf("Not Required") != -1 ) ? 'NO' :  v_userid ; 
-					 v_txnType = (v_txnType == '' || v_txnType.indexOf("Not Required") != -1 ) ? '-NO-' :  v_txnType ; 
-					 v_custprof = (v_custprof == '' || v_custprof.indexOf("Not Required") != -1 ) ? '-NO-' :  v_custprof ;  */
-					 
+			
 					 v_cid  = (v_cid == '' || v_cid.indexOf("Not Required") != -1 ) ? '-NO-' :  v_cid ;
 					 v_pno  = (v_pno == '' || v_pno.indexOf("Not Required") != -1 ) ? '-NO-' :  v_pno ;
 					 v_mob  = (v_mob == '' || v_mob.indexOf("Not Required") != -1 ) ? '-NO-' :  v_mob ;
@@ -587,7 +559,7 @@ $(function(){
 						$('#eparam').val(extraParam);
 					/* 	alert("values of 1 :"+$('#dateCheck').val());
 						alert("values of 2 :"+$('#eparam').val()); */
-						
+						alert("Generate report pressed.");
 						$("#form1")[0].action="${pageContext.request.contextPath}/<%=appName %>/cicreportsall.action";
 						$('#form1').submit(); 
 					}

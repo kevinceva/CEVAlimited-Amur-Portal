@@ -53,7 +53,7 @@ test param is:<%= request.getParameter("merchantId")%> --%>
 					"<td>"+v.merchantID+"</span> </td>"+ 
 					"<td>"+v.status+"</span> </td>"+ 
 					"<td>"+v.makerDate+"</span></td>"+
-					"<td><a class='btn btn-success' href='#' id='terminal-create'  index='"+rowindex+"' title='Create Terminal' data-rel='tooltip' ><i class='icon icon-plus icon-white'></i></a>&nbsp; <a class='btn btn-warning' href='#' id='store-modify' index='"+rowindex+"' title='Modify' data-rel='tooltip'><i class='icon icon-edit icon-white'></i></a>&nbsp; <a class='btn btn-info' href='#' id='store-view'  index='"+rowindex+"' title='View' data-rel='tooltip'><i class='icon icon-page icon-white'></i></a>&nbsp;																								 </td>"+
+					"<td><a class='btn btn-success' href='#' id='terminal-create'  index='"+rowindex+"' title='Create Terminal' data-toggle='tooltip' ><i class='icon icon-plus icon-white'></i></a>&nbsp; <a class='btn btn-warning' href='#' id='store-modify' index='"+rowindex+"' title='Modify' data-toggle='tooltip'><i class='icon icon-edit icon-white'></i></a>&nbsp; <a class='btn btn-info' href='#' id='store-view'  index='"+rowindex+"' title='View' data-toggle='tooltip'><i class='icon icon-page icon-white'></i></a>&nbsp;																								 </td>"+
 					"</tr>";
 						
 						$("#SBody").append(appendTxt);	

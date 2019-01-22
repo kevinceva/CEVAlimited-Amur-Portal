@@ -64,7 +64,7 @@ $(document).ready(function () {
         "<td>"+v.disctype_json+"</span></td>"+
         "<td>"+v.quantity+"</span> </td>"+ 
         "<td>"+v.createdDate+"</span> </td>"+
-        "<td><a id='modify-product' class='btn btn-warning' href='#' index='"+rowindex+"'  title='Edit Product' data-rel='tooltip' ><i class='icon icon-edit icon-white'></i></a> &nbsp;<a id='view-product' class='btn btn-success' index='"+rowindex+"'  href='#' title='View Product' data-rel='tooltip' ><i class='icon icon-book icon-white'></i></a> </td></tr>";
+        "<td><a id='modify-product' class='btn btn-warning' href='#' index='"+rowindex+"'  title='Edit Product' data-toggle='tooltip' ><i class='icon icon-edit icon-white'></i></a> &nbsp;<a id='view-product' class='btn btn-success' index='"+rowindex+"'  href='#' title='View Product' data-toggle='tooltip' ><i class='icon icon-book icon-white'></i></a> </td></tr>";
             
             $("#merchantTBody").append(appendTxt);  
             rowindex = ++rowindex;
@@ -200,7 +200,7 @@ $(document).ready(function() {
         <li class="breadcrumb-item active">Riders</li>
         <li class="function-buttons">
             <div id="add_button">
-                <a href="createRiderPage.action?pid=<%=session.getAttribute("session_refno").toString() %>" class="btn btn-info" id="rider-creation" title='New Rider Creation' data-rel='popover'  data-content='Creating a new rider'>Create Rider</a>
+                <a href="createRiderPage.action?pid=<%=session.getAttribute("session_refno").toString() %>" class="btn btn-info" id="rider-creation" title='New Rider Creation' data-toggle='popover'  data-content='Creating a new rider'>Create Rider</a>
             </div>
         </li>
     </ol>

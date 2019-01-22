@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.export.JRHtmlExporter;
+//import net.sf.jasperreports.engine.export.JRHtmlExporter;
 import net.sf.jasperreports.engine.export.JRHtmlExporterParameter;
 
 import org.apache.log4j.Logger;
@@ -39,7 +39,7 @@ public class HtmlReportExporterServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = null;
 		PrintWriter printWriter = null;
-		JRHtmlExporter htmlExporter = null;
+		//JRHtmlExporter htmlExporter = null;
 		JasperPrint jasperPrint = null;
 		try {
 			session = request.getSession(false);
@@ -47,23 +47,20 @@ public class HtmlReportExporterServlet extends HttpServlet {
 			printWriter = response.getWriter();
 			jasperPrint = (JasperPrint) session.getAttribute("jasperPrintObj");
 			logger.debug("JasperPrintObj :: " + jasperPrint);
-			htmlExporter = new JRHtmlExporter();
+			//htmlExporter = new JRHtmlExporter();
 			response.setContentType("text/html");
 			/*
 			 * session.setAttribute( "net.sf.jasperreports.j2ee.jasper_print",
 			 * jasperPrint);
 			 */
 
-			htmlExporter.setParameter(JRExporterParameter.JASPER_PRINT,
+			/*htmlExporter.setParameter(JRExporterParameter.JASPER_PRINT,
 					jasperPrint);
 			htmlExporter.setParameter(JRExporterParameter.OUTPUT_WRITER,
 					printWriter);
 			htmlExporter.setParameter(JRHtmlExporterParameter.IMAGES_URI,
 					"image?image=");
-			htmlExporter.exportReport();
-		} catch (JRException e) {
-			logger.debug(" JRException Raised : " + e.getMessage());
-			e.printStackTrace(printWriter);
+			htmlExporter.exportReport();*/
 		} catch (Exception e) {
 			logger.debug(" Exception Raised : " + e.getMessage());
 			e.printStackTrace(printWriter);
@@ -74,7 +71,7 @@ public class HtmlReportExporterServlet extends HttpServlet {
 				printWriter.close();
 			}
 			printWriter = null;
-			htmlExporter = null;
+			//htmlExporter = null;
 		}
 	}
 }

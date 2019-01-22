@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
+import java.util.ResourceBundle;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -32,6 +33,9 @@ public class OrderAction extends ActionSupport {
 		
 	private static final long serialVersionUID = 1L;
 	Logger logger = Logger.getLogger(OrderAction.class);
+	ResourceBundle resourceBundle = ResourceBundle.getBundle("pathinfo_config");
+	public String serverIp = resourceBundle.getString("AMUR_WEB_SERVICE");
+	
 	
 	String result;
 	JSONObject requestJSON = null;
@@ -371,7 +375,7 @@ public class OrderAction extends ActionSupport {
 			
 			System.out.println("prdid ["+orderId+"] rider["+rider+"]");
 			HttpPostRequestHandler httpPostRequestHandler = new HttpPostRequestHandler();
-			String webServiceURL = "http://104.42.234.123:5555/amurcore/amur/rider/assignorerstorider/"+rider+"/"+orderId+"/"+user_Id;
+			String webServiceURL = serverIp+"/amurcore/amur/rider/assignorerstorider/"+rider+"/"+orderId+"/"+user_Id;
 			
 			logger.debug("Web Service URL  :::: " + webServiceURL);
 			String json1 = httpPostRequestHandler.sendRestPostRequest(webServiceURL);

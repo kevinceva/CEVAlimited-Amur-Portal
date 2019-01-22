@@ -253,7 +253,7 @@ var addBankInfo = function (clickType) {
 		appendTxt = "<tr class="+addclass+" align='center' id='tr-"+rowindex+"' index='"+rowindex+"'>"+
 				"<td class='col_"+colindex+"'>"+colindex+"</td>"+ tabArrText+ 
 				//"<td><a class='btn btn-min btn-info' href='#' id='editDat' index='"+rowindex+"'> <i class='icon-edit icon-white'></i></a> &nbsp;<a class='btn btn-min btn-warning' href='#' id='row-cancel-bank' index='"+rowindex+"'> <i class='icon icon-undo icon-white'></i></a>&nbsp; <a class='btn btn-min btn-danger' href='#' id='delete-bank' index='"+rowindex+"'> <i class='icon-trash icon-white'></i></a></td></tr>";
-				"<td><a class='btn btn-min btn-info' href='#' id='editDatBank' index='"+rowindex+"' title='Edit' data-rel='tooltip'> <i class='icon-edit icon-white'></i></a> &nbsp;<a class='btn btn-min btn-warning' href='#' id='row-cancel-bank' index='"+rowindex+"' title='Reset' data-rel='tooltip'> <i class='icon icon-undo icon-white'></i></a>&nbsp; <a class='btn btn-min btn-danger' href='#' id='delete-bank' index='"+rowindex+"' title='Delete' data-rel='tooltip'> <i class='icon-trash icon-white'></i></a></td></tr>";
+				"<td><a class='btn btn-min btn-info' href='#' id='editDatBank' index='"+rowindex+"' title='Edit' data-toggle='tooltip'> <i class='icon-edit icon-white'></i></a> &nbsp;<a class='btn btn-min btn-warning' href='#' id='row-cancel-bank' index='"+rowindex+"' title='Reset' data-toggle='tooltip'> <i class='icon icon-undo icon-white'></i></a>&nbsp; <a class='btn btn-min btn-danger' href='#' id='delete-bank' index='"+rowindex+"' title='Delete' data-toggle='tooltip'> <i class='icon-trash icon-white'></i></a></td></tr>";
  		
 	} catch(e) {
 		console.log(e);
@@ -320,7 +320,7 @@ function recordCheck(idtocheck,userIdInput){
 }
 
 function loadToolTip(){
-	$('[rel="tooltip"],[data-rel="tooltip"]').tooltip({"placement":"bottom",delay: { show: 400, hide: 200 }});
+	$('[rel="tooltip"],[data-toggle="tooltip"]').tooltip({"placement":"bottom",delay: { show: 400, hide: 200 }});
 }
 
 $(function(){
@@ -662,7 +662,7 @@ var addAgentInfo = function (clickType) {
 		
 		appendTxt = "<tr class="+addclass+" align='center' id='tr-"+rowindex+"' index='"+rowindex+"'>"+
 				"<td class='col_"+colindex+"'>"+colindex+"</td>"+ tabArrText+ 
- 				"<td><a class='btn btn-min btn-info' href='#' id='editDatAgent' index='"+rowindex+"' title='Edit' data-rel='tooltip'> <i class='icon-edit icon-white'></i></a> &nbsp;<a class='btn btn-min btn-warning' href='#' id='row-cancel-agent' index='"+rowindex+"' title='Reset' data-rel='tooltip'> <i class='icon icon-undo icon-white'></i></a>&nbsp; <a class='btn btn-min btn-danger' href='#' id='delete-agent' index='"+rowindex+"' title='Delete' data-rel='tooltip'> <i class='icon-trash icon-white'></i></a></td></tr>";
+ 				"<td><a class='btn btn-min btn-info' href='#' id='editDatAgent' index='"+rowindex+"' title='Edit' data-toggle='tooltip'> <i class='icon-edit icon-white'></i></a> &nbsp;<a class='btn btn-min btn-warning' href='#' id='row-cancel-agent' index='"+rowindex+"' title='Reset' data-toggle='tooltip'> <i class='icon icon-undo icon-white'></i></a>&nbsp; <a class='btn btn-min btn-danger' href='#' id='delete-agent' index='"+rowindex+"' title='Delete' data-toggle='tooltip'> <i class='icon-trash icon-white'></i></a></td></tr>";
 		 
 		
 	} catch(e) {
@@ -980,7 +980,7 @@ var addDocsInfo = function (clickType) {
 		
 		appendTxt = "<tr class="+addclass+" align='center' id='tr-"+rowindex+"' index='"+rowindex+"'>"+
 				"<td class='col_"+colindex+"'>"+colindex+"</td>"+ tabArrText+ 
- 				"<td><a class='btn btn-min btn-info' href='#' id='editDatDocs' index='"+rowindex+"' title='Edit' data-rel='tooltip'> <i class='icon-edit icon-white'></i></a> &nbsp;<a class='btn btn-min btn-warning' href='#' id='row-cancel-docs' index='"+rowindex+"' title='Reset' data-rel='tooltip'> <i class='icon icon-undo icon-white'></i></a>&nbsp; <a class='btn btn-min btn-danger' href='#' id='delete-docs' index='"+rowindex+"' title='Delete' data-rel='tooltip'> <i class='icon-trash icon-white'></i></a></td></tr>";
+ 				"<td><a class='btn btn-min btn-info' href='#' id='editDatDocs' index='"+rowindex+"' title='Edit' data-toggle='tooltip'> <i class='icon-edit icon-white'></i></a> &nbsp;<a class='btn btn-min btn-warning' href='#' id='row-cancel-docs' index='"+rowindex+"' title='Reset' data-toggle='tooltip'> <i class='icon icon-undo icon-white'></i></a>&nbsp; <a class='btn btn-min btn-danger' href='#' id='delete-docs' index='"+rowindex+"' title='Delete' data-toggle='tooltip'> <i class='icon-trash icon-white'></i></a></td></tr>";
  		
 	} catch(e) {
 		console.log(e);
@@ -1501,9 +1501,9 @@ $(function(){
 												</s:if>
 											</s:iterator>  
 										</s:generator>
-									<td><a class='btn btn-min btn-info' href='#' id='editDatBank' index='<s:property value="#mulDataStatus.index" />' title='Edit' data-rel='tooltip'> <i class='icon-edit icon-white'></i></a> &nbsp;
-										<a class='btn btn-min btn-warning' href='#' id='row-cancel-bank' index='<s:property value="#mulDataStatus.index" />' title='Reset' data-rel='tooltip'> <i class='icon icon-undo icon-white'></i></a>&nbsp; 
-										<a class='btn btn-min btn-danger' href='#' id='delete-bank' index='<s:property value="#mulDataStatus.index" />' title='Delete' data-rel='tooltip'> <i class='icon-trash icon-white'></i></a>
+									<td><a class='btn btn-min btn-info' href='#' id='editDatBank' index='<s:property value="#mulDataStatus.index" />' title='Edit' data-toggle='tooltip'> <i class='icon-edit icon-white'></i></a> &nbsp;
+										<a class='btn btn-min btn-warning' href='#' id='row-cancel-bank' index='<s:property value="#mulDataStatus.index" />' title='Reset' data-toggle='tooltip'> <i class='icon icon-undo icon-white'></i></a>&nbsp; 
+										<a class='btn btn-min btn-danger' href='#' id='delete-bank' index='<s:property value="#mulDataStatus.index" />' title='Delete' data-toggle='tooltip'> <i class='icon-trash icon-white'></i></a>
 									</td>
 								</tr>
 							</s:iterator> 
@@ -1610,9 +1610,9 @@ $(function(){
 														<td><s:property /></td> 
 													</s:iterator>  
 												</s:generator>
-											<td><a class='btn btn-min btn-info' href='#' id='editDatAgent' index='<s:property value="#mulDataStatus.index" />' title='Edit' data-rel='tooltip'> <i class='icon-edit icon-white'></i></a> &nbsp;
-												<a class='btn btn-min btn-warning' href='#' id='row-cancel-agent' index='<s:property value="#mulDataStatus.index" />' title='Reset' data-rel='tooltip'> <i class='icon icon-undo icon-white'></i></a>&nbsp; 
-												<a class='btn btn-min btn-danger' href='#' id='delete-agent' index='<s:property value="#mulDataStatus.index" />' title='Delete' data-rel='tooltip'> <i class='icon-trash icon-white'></i></a>
+											<td><a class='btn btn-min btn-info' href='#' id='editDatAgent' index='<s:property value="#mulDataStatus.index" />' title='Edit' data-toggle='tooltip'> <i class='icon-edit icon-white'></i></a> &nbsp;
+												<a class='btn btn-min btn-warning' href='#' id='row-cancel-agent' index='<s:property value="#mulDataStatus.index" />' title='Reset' data-toggle='tooltip'> <i class='icon icon-undo icon-white'></i></a>&nbsp; 
+												<a class='btn btn-min btn-danger' href='#' id='delete-agent' index='<s:property value="#mulDataStatus.index" />' title='Delete' data-toggle='tooltip'> <i class='icon-trash icon-white'></i></a>
 											</td>
 										</tr>
 									</s:iterator>
@@ -1725,9 +1725,9 @@ $(function(){
 															<td><s:property /></td> 
 													</s:iterator>  
 												</s:generator>
-											<td><a class='btn btn-min btn-info' href='#' id='editDatDocs' index='<s:property value="#mulDataStatus.index" />' title='Edit' data-rel='tooltip'> <i class='icon-edit icon-white'></i></a> &nbsp;
-												<a class='btn btn-min btn-warning' href='#' id='row-cancel-docs' index='<s:property value="#mulDataStatus.index" />' title='Reset' data-rel='tooltip'> <i class='icon icon-undo icon-white'></i></a>&nbsp; 
-												<a class='btn btn-min btn-danger' href='#' id='delete-docs' index='<s:property value="#mulDataStatus.index" />' title='Delete' data-rel='tooltip'> <i class='icon-trash icon-white'></i></a>
+											<td><a class='btn btn-min btn-info' href='#' id='editDatDocs' index='<s:property value="#mulDataStatus.index" />' title='Edit' data-toggle='tooltip'> <i class='icon-edit icon-white'></i></a> &nbsp;
+												<a class='btn btn-min btn-warning' href='#' id='row-cancel-docs' index='<s:property value="#mulDataStatus.index" />' title='Reset' data-toggle='tooltip'> <i class='icon icon-undo icon-white'></i></a>&nbsp; 
+												<a class='btn btn-min btn-danger' href='#' id='delete-docs' index='<s:property value="#mulDataStatus.index" />' title='Delete' data-toggle='tooltip'> <i class='icon-trash icon-white'></i></a>
 											</td>
 										</tr>
 									</s:iterator>

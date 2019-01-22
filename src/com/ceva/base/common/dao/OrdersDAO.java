@@ -466,10 +466,10 @@ public class OrdersDAO {
 
 			while (orderRS.next()) {
 				orderListJSON.put("PRD_NAME", orderRS.getString(1));
-				orderListJSON.put("UNIT_PRICE", orderRS.getString(2));
-				orderListJSON.put("TOTAL_PRICE", orderRS.getString(3));
+				orderListJSON.put("UNIT_PRICE", orderRS.getString(2)+".00");
+				orderListJSON.put("TOTAL_PRICE", orderRS.getString(3)+".00");
 				orderListJSON.put("QUANTITY", orderRS.getString(4));
-				orderListArray.add(orderListJSON);
+				orderListArray.add(orderListJSON);				
 				orderListJSON.clear();
 			}
 
@@ -483,7 +483,7 @@ public class OrdersDAO {
 				riderArray.add(riderJSON);
 				riderJSON.clear();
 			}
-
+			System.out.println("Order products :: "+orderListArray.toString());
 			DBUtils.closeResultSet(orderRS);
 			DBUtils.closePreparedStatement(orderPstmt);
 			DBUtils.closeConnection(connection);

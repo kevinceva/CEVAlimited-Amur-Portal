@@ -391,8 +391,8 @@ $(document).on('click','a',function(event) {
 			
 			<div class="box-content" id="top-layer-anchor">
 				 <div>
-					<a href="#" class="btn btn-success" id="merchant-add"   title='Add New Merchant' data-rel='popover'  data-content='Creating a new merchant.'><i class='icon icon-plus icon-white'></i>&nbsp;Add New Merchant</a> &nbsp; 
- 					<a href="#" class="btn btn-primary" id="merchant-dashboard"   title='Dashboard' data-rel='popover'  data-content='Viewing the Merchants,Stores & Terminals.'><i class='icon icon-users icon-white'></i>&nbsp;Merchant Dashboard</a> &nbsp;
+					<a href="#" class="btn btn-success" id="merchant-add"   title='Add New Merchant' data-toggle='popover'  data-content='Creating a new merchant.'><i class='icon icon-plus icon-white'></i>&nbsp;Add New Merchant</a> &nbsp; 
+ 					<a href="#" class="btn btn-primary" id="merchant-dashboard"   title='Dashboard' data-toggle='popover'  data-content='Viewing the Merchants,Stores & Terminals.'><i class='icon icon-users icon-white'></i>&nbsp;Merchant Dashboard</a> &nbsp;
  				 </div>	
 			</div>
 								  
@@ -473,12 +473,12 @@ $(document).on('click','a',function(event) {
 											 <td class='hidden-phone'><s:property value="value" /></td>
 										 </s:elseif>
 									</s:iterator> 
-									<td><a id='store-create' class='btn btn-success' href='#' index="<s:property value='#userInDetStatus1.index' />" title='Create Store' data-rel='tooltip'><i class='icon icon-plus icon-white'></i></a>&nbsp;
-										<a id='merchant-modify' class='btn btn-warning' href='#' index="<s:property value='#userInDetStatus1.index' />" title='Merchant Modify' data-rel='tooltip'><i class='icon icon-edit icon-white'></i></a>&nbsp;
-										<a id='merchant-view' class='btn btn-info' href='#' index="<s:property value='#userInDetStatus1.index' />" title='View' data-rel='tooltip'><i class='icon icon-note icon-white'></i></a>&nbsp;
+									<td><a id='store-create' class='btn btn-success' href='#' index="<s:property value='#userInDetStatus1.index' />" title='Create Store' data-toggle='tooltip'><i class='icon icon-plus icon-white'></i></a>&nbsp;
+										<a id='merchant-modify' class='btn btn-warning' href='#' index="<s:property value='#userInDetStatus1.index' />" title='Merchant Modify' data-toggle='tooltip'><i class='icon icon-edit icon-white'></i></a>&nbsp;
+										<a id='merchant-view' class='btn btn-info' href='#' index="<s:property value='#userInDetStatus1.index' />" title='View' data-toggle='tooltip'><i class='icon icon-note icon-white'></i></a>&nbsp;
 										 
 										<s:if test="#attr.labelstatus != 'true'" > 
-											<a id='merchant-terminate' class='btn <s:property value="#statusclass" />' href='#' index="<s:property value='#userInDetStatus1.index' />" title='<s:property value="#text1" />' data-rel='tooltip' ><i class='icon <s:property value="#text" /> icon-white'></i></a>&nbsp; 
+											<a id='merchant-terminate' class='btn <s:property value="#statusclass" />' href='#' index="<s:property value='#userInDetStatus1.index' />" title='<s:property value="#text1" />' data-toggle='tooltip' ><i class='icon <s:property value="#text" /> icon-white'></i></a>&nbsp; 
 										</s:if>
 										
 									</td>
@@ -571,12 +571,12 @@ $(document).on('click','a',function(event) {
 											<td><a href='#' class='label <s:property value="#merchStatus" />' index="<s:property value='#userInDetStatus1.index' />" ><s:property value="#userInDetails1['status']" /></a></td>									  
 											<td class='hidden-phone'><s:property value="#userInDetails1['makerDate']" /></td> 
 											<td>
-												<a class='btn btn-success' href='#' id='terminal-create'  index="<s:property value='#userInDetStatus1.index' />" title='Create Terminal' data-rel='tooltip' ><i class='icon icon-plus icon-white'></i></a>&nbsp;
-												<a class='btn btn-warning' href='#' id='store-modify' index="<s:property value='#userInDetStatus1.index' />" title='Modify' data-rel='tooltip'><i class='icon icon-edit icon-white'></i></a>&nbsp;
-												<a class='btn btn-info' href='#' id='store-view'  index="<s:property value='#userInDetStatus1.index' />" title='View' data-rel='tooltip'><i class='icon icon-page icon-white'></i></a>&nbsp;																								
+												<a class='btn btn-success' href='#' id='terminal-create'  index="<s:property value='#userInDetStatus1.index' />" title='Create Terminal' data-toggle='tooltip' ><i class='icon icon-plus icon-white'></i></a>&nbsp;
+												<a class='btn btn-warning' href='#' id='store-modify' index="<s:property value='#userInDetStatus1.index' />" title='Modify' data-toggle='tooltip'><i class='icon icon-edit icon-white'></i></a>&nbsp;
+												<a class='btn btn-info' href='#' id='store-view'  index="<s:property value='#userInDetStatus1.index' />" title='View' data-toggle='tooltip'><i class='icon icon-page icon-white'></i></a>&nbsp;																								
 												
 												<s:if test="#userInDetails1['status'] != 'Un-Authorize'" >
-												 	<a class='btn <s:property value="#statusclass" />' href='#' id='store-terminate' index="<s:property value='#userInDetStatus1.index' />" title='<s:property value="#text1" />' data-rel='tooltip'> <i class='icon <s:property value="#text" /> icon-white'></i> </a>&nbsp;
+												 	<a class='btn <s:property value="#statusclass" />' href='#' id='store-terminate' index="<s:property value='#userInDetStatus1.index' />" title='<s:property value="#text1" />' data-toggle='tooltip'> <i class='icon <s:property value="#text" /> icon-white'></i> </a>&nbsp;
 												 </s:if> 
 												
 											</td> 
@@ -673,14 +673,14 @@ $(document).on('click','a',function(event) {
 											<td class='hidden-phone'><s:property value="#userInDetails1['makerDate']" /></td> 
 											<td>
 												<p>
-													<a class='btn btn-success' href='#' id='terminal-assign-services' index="<s:property value='#userInDetStatus1.index' />" title='Assign Services' data-rel='tooltip'><i class='icon icon-plus icon-white'></i></a>&nbsp;
-													<a class='btn btn-info' href='#' id='terminal-services-view' index="<s:property value='#userInDetStatus1.index' />" title='View Services' data-rel='tooltip'><i class='icon icon-page icon-white'></i></a>&nbsp;
-													<a class='btn btn-success' href='#' id='terminal-assign-user' index="<s:property value='#userInDetStatus1.index' />" title='Assign Users' data-rel='tooltip'><i class='icon icon-star-on icon-white'></i></a>
+													<a class='btn btn-success' href='#' id='terminal-assign-services' index="<s:property value='#userInDetStatus1.index' />" title='Assign Services' data-toggle='tooltip'><i class='icon icon-plus icon-white'></i></a>&nbsp;
+													<a class='btn btn-info' href='#' id='terminal-services-view' index="<s:property value='#userInDetStatus1.index' />" title='View Services' data-toggle='tooltip'><i class='icon icon-page icon-white'></i></a>&nbsp;
+													<a class='btn btn-success' href='#' id='terminal-assign-user' index="<s:property value='#userInDetStatus1.index' />" title='Assign Users' data-toggle='tooltip'><i class='icon icon-star-on icon-white'></i></a>
 												</p>
-												<p>	<a class='btn btn-warning' href='#' id='terminal-modify' index="<s:property value='#userInDetStatus1.index' />" title='Modify' data-rel='tooltip'><i class='icon icon-edit icon-white'></i></a>&nbsp;
-													<a class='btn btn-info' href='#' 	id='terminal-view' 	index="<s:property value='#userInDetStatus1.index' />" title='View' data-rel='tooltip'><i class='icon icon-note icon-white'></i></a>&nbsp;
+												<p>	<a class='btn btn-warning' href='#' id='terminal-modify' index="<s:property value='#userInDetStatus1.index' />" title='Modify' data-toggle='tooltip'><i class='icon icon-edit icon-white'></i></a>&nbsp;
+													<a class='btn btn-info' href='#' 	id='terminal-view' 	index="<s:property value='#userInDetStatus1.index' />" title='View' data-toggle='tooltip'><i class='icon icon-note icon-white'></i></a>&nbsp;
 													<s:if test="#userInDetails1['status'] != 'Un-Authorize'" >
-														<a class='btn <s:property value="#statusclass" />' href='#' id='terminal-terminate' index="<s:property value='#userInDetStatus1.index' />" title='<s:property value="#text1" />' data-rel='tooltip'><i class='icon <s:property value="#text" /> icon-white'></i></a>
+														<a class='btn <s:property value="#statusclass" />' href='#' id='terminal-terminate' index="<s:property value='#userInDetStatus1.index' />" title='<s:property value="#text1" />' data-toggle='tooltip'><i class='icon <s:property value="#text" /> icon-white'></i></a>
 													</s:if> 
 												</p> 
 											</td> 

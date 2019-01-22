@@ -95,7 +95,7 @@ $(document).ready(function () {
 		"<td style='display:none'>"+v.manufacturerId+" </td>"+
 		"<td>"+v.manufacturerContact+"</td>"+ 
 		"<td>"+v.manufacturerSecondContact+"</td>"+  
-		"<td><a id='modify-manufacturer' href='#' index='"+rowindex+"' data-toggle='tooltip' data-placement='bottom' title='Edit Manufacturer' ><img class='action-button' alt='Edit' src='${pageContext.request.contextPath}/images/edit-button.png'></a> &nbsp;&nbsp;<a id='view-manufacturer' index='"+rowindex+"'  href='#' title='View Manufacturer' data-rel='tooltip' ><img class='action-button' alt='Edit' src='${pageContext.request.contextPath}/images/view-button.png'></a> </td></tr>";
+		"<td><a id='modify-manufacturer' href='#' index='"+rowindex+"' data-toggle='tooltip' data-placement='bottom' title='Edit Manufacturer' ><img class='action-button' alt='Edit' src='${pageContext.request.contextPath}/images/edit-button.png'></a> &nbsp;&nbsp;<a id='view-manufacturer' index='"+rowindex+"'  href='#' title='View Manufacturer' data-toggle='tooltip' ><img class='action-button' alt='Edit' src='${pageContext.request.contextPath}/images/view-button.png'></a> </td></tr>";
 			
 			
 			$("#merchantTBody").append(appendTxt);	
@@ -236,7 +236,7 @@ $(document).ready(function() {
         <li class="breadcrumb-item active">Manufacturer Information</li>
         <li class="function-buttons">
             <div id="add_button">
-                <a href="createManufacturer.action" class="btn activate" id="manufacturer-create" title='New Manufacturer Creation' data-rel='popover'  data-content='Creating a new Manufacturer'>Add New Manufacturer</a>
+                <a href="createManufacturer.action" class="btn activate" id="manufacturer-create" title='New Manufacturer Creation' data-toggle='popover'  data-content='Creating a new Manufacturer'>Add New Manufacturer</a>
             </div>
         </li>
     </ol>       

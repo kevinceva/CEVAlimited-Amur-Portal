@@ -178,7 +178,7 @@ function dashBoardItems(data) {
 					appendTxt+="</div><div class='sortable row-fluid' id='sortable'>";
 					valMul++;
 				}
-				appendTxt += "<a data-rel='tooltip' title='Ksh 0' class='well span3 top-block' href='#'><span class='icon32 icon-color icon-briefcase'></span> <div>"+query_key+"</div> <div></div> <span class='notification'>"+query_val+"</span></a>";
+				appendTxt += "<a data-toggle='tooltip' title='Ksh 0' class='well span3 top-block' href='#'><span class='icon32 icon-color icon-briefcase'></span> <div>"+query_key+"</div> <div></div> <span class='notification'>"+query_val+"</span></a>";
 				val++;
 			}
 	 	}); 

@@ -110,7 +110,7 @@ public class UserManagementUserPagination extends HttpServlet {
 			ja.put(rs.getString(2));
 			ja.put(rs.getString(3));
 			ja.put(rs.getString(4));
-			ja.put("<a id='create-user' class='btn btn-info'  href='#' index='1' title='Create User' data-rel='tooltip' ><i class='icon icon-plus icon-white'></i></a>&nbsp;<a id='modify-group'  class='btn btn-warning' href='#' index='1'  title='Modify Group' data-rel='tooltip' ><i class='icon icon-edit icon-white'></i></a> &nbsp;&nbsp;<a id='view-group' class='btn btn-success' index='1'  href='#' title='View Group' data-rel='tooltip' ><i class='icon icon-book icon-white'></i></a>&nbsp;");
+			ja.put("<a id='create-user' class='btn btn-info'  href='#' index='1' title='Create User' data-toggle='tooltip' ><i class='icon icon-plus icon-white'></i></a>&nbsp;<a id='modify-group'  class='btn btn-warning' href='#' index='1'  title='Modify Group' data-toggle='tooltip' ><i class='icon icon-edit icon-white'></i></a> &nbsp;&nbsp;<a id='view-group' class='btn btn-success' index='1'  href='#' title='View Group' data-toggle='tooltip' ><i class='icon icon-book icon-white'></i></a>&nbsp;");
 			array.put(ja); 
 			i++;
 		}

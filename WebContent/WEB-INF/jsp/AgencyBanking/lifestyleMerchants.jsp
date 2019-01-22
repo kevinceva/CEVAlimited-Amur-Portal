@@ -6,6 +6,7 @@
 <%@taglib uri="/struts-tags" prefix="s"%>  
 <%String ctxstr = request.getContextPath(); %>
 <% String appName= session.getAttribute(CevaCommonConstants.ACCESS_APPL_NAME).toString(); %>
+
 <script type="text/javascript" >
 
 
@@ -19,11 +20,11 @@ function postData(actionName,paramString){
     $(paramArray).each(function(indexTd,val) {
         if(val != "") {
             input = $("<input />").attr("type", "hidden").attr("name", val.split("=")[0]).val(val.split("=")[1].trim());
-            $('form').append($(input));  
+            $('#form2').append($(input));  
         }
     }); 
 
-    $('form').submit(); 
+    $('#form2').submit(); 
 } 
 
 
@@ -44,6 +45,7 @@ $(document).ready(function(){
 	    var rowindex = 0;
 	    var colindex = 0;
 	    var addclass = "";
+	    var merchantStatus = null;
 	    $.each(json, function(i, v) {
 	        if(val % 2 == 0 ) {
 	            addclass = "even";
@@ -53,6 +55,12 @@ $(document).ready(function(){
 	            addclass = "odd";
 	            val++;
 	        }  
+	        
+	        if(v.MERCHANT_STATUS == "A") {
+	        	merchantStatus = '<button type="button" class="btn btn-success btn-status">Active</button>';
+	        } else {
+	        	merchantStatus = '<button type="button" class="btn btn-secondary btn-status">Inactive</button>';
+	        }
 	        var rowCount = $('#storeTBody > tr').length;
 	        
 	        //rowindex = ++rowindex;
@@ -60,11 +68,14 @@ $(document).ready(function(){
 	        
 	        var appendTxt = "<tr class="+addclass+" index='"+rowindex+"' id='"+rowindex+"' > "+
 	        "<td >"+colindex+"</td>"+  
-	        "<td><id='SEARCH_NO' value='prdid@"+v.MERCHANT_ID+"' aria-controls='DataTables_Table_0'>"+v.MERCHANT_NAME+"</span> </td>"+ 
+	        "<td><id='SEARCH_NO' value='merchantId@"+v.MERCHANT_ID+"' aria-controls='DataTables_Table_0'>"+v.MERCHANT_NAME+"</span> </td>"+ 
+	        "<td style='display:none'>"+v.MERCHANT_ID+" </td>"+
+	        "<td>"+v.MERCHANT_MOBILE+"</td>"+ 
 	        "<td>"+v.MERCHANT_EMAIL+"</td>"+ 
-	        "<td>"+v.MERCHANT_TILL_NO+"</td>"+   
+	        "<td>"+v.MERCHANT_ADDRESS+"</td>"+ 
+	        "<td>"+merchantStatus+"</td>"+   
 	        "<td>"+v.DATE_CREATED+"</span> </td>"+ 
-	        "<td><a id='modify-offer' class='btn btn-warning' href='#' index='"+rowindex+"' title='Edit Offer' data-rel='tooltip' ><i class='icon icon-edit icon-white'></i></a> &nbsp;<a id='view-offer' class='btn btn-success' index='"+rowindex+"'  href='#' title='View Offer' data-rel='tooltip' ><i class='icon icon-book icon-white'></i></a> </td></tr>";
+	        "<td><a id='modify-merchant' class='btn btn-warning' href='#' index='"+rowindex+"' title='Edit Offer' data-toggle='tooltip' ><i class='icon icon-edit icon-white'></i></a> &nbsp;<a id='view-merchant' class='btn btn-success' index='"+rowindex+"'  href='#' title='View Offer' data-toggle='tooltip' ><i class='icon icon-book icon-white'></i></a> </td></tr>";
 	            
 	            $("#merchantTBody").append(appendTxt);  
 	            rowindex = ++rowindex;
@@ -77,13 +88,13 @@ $(document).ready(function(){
 
 $(document).on('click','a',function(event) {
     var v_id=$(this).attr('id');
-     console.log("value of v_id["+v_id+"]");
+    // console.log("value of v_id["+v_id+"]");
     if(v_id != 'SEARCH_NO') {
         var disabled_status= $(this).attr('disabled'); 
         var queryString = 'entity=${loginEntity}'; 
         var v_action = "NO";
         
-        var groupId = "";  
+        var merchantId = "";  
         var userId = "";   
         console.log("disabled_status["+disabled_status+"]"); 
         /* var index1 = $(this).attr('index'); */  
@@ -106,7 +117,7 @@ $(document).on('click','a',function(event) {
                  // Anchor Tag ID Should Be Equal To TR OF Index
                 $(searchTdRow).each(function(indexTd) {  
                     if(indexTd == 2) {
-                        groupId = $(this).text(); 
+                    	merchantId = $(this).text(); 
                     }
                 }); 
 
@@ -118,18 +129,17 @@ $(document).on('click','a',function(event) {
                     queryString += '&type=Modify'; 
                 } 
                 
-                queryString += '&prdid='+groupId;  
+                queryString += '&merchantID='+merchantId;
             }
         } else {
         
             // No Rights To Access The Link 
         }
-        console.log("queryString["+queryString+"]");
+        
         if(v_action != "NO") {
              postData(v_action+".action",queryString);
         
-            //$("#form1")[0].action="<%=ctxstr%>/<%=appName %>/"+v_action+".action"+queryString;
-            //$("#form1").submit();
+            
         }
     } else {
         // The below code is for quick searching.
@@ -184,8 +194,10 @@ $(document).on('click','a',function(event) {
                 <tr>
                     <th>S No.</th>
                     <th>Merchant Name</th>
+                    <th>Phone Number</th>
                     <th>Email</th>
-                    <th>MPESA Till Number</th>
+                    <th>Address</th>
+                    <th>Status</th>
                     <th>Date Created</th>
                     <th>Actions</th>
                 </tr>

@@ -130,7 +130,7 @@ $(document).ready(function () {
 			"<td>"+v.serviceName+"</td>"+ 
 			"<td class='center hidden-phone'>"+v.makerId+" </td>"+ 
 			"<td class='hidden-phone'>"+v.makerDate+" </td>"+
-			"<td><p><a id='sub-service-create' class='btn btn-success' href='#' index='"+rowindex+"' title='Create Sub Service' data-rel='tooltip'><i class='icon icon-plus icon-white'></i></a>&nbsp;<a  id='service-view' class='btn btn-info' href='#' index='"+rowindex+"' title='View' data-rel='tooltip'><i class='icon icon-note icon-white'></i></a></p></td></tr>";
+			"<td><p><a id='sub-service-create' class='btn btn-success' href='#' index='"+rowindex+"' title='Create Sub Service' data-toggle='tooltip'><i class='icon icon-plus icon-white'></i></a>&nbsp;<a  id='service-view' class='btn btn-info' href='#' index='"+rowindex+"' title='View' data-toggle='tooltip'><i class='icon icon-note icon-white'></i></a></p></td></tr>";
 			
 			$("#merchantTBody").append(appendTxt);	
 			rowindex = ++rowindex;
@@ -194,7 +194,7 @@ $(document).ready(function () {
 							"<td ><a href='#' id='SEARCH_NO'>"+v.subServiceCode+"</a></td>"+
 							"<td>"+v.subServiceName+"</td>"+
 							"<td class='hidden-phone'>"+v.makerDate+"</td>"+
-							"<td><p> <a  class='btn btn-warning' href='#' id='fee-create' index='"+storerowindex+"' title='Create Fee' data-rel='tooltip'><i class='icon icon-plus icon-white'></i></a>&nbsp;<a  class='btn btn-info' href='#' id='sub-service-view' index='"+storerowindex+"' title='View' data-rel='tooltip'><i class='icon icon-note icon-white'></i></a></p></td></tr>";
+							"<td><p> <a  class='btn btn-warning' href='#' id='fee-create' index='"+storerowindex+"' title='Create Fee' data-toggle='tooltip'><i class='icon icon-plus icon-white'></i></a>&nbsp;<a  class='btn btn-info' href='#' id='sub-service-view' index='"+storerowindex+"' title='View' data-toggle='tooltip'><i class='icon icon-note icon-white'></i></a></p></td></tr>";
 				$("#"+StoreTBody).append(appendTxt);	
 				storerowindex = ++storerowindex;
 				storecolindex = ++ storecolindex;  
@@ -268,7 +268,7 @@ $(document).ready(function () {
 							"<td class='hidden-phone'>"+v.serviceCode+"</span></td>"+
 							"<td class='center hidden-phone'>"+v.makerId+"</span></td>"+
 							"<td class='hidden-phone'>"+v.makerDate+"</span></td>"+
-							"<td><a class='btn btn-warning' href='#' id='fee-view' index='"+terminalrowindex+"' title='View' data-rel='tooltip'><i class='icon icon-note icon-white'></i></a></td></tr>";
+							"<td><a class='btn btn-warning' href='#' id='fee-view' index='"+terminalrowindex+"' title='View' data-toggle='tooltip'><i class='icon icon-note icon-white'></i></a></td></tr>";
 								
 							$("#"+terminalTBody).append(appendTxt);	
 							terminalrowindex = ++terminalrowindex;

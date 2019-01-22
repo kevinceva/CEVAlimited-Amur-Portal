@@ -305,8 +305,8 @@ $(document).on('click','a',function(event) {
 			
 			<div class="box-content" id="top-layer-anchor">
 				 <div>
-					<a href="#" class="btn btn-success" id="biller-add"   title='Add New Biller' data-rel='popover'  data-content='Creating a new merchant.'><i class='icon icon-plus icon-white'></i>&nbsp;Add New Biller</a> &nbsp; 
-					<a href="#" class="btn btn-success" id="biller-transaction-history"   title='Transaction History' data-rel='popover'  data-content='View Pay bill Transactions.'><i class='icon icon-minus icon-white'></i>&nbsp;Transaction History</a> &nbsp;
+					<a href="#" class="btn btn-success" id="biller-add"   title='Add New Biller' data-toggle='popover'  data-content='Creating a new merchant.'><i class='icon icon-plus icon-white'></i>&nbsp;Add New Biller</a> &nbsp; 
+					<a href="#" class="btn btn-success" id="biller-transaction-history"   title='Transaction History' data-toggle='popover'  data-content='View Pay bill Transactions.'><i class='icon icon-minus icon-white'></i>&nbsp;Transaction History</a> &nbsp;
  				 </div>	
 			</div>
 								  
@@ -376,9 +376,9 @@ $(document).on('click','a',function(event) {
 											 <td class='hidden-phone'><s:property value="value" /></td>
 										 </s:elseif>
 									</s:iterator> 
-									<td><a id='biller-account-create' class='btn btn-success' href='#' index="<s:property value='#userInDetStatus1.index' />" title='Create Biller Account' data-rel='tooltip'><i class='icon icon-plus icon-white'></i></a>&nbsp;
-										<a id='biller-modify' class='btn btn-warning' href='#' index="<s:property value='#userInDetStatus1.index' />" title='Biller Modify' data-rel='tooltip'><i class='icon icon-edit icon-white'></i></a>&nbsp;
-										<a id='biller-view' class='btn btn-info' href='#' index="<s:property value='#userInDetStatus1.index' />" title='Biller View' data-rel='tooltip'><i class='icon icon-note icon-white'></i></a>&nbsp;
+									<td><a id='biller-account-create' class='btn btn-success' href='#' index="<s:property value='#userInDetStatus1.index' />" title='Create Biller Account' data-toggle='tooltip'><i class='icon icon-plus icon-white'></i></a>&nbsp;
+										<a id='biller-modify' class='btn btn-warning' href='#' index="<s:property value='#userInDetStatus1.index' />" title='Biller Modify' data-toggle='tooltip'><i class='icon icon-edit icon-white'></i></a>&nbsp;
+										<a id='biller-view' class='btn btn-info' href='#' index="<s:property value='#userInDetStatus1.index' />" title='Biller View' data-toggle='tooltip'><i class='icon icon-note icon-white'></i></a>&nbsp;
 										
 									</td>
  								</tr> 
@@ -447,8 +447,8 @@ $(document).on('click','a',function(event) {
 											<td class='center hidden-phone'><s:property value="#userInDetails1['MAKER_ID']" /></td> 
 											<td class='center hidden-phone'><s:property value="#userInDetails1['MAKER_DATE']" /></td> 
 											<td>
-												<a id='biller-account-modify' class='btn btn-warning' href='#' index="<s:property value='#userInDetStatus1.index' />" title='Biller Account Modify' data-rel='tooltip'><i class='icon icon-edit icon-white'></i></a>&nbsp;
-												<a class='btn btn-info' href='#' id='biller-account-view'  index="<s:property value='#userInDetStatus1.index' />" title='View' data-rel='tooltip'><i class='icon icon-page icon-white'></i></a>&nbsp;																								
+												<a id='biller-account-modify' class='btn btn-warning' href='#' index="<s:property value='#userInDetStatus1.index' />" title='Biller Account Modify' data-toggle='tooltip'><i class='icon icon-edit icon-white'></i></a>&nbsp;
+												<a class='btn btn-info' href='#' id='biller-account-view'  index="<s:property value='#userInDetStatus1.index' />" title='View' data-toggle='tooltip'><i class='icon icon-page icon-white'></i></a>&nbsp;																								
 												
 											</td> 
 									</tr>

@@ -120,7 +120,7 @@ if(text.trim() == 'APPROVED') {
 		"<td>"+v.MOB+"</span></td>"+
 		"<td>"+v.MKRDT+"</span></td>"+
 		"<td>"+sttd+"</span></td>"+
-		"<td><a id='modify-client'  class='btn btn-warning' href='#' index='"+rowindex+"'  title='Modify Client' data-rel='tooltip' ><i class='icon icon-edit icon-white'></i></a> &nbsp;<a id='view-client' class='btn btn-success' index='"+rowindex+"'  href='#' title='View Client' data-rel='tooltip' ><i class='icon icon-book icon-white'></i></a> </td></tr>";
+		"<td><a id='modify-client'  class='btn btn-warning' href='#' index='"+rowindex+"'  title='Modify Client' data-toggle='tooltip' ><i class='icon icon-edit icon-white'></i></a> &nbsp;<a id='view-client' class='btn btn-success' index='"+rowindex+"'  href='#' title='View Client' data-toggle='tooltip' ><i class='icon icon-book icon-white'></i></a> </td></tr>";
 		/* 
 		"<td >"+colindex+"</td>"+
 		"<td><a href='#' id='SEARCH_NO' value='CLIENTID@"+v.CLIENT_ID+"' aria-controls='DataTables_Table_0'>"+v.CLIENT_ID+"</span></td>"+	
@@ -135,7 +135,7 @@ if(text.trim() == 'APPROVED') {
 		"<td>"+v.EMAIL+"</span></td>"+
 		"<td>"+v.MKRDT+"</span></td>"+
 		"<td>"+v.STATUS+"</span></td>"+
-		"<td><a class='btn btn-info' id='create-user' href='#' index='"+rowindex+"' title='Create User' data-rel='tooltip' ><i class='icon icon-plus icon-white'></i></a>&nbsp;<a id='modify-group'  class='btn btn-warning' href='#' index='"+rowindex+"'  title='Modify Group' data-rel='tooltip' ><i class='icon icon-edit icon-white'></i></a> &nbsp;&nbsp;<a id='view-group' class='btn btn-success' index='"+rowindex+"'  href='#' title='View Group' data-rel='tooltip' ><i class='icon icon-book icon-white'></i></a>&nbsp;&nbsp;<a id='user-authorize' class='btn btn-success' index='"+rowindex+"'  href='#' title='Authorize User' data-rel='tooltip' ><i class='icon icon-unlocked icon-white'></i></a> </td></tr>"; */ 
+		"<td><a class='btn btn-info' id='create-user' href='#' index='"+rowindex+"' title='Create User' data-toggle='tooltip' ><i class='icon icon-plus icon-white'></i></a>&nbsp;<a id='modify-group'  class='btn btn-warning' href='#' index='"+rowindex+"'  title='Modify Group' data-toggle='tooltip' ><i class='icon icon-edit icon-white'></i></a> &nbsp;&nbsp;<a id='view-group' class='btn btn-success' index='"+rowindex+"'  href='#' title='View Group' data-toggle='tooltip' ><i class='icon icon-book icon-white'></i></a>&nbsp;&nbsp;<a id='user-authorize' class='btn btn-success' index='"+rowindex+"'  href='#' title='Authorize User' data-toggle='tooltip' ><i class='icon icon-unlocked icon-white'></i></a> </td></tr>"; */ 
 			
 			$("#merchantTBody").append(appendTxt);	
 			rowindex = ++rowindex;
@@ -233,7 +233,7 @@ if(text.trim() == 'APPROVED') {
 						    	sttd = "<a href='#' class='label label-warning' index='"+rowindex+"'>Policy Created</a>";
 						    } */						
 						
-						var lastTd="<p><a class='"+status_class+"' href='#' id='activ-deactiv-user' index='"+rowindex+"' title='"+text1+"' data-rel='tooltip' > "+text+"</a>&nbsp;<a  class='btn btn-success' href='#' id='view-user' index='"+rowindex+"' title='View User' data-rel='tooltip'> <i class='icon icon-book icon-white'></i></a>&nbsp;<a class='btn btn-warning' href='#' id='modify-user' index='"+rowindex+"'  title='Modify User' data-rel='tooltip'><i class='icon icon-edit icon-white'></i></a></p><p><a  class='btn btn-warning' id='assign-report-user'  href='#' index='"+rowindex+"' title='Assign Reports' data-rel='tooltip'><i class='icon icon-pdf icon-white'></i></a>&nbsp;<a  class='btn btn-primary' href='#' id='password-reset' index='"+rowindex+"' title='Password Reset' data-rel='tooltip'><i class='icon icon-redo icon-white'></i></a>&nbsp;<a  class='btn btn-info' id='assign-dashboard-user'  href='#' index='"+rowindex+"' title='Assign Dashboards' data-rel='tooltip' ><i class='icon icon-plus icon-white'></i></a></p> &nbsp;&nbsp;";
+						var lastTd="<p><a class='"+status_class+"' href='#' id='activ-deactiv-user' index='"+rowindex+"' title='"+text1+"' data-toggle='tooltip' > "+text+"</a>&nbsp;<a  class='btn btn-success' href='#' id='view-user' index='"+rowindex+"' title='View User' data-toggle='tooltip'> <i class='icon icon-book icon-white'></i></a>&nbsp;<a class='btn btn-warning' href='#' id='modify-user' index='"+rowindex+"'  title='Modify User' data-toggle='tooltip'><i class='icon icon-edit icon-white'></i></a></p><p><a  class='btn btn-warning' id='assign-report-user'  href='#' index='"+rowindex+"' title='Assign Reports' data-toggle='tooltip'><i class='icon icon-pdf icon-white'></i></a>&nbsp;<a  class='btn btn-primary' href='#' id='password-reset' index='"+rowindex+"' title='Password Reset' data-toggle='tooltip'><i class='icon icon-redo icon-white'></i></a>&nbsp;<a  class='btn btn-info' id='assign-dashboard-user'  href='#' index='"+rowindex+"' title='Assign Dashboards' data-toggle='tooltip' ><i class='icon icon-plus icon-white'></i></a></p> &nbsp;&nbsp;";
 						var firstTd = "<a href='#' id='SEARCH_NO' value='EACHUSER@"+v.POLICY_ID+"' >"+v.POLICY_ID+"</a>";
 						
 					        var i= t.row.add( [
@@ -294,7 +294,7 @@ if(text.trim() == 'APPROVED') {
 						selDisp+="</select>"; */
 						
 						 
-						var lastTd="<p><a class='btn btn-warning' href='#' id='modify-user-rights' index='' title='Modify Rights' data-rel='tooltip'> <i class='icon icon-edit icon-white'></i></a>&nbsp;<a  class='btn btn-info' href='#' id='view-user-rights' index='' title='View User Rights' data-rel='tooltip'><i class='icon icon-book icon-white'></i></a>&nbsp;";
+						var lastTd="<p><a class='btn btn-warning' href='#' id='modify-user-rights' index='' title='Modify Rights' data-toggle='tooltip'> <i class='icon icon-edit icon-white'></i></a>&nbsp;<a  class='btn btn-info' href='#' id='view-user-rights' index='' title='View User Rights' data-toggle='tooltip'><i class='icon icon-book icon-white'></i></a>&nbsp;";
 						//var firstTd = "<a href='#' id='SEARCH_NO' value='TERMINAL-"+v.user_id+"' >"+v.user_id+"</a>";
 							
 /* 							var i=terminalTable.row.add( [
@@ -574,15 +574,15 @@ $(document).on('click','a',function(event) {
 			
 <%-- 			<div class="box-content" id="top-layer-anchor">
 				<span>
-					<a href="#" class="btn btn-info" id="group-creation" title='New Group Creation' data-rel='popover'  data-content='Creating a new group.'>
+					<a href="#" class="btn btn-info" id="group-creation" title='New Group Creation' data-toggle='popover'  data-content='Creating a new group.'>
 					<i class="icon icon-web icon-white"></i>&nbsp;New Group Creation</a> &nbsp;							
 				</span>
 				<span>
-					<a href="#" class="btn btn-warning" id="dashboard" title='View Users' data-rel='popover'  data-content='Viewing the registered users.'>
+					<a href="#" class="btn btn-warning" id="dashboard" title='View Users' data-toggle='popover'  data-content='Viewing the registered users.'>
 					<i class="icon icon-briefcase icon-white"></i>&nbsp;View Users</a> &nbsp; 
 				</span> 	
 				<span>
-					<a href="#" class="btn btn-success" id="export-users" title='Export Users' data-rel='popover'  data-content='Exporting the registered users.'>
+					<a href="#" class="btn btn-success" id="export-users" title='Export Users' data-toggle='popover'  data-content='Exporting the registered users.'>
 					<i class="icon icon-briefcase icon-white"></i>&nbsp;Export Users</a> &nbsp; 
 				</span> 			 
 			</div>  --%>

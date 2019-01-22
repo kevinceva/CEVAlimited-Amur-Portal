@@ -70,7 +70,7 @@ $(document).ready(function () {
         "<td>"+v.MOBILE_NUMBER+"</td>"+ 
         "<td>"+v.SHIPPING_ADDRESS+"</td>"+
         "<td>"+v.TXN_DATE+"</td>"+ 
-        "<td><a id='view-order' index='"+rowindex+"'  href='#' title='View Order' data-rel='tooltip' ><img class='action-button' alt='View' src='${pageContext.request.contextPath}/images/view-button.png'></a> </td></tr>";
+        "<td><a id='view-order' index='"+rowindex+"'  href='#' title='View Order' data-toggle='tooltip' ><img class='action-button' alt='View' src='${pageContext.request.contextPath}/images/view-button.png'></a> </td></tr>";
             
             $("#merchantTBody").append(appendTxt);  
             rowindex = ++rowindex;

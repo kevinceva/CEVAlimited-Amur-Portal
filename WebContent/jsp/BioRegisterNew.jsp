@@ -73,8 +73,8 @@ $(document).ready(function () {
 				<div class="box-content" id="top-layer-anchor">
 				 <div style="text-align: center; text-decoration: none;">
  					<p>
-	 					<a style="width:250px;height: 35px !important;padding-top: 30px !important;" href="#" class="btn btn-success" id="new-profile"   title='New Profile Registration' data-rel='popover'  data-content='New Profile Registration'><i class='icon icon-users icon-white'></i>&nbsp;New Profile Registration</a> &nbsp;
-	 					<a style="width:250px;height: 35px !important;padding-top: 30px !important;" href="#" class="btn btn-info" id="exisitng-profile"   title='Existing Profile Bio Registration' data-rel='popover'  data-content='Existing Profile Bio Registration'><i class='icon icon-users icon-white'></i>&nbsp;Existing Profile Bio Registration</a> &nbsp;
+	 					<a style="width:250px;height: 35px !important;padding-top: 30px !important;" href="#" class="btn btn-success" id="new-profile"   title='New Profile Registration' data-toggle='popover'  data-content='New Profile Registration'><i class='icon icon-users icon-white'></i>&nbsp;New Profile Registration</a> &nbsp;
+	 					<a style="width:250px;height: 35px !important;padding-top: 30px !important;" href="#" class="btn btn-info" id="exisitng-profile"   title='Existing Profile Bio Registration' data-toggle='popover'  data-content='Existing Profile Bio Registration'><i class='icon icon-users icon-white'></i>&nbsp;Existing Profile Bio Registration</a> &nbsp;
  					</p>
  				 </div>	
 			</div>

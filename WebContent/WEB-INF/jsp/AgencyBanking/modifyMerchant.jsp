@@ -15,303 +15,466 @@
 
 <script type="text/javascript"> 
 
-var userLinkData ='${USER_LINKS}';
-var jsonLinks = jQuery.parseJSON(userLinkData);
-var linkIndex = new Array();
-var linkName = new Array();
-var linkStatus = new Array();
+var type = '${type}';
+var merchantInfoJson = '${responseJSON.MerchantInfo.MERCHANT_INFO}';
+var merchantCategories = '${responseJSON.MerchantCat}';
+//var merchantArray = merchantCategories.MERCHANTS_CATEGORIES;
 
-function clearVals(){ 
-    $('#merchantName').val('');
-    $('#merchantCategory').val('');
-    $('#merchantSubCategory').val('');
-    $('#categoryOption').val('');
-    $('#merchantBank').val('');
-    $('#accountNumber').val('');
-    
-}
+//console.log("Merchant Categories :::::::::::: "+JSON.parse(merchantCategories));
+var merchantCts = JSON.parse(merchantCategories);
+var merchantCategories = merchantCts.MERCHANTS_CATEGORIES;
+var merchantInformation = JSON.parse(merchantInfoJson);
+
+
+
 
 var validationRules = {
-        rules : {
-            merchantName : { required : true,  regex: /^[a-zA-Z0-9]+$/ },
-            merchantCategory : { required : true },
-            merchantSubCategory : { required : true },
-            categoryOption : { required : true },
-            merchantBank : { required : true,  regex: /^[a-zA-Z]+$/ },
-            accountNumber : { required : true,  regex: /^[0-9]+$/ }        
+		rules : {
+        	merchantName : { required : true,  regex: /^[a-zA-Z0-9.,-]{4,}(?: [a-zA-Z0-9.,-]+){0,}$/ },
+        	merchantTillNo : { required : true,  regex: /^[0-9]+$/ },
+        	merchantAddress : { required : true, regex: /^[a-zA-Z0-9.,-=]{0,}(?: [a-zA-Z0-9.,-=]+){0,}$/ },
+        	/*merchantCategory : { required : true, regex: /^[a-zA-Z0-9.,-=]{0,}(?: [a-zA-Z0-9.,-=]+){0,}$/ },
+        	merchantSubCategory : { required : true, reger: /^[a-zA-Z0-9.,-=]{0,}(?: [a-zA-Z0-9.,-=]+){0,}$/ },*/
+        	merchantEmail : { required : true },
+        	merchantMobile : { required : true, regex: /^[0-9]+$/ }
         },
         messages : {
-            merchantName : { 
-                        required : "Please enter the Merchant Name",
-                        regex : "Please use letters and numbers only."
-                      },
-            merchantCategory : { 
-                        required : "Please select a Category."
-                      },
-            merchantSubCategory : { 
-                        required : "Please select a Sub Category."
-                      },
-            categoryOption : { 
-                        required : "Please select a Sub Category."
-                      },
-            merchantBank : { 
-                        required : "Please enter the Merchant Bank.",
-                        regex : "Please use letters only."
-                      },
-            accountNumber : { 
-                        required : "Please enter Bank Account Number.",
-                        regex : "Please use numbers only."
-                      }
+        	merchantName : { required : "Please enter the Merchant Name", regex : "Please use letters and numbers only." },
+          	merchantTillNo : { required : "Please enter Mpesa Till Number.", regex : "Please use numbers only." },
+          	merchantAddress : { required : "Please enter the Merchant Address", regex : "Please use letters and numbers only." },
+          	/*merchantCategory : { required : "Select Merchant Category", regex : "Please use letters and numbers only." },
+          	merchantSubCategory : { required : "Select Merchant Sub Category", regex : "Please use letters and numbers only." },*/
+          	merchantEmail : { required : "Please enter Merchant Mobile Number" },
+          	merchantMobile : { required : "Please enter Merchant Mobile Number", regex : "Please use numbers only." }
         } 
 
 };
 
 
-</script>
-<script type="text/javascript">
 
+
+</script>
+
+<script type="text/javascript">
+function fetchMerchantSubCat(catname){
+	
+	var merchantCat = merchantCategories;
+	console.log("Merchant sub category ::"+merchantCat)
+	var merchantCategory=$('#merchantCategory').val();
+	//var arr = jQuery.parseJSON(merchantCat);
+	var arr = merchantCat;
+	var subarr ="";
+	for (var i = 0; i < arr.length; i++) 
+	{
+		if (merchantCategory==arr[i].CATEGORY_ID){
+			subarr =arr[i].SUBCATEGORIES;
+			$("#merchantSubCategory option").remove();
+			$('#merchantSubCategory').append('<option value="" disabled selected>Select Merchant Sub Category</option>');
+			for (var j = 0; j < subarr.length; j++) 
+			{				
+				var options1 = $('<option/>', {value: subarr[j].SUBCATEGORY_ID, text: subarr[j].SUBCATEGORY_NAME.replace(/[+]/g, " ")}).attr('data-id',j);
+				$('#merchantSubCategory, #merchantSubCategoryConfirm').append(options1);
+				//$('#merchantSubCategoryConfirm').append(options1);
+			}
+		}
+	} 
+}
+</script>
+
+<script type="text/javascript">
 
 $(document).ready(function(){
     
     $.validator.addMethod("regex", function(value, element, regexpr) {          
         return regexpr.test(value);
       }, ""); 
-       
-    $('#btn-verify').on('click',function(e) { 
+    
+    //$('#merchantCategory, #merchantSubCategory').select2();
+	//Populate merchant category and sub category
+	var merchantCat = merchantCategories;
+	
+	console.log("Merchant Category "+merchantCat);
+	//var arr = jQuery.parseJSON(merchantCat)
+	var arr = merchantCat;
+	
+	for (var i = 0; i < arr.length; i++) 
+	{
+	   	console.log('index: ' + i + ', id: ' + arr[i].CATEGORY_ID );    
+		var options = $('<option/>', {value: arr[i].CATEGORY_ID, text: arr[i].CATEGORY_NAME.replace(/[+]/g, " ")}).attr('data-id',i);
+		$('#merchantCategory, #merchantCategoryConfirm').append(options);
+		//$('#merchantCategoryConfirm').append(options);
+	}; 	
+	
+	//Image upload preveiwer
+	function readURL(input) {
+	    if (input.files && input.files[0]) {
+	        var reader = new FileReader();
+	        
+	        reader.onload = function (e) {
+	            $('#merchantImageView').attr('src', e.target.result);
+	            $('#merchantImageViewConfirm').attr('src', e.target.result);
+	        }	        
+	        reader.readAsDataURL(input.files[0]);
+	    }
+	}
+	
+	$(function(){
+		$("#merchantImage").change(function(){
+		    readURL(this);
+		});
+	});
+	
+	$('#btn-verify').on('click',function(e) { 
         
         var merchantName = $('#merchantName').val();
+        var merchantEmail = $('#merchantEmail').val();
+        var merchantTillNo = $('#merchantTillNo').val();   
+        var merchantMobile = $('#merchantEmail').val();
+        var merchantAddress = $('#merchantAddress').val();
         var merchantCategory = $('#merchantCategory').val();
-        var merchantSubCategory = $('#merchantSubCategory').val();      
-        var categoryOption = $('#categoryOption').val();
-        var merchantBank = $('#merchantBank').val();
-        var accountNumber = $('#accountNumber').val();     
+        var merchantSubCategory = $('#merchantSubCategory').val();
        
         $("#error_dlno").text('');     
         $("#form1").validate(validationRules); 
         if($("#form1").valid()) {
             
-            $("#confirm_merchantName").val(merchantName);
-            $("#confirm_merchantCategory").val(merchantCategory);
-            $("#confirm_merchantSubCategory").val(merchantSubCategory);
-            $("#confirm_categoryOption").val(categoryOption);
-            $("#confirm_merchantBank").val(merchantBank);
-            $("#confirm_accountNumber").val(accountNumber);
+            $("#merchantNameConfirm").val(merchantName);
+            $("#merchantEmailConfirm").val(merchantEmail);
+            $("#merchantTillNoConfirm").val(merchantTillNo);
+            $("#merchantMobileConfirm").val(merchantMobile);
+            $("#merchantAddressConfirm").val(merchantAddress);
+            $('#merchantCategoryConfirm').val(merchantCategory);
+        	//$('#merchantCategoryConfirm').trigger("liszt:updated");
+        	$('#merchantSubCategoryConfirm').val(merchantSubCategory);
+        	//$('#merchantSubCategoryConfirm').trigger("liszt:updated");
             
             $('#my_modal').modal('show');              
         }
         
-    });   
+    });  
     
-    $('#btn-submit').on('click',function(e) {       
-        $("#confirm_form")[0].action="<%=request.getContextPath()%>/<%=appName %>/confirmMerchant.action";
-        $("#confirm_form").submit();
-        clearVals();        
-    });
+    if(type == "View") {
+    	$('#btn-verify, #btn-clear, #merchantImage').hide();
+    	$("#merchantName, #merchantEmail, #merchantMobile, #merchantAddress, #merchantTillNo").attr("readonly", true);
+    	$("#merchantCategory, #merchantSubCategory, #merchantStatus").attr("disabled", true);
+    } else if (type == "Modify") {
+    	$('#btn-verify, #btn-clear, #merchantImage').show();
+    	$("#merchantName, #merchantEmail, #merchantMobile, #merchantAddress, #merchantTillNo").attr("readonly", false);
+    	$("#merchantCategory, #merchantSubCategory, #merchantStatus").attr("disabled", false);
+    }
+    
+    var submitPath = "<%=request.getContextPath()%>/<%=appName%>/modifyMerchant.action";
+	var backPath = "<%=request.getContextPath()%>/<%=appName%>/merchantDetails.action";
+    
+    $('#btn-submit').on('click',function() {	
+		
+		swal({
+            title: "Do you want to modify this merchant?",
+            text: "Press Ok to continue.", 
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+        .then((willDelete) => {
+          if (willDelete) {
+        	  $("#form1").submit(function(e) {
+	      		    e.preventDefault();    
+	      		    var formData = new FormData(this);
+	      			//console.log("Form data :: "+formData);
+	      		    $.ajax({
+	      		        url: submitPath,
+	      		        type: 'POST',
+	      		        data: formData,
+	      		        success: function (response) {
+	      		            //alert(response.responseJSON.remarks);
+	      		          	swal({
+				    		  	title: "Success",
+				    		  	text: "Merchant edited successfully.",
+				    		  	icon: "success",
+				    		  	button: "Continue",
+				    		}).then(function(result){				    					    			
+				    			window.location.href = backPath;
+				            });
+	      		        },
+	      		      	error: function (response) {
+	      		      	swal({
+				    		  title: "Sorry!",
+				    		  text: "Merchant editing failed. Please try again later.",
+				    		  icon: "error",
+				    		  button: "Continue",
+				    		}).then(function(result){
+				    			window.location.href = backPath;
+				            });
+	      	        	},
+	      		        
+	      		        cache: false,
+	      		        contentType: false,
+	      		        processData: false
+	      		    });
+	      		});
+	      		$("#form1").submit();
+	          } else {
+	            swal("Request Cancelled.");
+	          }
+        });
+	})	
+
      
-    $('#btn-cancel').on('click',function() {  
+    $('#btn-back').on('click',function() {  
         $("#form1")[0].action="<%=request.getContextPath()%>/<%=appName %>/merchantDetails.action";
         $("#form1").submit();                   
-    }); 
-    
-    $('#btn-clear').on('click',function(){
-        clearVals();
     });
-
     
+    $('#btn-clear').click(function(){
+    	document.getElementById("form1").reset();
+    	$('#merchantCategory, #merchantSubCategory').select2("val", "");
+    });
+       
 });
 
+$(document).ready(function(){
+	console.log(merchantInformation.MERCHANT_NAME);
+	$('#merchantName').val(merchantInformation.MERCHANT_NAME);
+	$('#merchantEmail').val(merchantInformation.MERCHANT_EMAIL);
+	$('#merchantMobile').val(merchantInformation.MERCHANT_MOBILE);
+	$('#merchantAddress').val(merchantInformation.MERCHANT_ADDRESS);
+	$('#merchantTillNo').val(merchantInformation.MPESA_TILL_NO);
+	$('#merchantStatus').val(merchantInformation.STATUS);		
+	$('#merchantCategory').val(merchantInformation.MERCHANT_CATEGORY);	
+	fetchMerchantSubCat(merchantInformation.MERCHANT_CATEGORY)
+	$('#merchantSubCategory').val(merchantInformation.MERCHANT_SUBCATEGORY);
+	$("#merchantImageView").attr("src",merchantInformation.MERCHANTIMAGE);
+	$('#merchantImageURL').val(merchantInformation.MERCHANTIMAGE);
+	$("#merchantImageViewConfirm").attr("src",merchantInformation.MERCHANTIMAGE);
+	$('#merchantID').val(merchantInformation.MERCHANT_ID);
+	//$('#merchantImageName').val(merchantInformation.MERCHANT_IMAGE_NAME);
+});
 
-</script>
-    
-  
-        
+$(document).ready(function(){
+	var imageNameUrl = document.getElementById('merchantImageView').getAttribute('src');
+});
+
+</script>        
 </head>
 
 <body>
-<div class="content-body">    
-    
-    <div class="page-header">
-        <div>
-            <img class="header-icon" alt="Dashboard Icon" src="${pageContext.request.contextPath}/images/icon-add.png">
-            <label>Create Merchant</label>            
-        </div>  
-    </div>
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item">
-          <a href="home.action">Dashboard</a>
-        </li>
-        <li class="breadcrumb-item">
-          <a href="merchantDetails.action">Merchant Information</a>
-        </li>
-        <li class="breadcrumb-item active">
-          <a href="createMerchant.action?pid=<%=session.getAttribute("session_refno").toString() %>">Create Merchant</a> 
-        </li>
-    </ol>
-    
-    <!-- Confirmation modal starts here -->
-    
-    <div class="modal fade" id="my_modal">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            
-            <label class="modal-title">Confirm Merchant</label>
-          </div>
-          <div class="modal-body">
-            <form id="confirm_form" name="confirm_form" method="post">
-               <table class="form-table">              
-                   <tr>
-                       <td>
-                           <div class="form-group">
-                              <label for="confirm_merchantName">Merchant Name</label>
-                              <input type="text" name="confirm_merchantName" class="form-control" id="confirm_merchantName" placeholder="Enter Merchant Name" ondrop="return false;" onpaste="return false;" readonly></input>
-                           </div>
-                       </td>
-                       <td>
-                           <div class="form-group">
-                              <label for="confirm_merchantCategory">Merchant Category</label>
-                              <input type="text" name="confirm_merchantCategory" class="form-control" id="confirm_merchantCategory" ondrop="return false;" onpaste="return false;" readonly></input>
-                           </div>
-                       </td>
-                   </tr>
-                   <tr>
-                       <td>                        
-                           <div class="form-group">
-                              <label for="confirm_merchantSubCategory">Merchant Sub Category</label>
-                              <input type="text" name="confirm_merchantSubCategory" class="form-control" id="confirm_merchantSubCategory" ondrop="return false;" onpaste="return false;" readonly></input>
-                           </div>
-                       </td>
-                       <td>
-                           <div class="form-group">
-                              <label for="confirm_categoryOption">Display Sub Category on Channels?</label>
-                              <input type="text" name="confirm_categoryOption" class="form-control" id="confirm_categoryOption" ondrop="return false;" onpaste="return false;" readonly></input>
-                           </div>
-                       </td>
-                   </tr>                   
-                   <tr>
-                       <td>
-                           <div class="form-group">
-                              <label for="confirm_merchantBank">Merchant Bank</label>
-                              <input type="text" name="confirm_merchantBank" class="form-control" id="confirm_merchantBank" ondrop="return false;" onpaste="return false;" readonly></input>
-                           </div>
-                       </td>
-                       <td>
-                           <div class="form-group">
-                              <label for="confirm_accountNumber">Bank Account Number</label>
-                              <input type="text" name="confirm_accountNumber" class="form-control" id="confirm_accountNumber" ondrop="return false;" onpaste="return false;" readonly></input>
-                           </div>
-                       </td>
-                   </tr>
-                   <tr>
-                       <td>
-                           <div class="form-group">
-                              <label for="confirm_location">Select Location</label>
-                           </div>
-                       </td>
-                       <td>
-                            
-                       </td>
-                   </tr>                                            
-               </table> 
-            </form>
-          </div>
-          <div class="modal-footer">            
-            <button type="button" id="btn-submit" class="btn btn-success">Save Offer</button>
-            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-          </div>
-        </div><!-- /.modal-content -->
-      </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
-    
-    
-    <form name="form1" id="form1" method="post">        
-        <div class="content-panel" id="user-details">       
-           <fieldset>
-               <table class="form-table">              
-                   <tr>
-                       <td>
-                           <div class="form-group">
-                              <label for="merchantName">Merchant Name</label>
-                              <input type="text" name="merchantName" class="form-control" id="merchantName" placeholder="Enter Merchant Name" ondrop="return false;" onpaste="return false;"></input>
-                           </div>
-                       </td>
-                       <td>
-                           <div class="form-group">
-                              <label for="merchantCategory">Merchant Category</label>
-                              <select class="form-control" id="merchantCategory" name="merchantCategory" required >
-                                <option value="" disabled selected>Select your option</option>
-                                <option value="Restaurant">Restaurant</option>
-                                <option value="Spa">Spa & Salon</option>
-                                <option value="Club">Night Life</option>
-                              </select>
-                            </div>
-                       </td>
-                   </tr>
-                   <tr>
-                       <td>                        
-                           <div class="form-group">
-                              <label for="merchantSubCategory">Merchant Sub Category</label>
-                              <select class="form-control" id="merchantSubCategory" name="merchantSubCategory" required >
-                                <option value="" disabled selected>Select your option</option>
-                                <option value="Continental">Continental</option>
-                                <option value="Swahili">Swahili</option>
-                                <option value="Italian">Italian</option>
-                                <option value="Japanese">Japanese</option>
-                              </select>
-                            </div>
-                       </td>
-                       <td>
-                           <div class="form-group">
-                              <label for="categoryOption">Display Sub Category on Channels?</label>
-                              <select class="form-control" id="categoryOption" name="categoryOption" required >
-                                <option value="" disabled selected>Select your option</option>
-                                <option value="Y">Yes</option>
-                                <option value="N">No</option>                                
-                              </select>
-                            </div>
-                       </td>
-                   </tr>                   
-                   <tr>
-                       <td>
-                           <div class="form-group">
-                              <label for="merchantBank">Merchant Bank</label>
-                              <input type="text" name="merchantBank" class="form-control" id="merchantBank" placeholder="Enter Bank Name" ondrop="return false;" onpaste="return false;"></input>
-                           </div>
-                       </td>
-                       <td>
-                           <div class="form-group">
-                              <label for="accountNumber">Bank Account Number</label>
-                              <input type="text" name="accountNumber" class="form-control" id="accountNumber" placeholder="Enter Account Number" ondrop="return false;" onpaste="return false;"></input>
-                           </div>
-                       </td>
-                   </tr>
-                   <tr>
-                       <td>
-                           <div class="form-group">
-                              <label for="airtime_amount">Select Location</label>
-                           </div>
-                       </td>
-                       <td>
-                            
-                       </td>
-                   </tr>                                            
-               </table> 
-               <input type="hidden" name="type"  id="type" value="Create" />              
-              </fieldset>    
-        </div>
-        
-        <div class="content-panel form-actions">
-            <input type="button" class="btn btn-success" id="btn-verify" name="addCap" value="Submit"/>  
-            <input type="button" class="btn btn-cancel" id="btn-cancel" name="btn-cancel" value="Cancel"/>    
-            <input type="button" class="btn btn-cancel" id="btn-clear" name="btn-clear" value="Clear"/>   
-        </div>
-        
-        </form>
-        
-        
-    </div>    
-    
-    
+	<div class="content-body">
+		<div class="page-header">
+			<div>            
+				<label>${type} Merchant Information Details</label>            
+			</div>
+		</div>
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item">
+				<a href="home.action">Dashboard</a>
+			</li>
+			<li class="breadcrumb-item">
+				<a href="merchantDetails.action">Merchant Information</a>
+			</li>
+			<li class="breadcrumb-item active">
+				<a href="createMerchant.action?pid=<%=session.getAttribute("session_refno").toString() %>">Merchant Details</a> 
+			</li>
+		</ol>
+		<!-- Confirmation modal starts here -->
+		<!-- Confirmation modal starts here -->
+		<div class="modal fade" id="my_modal">
+			<div class="modal-dialog amur-form-modal">
+				<div class="modal-content">
+					<div class="modal-header">            
+						<label class="modal-title">Confirm Merchant</label>
+					</div>
+					<div class="modal-body">
+						<form id="confirm_form" name="confirm_form" class="amur-form" method="post">
+							<div id="amur-form-container">
+								<table class="table table-bordered" style="width:100%">
+									<tr class="form-group">
+										<td>
+											<label>Merchant Name<span>*</span> : </label>
+										</td>
+										<td>
+											<input type="text" id="merchantNameConfirm" name="merchantNameConfirm" placeholder="Merchant Name" readonly/>	
+										</td>
+									</tr>
+									<tr class="form-group">
+										<td>
+											<label>Merchant Email<span>*</span> : </label>
+										</td>
+										<td>
+											<input type="email" id="merchantEmailConfirm" name="merchantEmailConfirm" placeholder="Merchant Email" readonly/>
+										</td>
+									</tr>
+									<tr class="form-group">
+										<td>
+											<label>Merchant Address<span>*</span> : </label>
+										</td>
+										<td>
+											<input type="text" id="merchantAddressConfirm" name="merchantAddressConfirm" placeholder="Merchant Address" readonly/>
+										</td>
+									</tr>
+									<tr class="form-group">
+										<td>
+											<label>Merchant Mobile Number<span>*</span> : </label>
+										</td>
+										<td>
+											<input type="text" id="merchantMobileConfirm" name="merchantMobileConfirm" placeholder="Merchant Mobile Number" readonly/>
+										</td>
+									</tr>
+									<tr class="form-group">
+										<td>
+											<label>Merchant Category<span>*</span> : </label>
+										</td>
+										<td>
+											<select class="form-control" id="merchantCategoryConfirm" name="merchantCategoryConfirm" onChange="fetchMerchantSubCat()"disabled="true">
+												<option value="" disabled selected>Select Merchant Category</option>
+											</select>
+										</td>
+									</tr>
+									<tr class="form-group">
+										<td>
+											<label>Merchant Sub Category<span>*</span> : </label>
+										</td>
+										<td>
+											<select class="form-control" id="merchantSubCategoryConfirm" name="merchantSubCategoryConfirm"disabled="true">
+												<option value="" disabled selected>Select Merchant Sub Category</option>
+											</select>
+										</td>
+									</tr>
+									<tr class="form-group">
+										<td>
+											<label>Mpesa Till Number<span>*</span> : </label>
+										</td>
+										<td>
+											<input type="text" id="merchantTillNoConfirm" name="merchantTillNoConfirm" placeholder="Merchant Till Number" readonly/>
+										</td>
+									</tr>
+									<tr class="form-group">
+										<td>
+											<label>Attach Merchant Image<span>*</span> : </label>
+										</td>
+										<td>
+											<img id="merchantImageViewConfirm" src="#" alt="No merchant image selected" />
+										</td>
+									</tr>
+								</table>
+							
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">            
+						<button type="button" id="btn-submit" class="btn btn-success">Save Merchant</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+		</div>
+		<!-- /.modal -->
+		
+		
+		<div class="content-panel" id="user-details">
+			<form name="form1" id="form1" class="amur-form" enctype="multipart/form-data"  method="post">
+				<div id="amur-form-container">
+					<table class="table table-bordered" style="width:100%">
+						<tr class="form-group">
+							<td>
+								<label>Merchant Name<span>*</span> : </label>
+							</td>
+							<td>
+								<input type="text" id="merchantName" name="merchantName" value="${merchantInformation.MERCHANT_NAME}" placeholder="Merchant Name"/>	
+							</td>
+						</tr>
+						<tr class="form-group">
+							<td>
+								<label>Merchant Email<span>*</span> : </label>
+							</td>
+							<td>
+								<input type="email" id="merchantEmail" name="merchantEmail" placeholder="Merchant Email"/>
+							</td>
+						</tr>
+						<tr class="form-group">
+							<td>
+								<label>Merchant Address<span>*</span> : </label>
+							</td>
+							<td>
+								<input type="text" id="merchantAddress" name="merchantAddress" placeholder="Merchant Address"/>
+							</td>
+						</tr>
+						<tr class="form-group">
+							<td>
+								<label>Merchant Mobile Number<span>*</span> : </label>
+							</td>
+							<td>
+								<input type="text" id="merchantMobile" name="merchantMobile" placeholder="Merchant Mobile Number"/>
+							</td>
+						</tr>
+						<tr class="form-group">
+							<td>
+								<label>Merchant Category<span>*</span> : </label>
+							</td>
+							<td>
+								<select class="form-control" id="merchantCategory" name="merchantCategory" onChange="fetchMerchantSubCat()">
+									<option value="" disabled selected>Select Merchant Category</option>
+								</select>
+							</td>
+						</tr>
+						<tr class="form-group">
+							<td>
+								<label>Merchant Sub Category<span>*</span> : </label>
+							</td>
+							<td>
+								<select class="form-control" id="merchantSubCategory" name="merchantSubCategory">
+									<option value="" disabled selected>Select Merchant Sub Category</option>
+								</select>
+							</td>
+						</tr>
+						<tr class="form-group">
+							<td>
+								<label>Mpesa Till Number<span>*</span> : </label>
+							</td>
+							<td>
+								<input type="text" id="merchantTillNo" name="merchantTillNo" placeholder="Merchant Till Number"/>
+							</td>
+						</tr>
+						<tr class="form-group">
+							<td>
+								<label>Merchant Status : </label>
+							</td>
+							<td>
+								<select class="form-control" id="merchantStatus" name="merchantStatus">
+									<option value="" disabled selected>Select Merchant Status</option>
+									<option value="A">Active</option>
+									<option value="P">Inactive</option>
+								</select>
+							</td>
+						</tr>
+						<tr class="form-group">
+							<td>
+								<label>Merchant Image<span>*</span> : </label>
+							</td>
+							<td>
+								<input type="file" name="merchantImage" class="form-control" id="merchantImage" accept="image/*">
+							</td>
+						</tr>
+						<tr class="form-group">
+							<td>
+							</td>
+							<td>
+								<img id="merchantImageView" src="#" alt="No merchant image selected" />
+							</td>
+						</tr>
+					</table>
+				</div>
+				<input type="hidden" id="merchantID" name="merchantID">
+				<input type="hidden" id="merchantImageURL" name="merchantImageURL">
+			</form>
+		</div>
+		<div class="content-panel form-actions">
+			<input type="button" class="btn btn-success" id="btn-verify" value="Submit"/>    
+			<input type="button" class="btn btn-cancel" id="btn-clear" value="Clear"/>  
+			<input type="button" class="btn btn-danger" id="btn-back" value="Back"/>  
+		</div>
+	</div>    
 </body>
 </html>
 

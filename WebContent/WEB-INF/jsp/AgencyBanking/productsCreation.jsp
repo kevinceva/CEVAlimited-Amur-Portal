@@ -379,7 +379,7 @@ $(document).ready(function(){
 	$('#catname').trigger("liszt:updated"); 
 
 
-	var manfarr = jQuery.parseJSON(manfjson)
+	var manfarr = jQuery.parseJSON(manfjson);
 	for (var m = 0; m < manfarr.length; m++) 
 	{
 		var manfops = $('<option/>', {value: manfarr[m].manufacturerId, text: manfarr[m].manufacturerName.replace(/[+]/g, " ")}).attr('data-id',m);   		
@@ -458,7 +458,7 @@ $(document).ready(function(){
 	$('#catname2').trigger("liszt:updated"); 
 
 
-	var manfarr = jQuery.parseJSON(manfjson)
+	var manfarr = jQuery.parseJSON(manfjson);
 	for (var m = 0; m < manfarr.length; m++) 
 	{
 		var manfops = $('<option/>', {value: manfarr[m].manufacturerId, text: manfarr[m].manufacturerName.replace(/[+]/g, " ")}).attr('data-id',m);   		
@@ -617,6 +617,26 @@ function calculateSupplyVAT(buyPriceNoVat){
 
 $(document).ready(function() {
     $('.searchSelect').select2();
+});
+
+
+//Preview Image file on upload
+
+function readURL(input) {
+
+	  if (input.files && input.files[0]) {
+	    var reader = new FileReader();
+
+	    reader.onload = function(e) {
+	      $('#blah').attr('src', e.target.result);
+	    }
+
+	    reader.readAsDataURL(input.files[0]);
+	  }
+	}
+
+$("#offerImage").change(function() {
+	readURL(this);
 });
 
 </SCRIPT>
@@ -789,7 +809,7 @@ $(document).ready(function() {
 										<label>Attach Image<span>*</span> :</label>
 											<!-- <input type='file' name="productImage" id="productImage" accept="image/*" onchange="readURL(this);"/> -->
 											<input type="file" name="offerImage" id="offerImage" accept="image/*">
-											<!-- <img id="blah" id="prodImage" src="http://placehold.it/180" alt="product image"/> -->
+											<img id="blah" src="http://placehold.it/180" alt="product image"/>
 									</div>
 									
 									<input type="hidden" id="prdPrice" name="prdPrice"/>

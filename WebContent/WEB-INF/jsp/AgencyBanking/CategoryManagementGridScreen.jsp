@@ -67,10 +67,8 @@ var storeList = new Array(); // merchantid_STORES
 
 $(document).ready(function () { 
 			
-		console.log("category grid screen");
-				
 	var catjson ='${responseJSON.CATEGORY_JSON}';
-
+	//var catarr ='${responseJSON.CATEGORY_JSON}';
 	var subarr = "";
  	var catarr = jQuery.parseJSON(catjson);
  	console.log("catarr["+catarr+"]");	
@@ -97,10 +95,8 @@ $(document).ready(function () {
 			var appendTxt = "<tr class="+addclass+" index='"+rowindex+"' id='"+rowindex+"' > "+
 			"<td >"+colindex+"</td>"+
 			"<td><a href='#' id='SEARCH_NO' value='catid@"+v.categoryId+"' aria-controls='DataTables_Table_0'>"+v.categoryName+"</span></td>"+	
-			"<td style='display:none'>"+v.categoryId+"</span> </td>"+ 
-			"<td>"+v.categoryDescription+"</span> </td>"+
-			"<td>"+v.createdDate+"</span> </td>"+ 
-			"<td><a id='create-subcategory' href='#' index='"+rowindex+"' title='Create Sub-Category' data-rel='tooltip' ><img class='action-button' alt='Create' src='${pageContext.request.contextPath}/images/add-button.png'></a>&nbsp;<a id='modify-category' href='#' index='"+rowindex+"'  title='Modify Category' data-rel='tooltip' ><img class='action-button' alt='Edit' src='${pageContext.request.contextPath}/images/edit-button.png'></a>&nbsp;<a id='view-category' index='"+rowindex+"'  href='#' title='View Category' data-rel='tooltip' ><img class='action-button' alt='View' src='${pageContext.request.contextPath}/images/view-button.png'></a>&nbsp; </td></tr>";
+			"<td style='display:none'>"+v.categoryId+"</span> </td>"+ 			
+			"<td><a id='create-subcategory' href='#' index='"+rowindex+"' title='Create Sub-Category' data-toggle='tooltip' ><img class='action-button' alt='Create' src='${pageContext.request.contextPath}/images/add-button.png'></a>&nbsp;<a id='modify-category' href='#' index='"+rowindex+"'  title='Modify Category' data-toggle='tooltip' ><img class='action-button' alt='Edit' src='${pageContext.request.contextPath}/images/edit-button.png'></a>&nbsp;<a id='view-category' index='"+rowindex+"'  href='#' title='View Category' data-toggle='tooltip' ><img class='action-button' alt='View' src='${pageContext.request.contextPath}/images/view-button.png'></a>&nbsp; </td></tr>";
 				
 				$("#merchantTBody").append(appendTxt);	
 				rowindex = ++rowindex;
@@ -181,8 +177,8 @@ $(document).ready(function () {
 							var text1 = "";
 							
 							
-							var lastTd="<a id='modify-subcategory' href='#' index='"+rowindex+"'  title='Modify SubCategory' data-rel='tooltip' ><img class='action-button' alt='Edit' src='${pageContext.request.contextPath}/images/edit-button.png'></a>&nbsp;<a id='view-subcategory' index='"+rowindex+"'  href='#' title='View SubCategory' data-rel='tooltip' ><img class='action-button' alt='View' src='${pageContext.request.contextPath}/images/view-button.png'></a>&nbsp; </td></tr>";
-							//var lastTd="<p><a class='btn btn-warning' href='#' id='modify-subcategory' index='"+rowindex+"'  title='Modify SubCategory' data-rel='tooltip'><i class='icon icon-edit icon-white'></i></a>&nbsp;<a  class='btn btn-success' href='#' id='view-subcategory' index='"+rowindex+"' title='View SubCategory' data-rel='tooltip'> <i class='icon icon-book icon-white'></i></a>&nbsp;</p> &nbsp;&nbsp;";
+							var lastTd="<a id='modify-subcategory' href='#' index='"+rowindex+"'  title='Modify SubCategory' data-toggle='tooltip' ><img class='action-button' alt='Edit' src='${pageContext.request.contextPath}/images/edit-button.png'></a>&nbsp;<a id='view-subcategory' index='"+rowindex+"'  href='#' title='View SubCategory' data-toggle='tooltip' ><img class='action-button' alt='View' src='${pageContext.request.contextPath}/images/view-button.png'></a>&nbsp; </td></tr>";
+							//var lastTd="<p><a class='btn btn-warning' href='#' id='modify-subcategory' index='"+rowindex+"'  title='Modify SubCategory' data-toggle='tooltip'><i class='icon icon-edit icon-white'></i></a>&nbsp;<a  class='btn btn-success' href='#' id='view-subcategory' index='"+rowindex+"' title='View SubCategory' data-toggle='tooltip'> <i class='icon icon-book icon-white'></i></a>&nbsp;</p> &nbsp;&nbsp;";
 							/* var subtd="<span style='display:none'>"+v.subCategoryId+"</span>"; */
 							var firstTd = "<span  id='SEARCH_NO' value='subcatid@"+v.subCategoryId+"' >"+v.subCategoryName+"</span>";
 							
@@ -190,8 +186,6 @@ $(document).ready(function () {
 									rowindex,
 									firstTd,
 									v.subCategoryId,
-									v.subCategoryDescription,
-									v.createdDate,
 									lastTd
 						        ] ).draw( false );
 						        
@@ -245,7 +239,7 @@ $(document).ready(function () {
 						selDisp+="</select>";
 						
 						 
-						var lastTd="<p><a class='btn btn-warning' href='#' id='modify-user-rights' index='' title='Modify Rights' data-rel='tooltip'> <i class='icon icon-edit icon-white'></i></a>&nbsp;<a  class='btn btn-info' href='#' id='view-user-rights' index='' title='View User Rights' data-rel='tooltip'><i class='icon icon-book icon-white'></i></a>&nbsp;";
+						var lastTd="<p><a class='btn btn-warning' href='#' id='modify-user-rights' index='' title='Modify Rights' data-toggle='tooltip'> <i class='icon icon-edit icon-white'></i></a>&nbsp;<a  class='btn btn-info' href='#' id='view-user-rights' index='' title='View User Rights' data-toggle='tooltip'><i class='icon icon-book icon-white'></i></a>&nbsp;";
 						//var firstTd = "<a href='#' id='SEARCH_NO' value='TERMINAL-"+v.user_id+"' >"+v.user_id+"</a>";
 							
 							var i=terminalTable.row.add( [
@@ -490,7 +484,7 @@ $(document).ready(function() {
         <li class="breadcrumb-item active">Category Information</li>
         <li class="function-buttons">
             <div id="add_button">
-                <a href="#" class="btn activate" id="category-creation" title='New Category Creation' data-rel='popover'  data-content='Creating a new category'>Create Category</a>
+                <a href="#" class="btn activate" id="category-creation" title='New Category Creation' data-toggle='popover'  data-content='Creating a new category'>Create Category</a>
             </div>
         </li>
     </ol>
@@ -501,9 +495,7 @@ $(document).ready(function() {
 					<tr>
 						<th>S No</th>
 						<th>Category Name</th>
-						<th style='display:none'>Category id</th>
-						<th>Description </th>
-						<th>Creation Date</th>
+						<th style='display:none'>Category id</th>						
 						<th>Actions</th>
 					</tr>
 				</thead> 
@@ -530,8 +522,6 @@ $(document).ready(function() {
 						<th>S No</th>
 						<th>SubCategory Name</th>
 						<th>SubCategory id</th>
-						<th>Description</th>									
-						<th>Creation Date</th>
 						<th>Actions</th>
 					</tr>
 				</thead> 

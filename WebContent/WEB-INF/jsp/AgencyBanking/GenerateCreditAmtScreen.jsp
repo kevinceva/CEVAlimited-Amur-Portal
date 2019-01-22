@@ -62,7 +62,7 @@
 				"<td>"+v.storeName+"</span> </td>"+ 
 				"<td>"+v.merchantID+"</span> </td>"+ 
 				"<td>"+v.makerDate+"</span></td>"+
-				"<td><a id='store-create-credit' class='btn btn-success' href='#' index='"+rowindex+"' title='Create Credit' data-rel='tooltip'><i class='icon icon-plus icon-white'></i></a> &nbsp; <a  id='store-view-credit' class='btn btn-info' href='#' index='"+rowindex+"' title='View Credit' data-rel='tooltip'><i class='icon icon-page icon-white'></i></a> </td></tr>";
+				"<td><a id='store-create-credit' class='btn btn-success' href='#' index='"+rowindex+"' title='Create Credit' data-toggle='tooltip'><i class='icon icon-plus icon-white'></i></a> &nbsp; <a  id='store-view-credit' class='btn btn-info' href='#' index='"+rowindex+"' title='View Credit' data-toggle='tooltip'><i class='icon icon-page icon-white'></i></a> </td></tr>";
 					
 				$("#storeTBody").append(appendTxt);	
 				rowindex = ++rowindex;
@@ -128,7 +128,7 @@
 										"<td  >"+v.merchantID+"</span></td>"+
 										"<td  >"+v.status+"</span></td>"+
 										"<td  >"+v.makerDate+"</span></td>"+
-										"<td  > <a  class='btn btn-warning' href='#' id='terminal-credit-create' index='"+terminalrowindex+"' title='Create Credit' data-rel='tooltip'><i class='icon icon-plus icon-white'></i></a> &nbsp;  <a  class='btn btn-info' href='#' id='terminal-credit-view' index='"+terminalrowindex+"' title='View Credit' data-rel='tooltip'><i class='icon icon-page icon-white'></i></a></td></tr>";
+										"<td  > <a  class='btn btn-warning' href='#' id='terminal-credit-create' index='"+terminalrowindex+"' title='Create Credit' data-toggle='tooltip'><i class='icon icon-plus icon-white'></i></a> &nbsp;  <a  class='btn btn-info' href='#' id='terminal-credit-view' index='"+terminalrowindex+"' title='View Credit' data-toggle='tooltip'><i class='icon icon-page icon-white'></i></a></td></tr>";
 											
 										$("#"+terminalTBody).append(appendTxt);	
 										terminalrowindex = ++terminalrowindex;

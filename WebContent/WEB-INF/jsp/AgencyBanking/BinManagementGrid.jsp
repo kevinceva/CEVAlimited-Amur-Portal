@@ -212,8 +212,8 @@ jQuery(document).ready(function() {
 			
 			<!-- <div class="box-content" id="top-layer-anchor">
 				 <div>
-					<a href="#" class="btn btn-success" id="add-organization" title='Add New Organization' data-rel='popover' data-content='Creating a new E-Wallet, for organaization.'><i class='icon icon-plus icon-white'></i>&nbsp;Add New Organization</a>
-					&nbsp;&nbsp;<a href="#" class="btn btn-info" id="profile-management" title='Profile Management' data-rel='popover' data-content='Profile Management.'><i class='icon icon-plus icon-white'></i>&nbsp;Profile Management</a>		 			
+					<a href="#" class="btn btn-success" id="add-organization" title='Add New Organization' data-toggle='popover' data-content='Creating a new E-Wallet, for organaization.'><i class='icon icon-plus icon-white'></i>&nbsp;Add New Organization</a>
+					&nbsp;&nbsp;<a href="#" class="btn btn-info" id="profile-management" title='Profile Management' data-toggle='popover' data-content='Profile Management.'><i class='icon icon-plus icon-white'></i>&nbsp;Profile Management</a>		 			
 				</div>	
 			</div> -->
 			

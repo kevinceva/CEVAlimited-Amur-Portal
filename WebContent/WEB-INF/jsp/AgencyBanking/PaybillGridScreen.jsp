@@ -184,15 +184,15 @@ $(document).on('click','a',function(event) {
 		 </div>
 		<div class="box-content" id="top-layer-anchor">
 			<span>
-				<a href="#" class="btn btn-info" id="add-biller-type" title='Add Biller Type' data-rel='popover'  data-content='Creating a new biller type.'>
+				<a href="#" class="btn btn-info" id="add-biller-type" title='Add Biller Type' data-toggle='popover'  data-content='Creating a new biller type.'>
 				<i class="icon icon-web icon-white"></i>&nbsp;Add Biller Type</a> &nbsp;							
 			</span>
 			<span>
-				<a href="#" class="btn btn-warning" id="add-biller-id" title='Add Biller Id' data-rel='popover'  data-content='Creating biller id.'>
+				<a href="#" class="btn btn-warning" id="add-biller-id" title='Add Biller Id' data-toggle='popover'  data-content='Creating biller id.'>
 				<i class="icon icon-briefcase icon-white"></i>&nbsp;Add Biller Id</a> &nbsp; 
 			</span>   
 			<span>
-				<a href="#" class="btn btn-warning" id="validation" title='Validation' data-rel='popover' data-content="Create Validation's For Biller Type / Biller Id.">
+				<a href="#" class="btn btn-warning" id="validation" title='Validation' data-toggle='popover' data-content="Create Validation's For Biller Type / Biller Id.">
 				<i class="icon icon-briefcase icon-white"></i>&nbsp;Validation</a> &nbsp; 
 			</span>   
 		</div> 
@@ -235,9 +235,9 @@ $(document).on('click','a',function(event) {
 									<td class='hidden-phone'><s:property value="#billerData['createdDate']" />  </td>
 									<td> 
 										 <p>
-											 <a class='btn btn-warning' href='#' id='biller-edit' index="<s:property value='#billerDataStatus.index' />" title='Edit Biller' data-rel='tooltip'><i class='icon icon-edit icon-white'></i></a>&nbsp;
-											 <a class='btn btn-info' href='#' id='biller-view' index="<s:property value='#billerDataStatus.index' />" title='View Biller' data-rel='tooltip'><i class='icon icon-page icon-white'></i></a>&nbsp;
-											 <a class='btn btn-success' href='#' id='biller-upload-data' index="<s:property value='#billerDataStatus.index' />" title='Upload Biller Data' data-rel='tooltip'><i class='icon icon-star-on icon-white'></i></a>
+											 <a class='btn btn-warning' href='#' id='biller-edit' index="<s:property value='#billerDataStatus.index' />" title='Edit Biller' data-toggle='tooltip'><i class='icon icon-edit icon-white'></i></a>&nbsp;
+											 <a class='btn btn-info' href='#' id='biller-view' index="<s:property value='#billerDataStatus.index' />" title='View Biller' data-toggle='tooltip'><i class='icon icon-page icon-white'></i></a>&nbsp;
+											 <a class='btn btn-success' href='#' id='biller-upload-data' index="<s:property value='#billerDataStatus.index' />" title='Upload Biller Data' data-toggle='tooltip'><i class='icon icon-star-on icon-white'></i></a>
 										</p>
 									</td> 
 	                      		</tr>

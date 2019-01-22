@@ -186,7 +186,7 @@ public class CICSelfRegAgentsServlet extends HttpServlet {
 				ja.put(rs.getString(2));
 				ja.put(rs.getString(3));
 				ja.put(rs.getString(4));
-				ja.put("<p>  &nbsp;<a class='btn btn-primary' href='#' index='"+i+"' id='"+uId1+"'  title='Accept' data-rel='tooltip'><i class='icon icon-ok-sign icon-white'></i></a>&nbsp;<a class='btn btn-primary' href='#' index='"+i+"' id='"+uId2+"'  title='Reject' data-rel='tooltip'><i class='icon icon-remove icon-white'></i></a>&nbsp;</p>");
+				ja.put("<p>  &nbsp;<a class='btn btn-primary' href='#' index='"+i+"' id='"+uId1+"'  title='Accept' data-toggle='tooltip'><i class='icon icon-ok-sign icon-white'></i></a>&nbsp;<a class='btn btn-primary' href='#' index='"+i+"' id='"+uId2+"'  title='Reject' data-toggle='tooltip'><i class='icon icon-remove icon-white'></i></a>&nbsp;</p>");
 				array.put(ja); 
 				i++;
 			}
@@ -228,7 +228,7 @@ public class CICSelfRegAgentsServlet extends HttpServlet {
 				ja.put(rs.getString(2));
 				ja.put(rs.getString(3));
 				ja.put(rs.getString(4));
-				ja.put("<p>  &nbsp;<a class='btn btn-primary' href='#' index='"+i+"' id='"+uId1+"'  title='Accept' data-rel='tooltip'><i class='icon icon-ok-sign icon-white'></i></a>&nbsp;<a class='btn btn-primary' href='#' index='"+i+"' id='"+uId2+"'  title='Reject' data-rel='tooltip'><i class='icon icon-remove icon-white'></i></a>&nbsp;</p>");
+				ja.put("<p>  &nbsp;<a class='btn btn-primary' href='#' index='"+i+"' id='"+uId1+"'  title='Accept' data-toggle='tooltip'><i class='icon icon-ok-sign icon-white'></i></a>&nbsp;<a class='btn btn-primary' href='#' index='"+i+"' id='"+uId2+"'  title='Reject' data-toggle='tooltip'><i class='icon icon-remove icon-white'></i></a>&nbsp;</p>");
 				array.put(ja);
 				i++;
 			}

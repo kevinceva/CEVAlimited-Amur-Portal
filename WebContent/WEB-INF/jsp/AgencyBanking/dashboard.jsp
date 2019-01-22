@@ -195,31 +195,38 @@ function fetchOrders(){
 };
 
 
-$(function(){
-		
-		
-		function printData(){
-				$('#printable').printThis({
-				    importCSS: false,
-				    loadCSS: "${pageContext.request.contextPath}/css/my_style.css"
-				});
-					
-		}
-	
+$(function(){		
 		$('#print-order').on('click',function(){
 			$('#assign-rider-form').validate(validationRules);
 			if($('#assign-rider-form').valid()){
-				$('#assign-rider-form').addClass('notPrint');
-				$('.riderAssign').css({
-			        'display': 'block'
-			    });
-				$('#rider-form').css({
-			        'display': 'none'
-			    });
-				printData();
-			}			
+				
+				swal("Please wait...", "Receipt download will start shortly.");
+				
+				var queryString = "orderId="+$('#assign_order_Id').val();
+				queryString += "&riderId="+$('#rider').val();
+				var submitPath = "<%=request.getContextPath()%>/<%=appName%>/printOrderReceipt.action";
+				$.post(submitPath, queryString, function(data){
+					console.log("Receipt printed");
+					var reportName = null;
+					var response = data.responseJSON.reportName;
+					if(response != null){
+						console.log(response);
+						window.location.href = "../ReceiptExporterServlet?reportName="+response;
+					}else{
+						console.log("no response");
+					}
+				});
+			}
+			
 		})
 })
+
+function isLoaded()
+{
+  var pdfFrame = window.frames["pdf"];
+  pdfFrame.focus();
+ // pdfFrame.print();
+}
 
 $(document).on('click','#SEARCH_NO',function(event){
 	$('.riderAssign').css({
@@ -243,7 +250,7 @@ $(document).on('click','#SEARCH_NO',function(event){
 		var orderList = data.responseJSON.ORDER_LIST;
 		var customerData = data.responseJSON.CUSTOMER_INFO;
 		var riderjson = data.responseJSON.RIDER_LIST;
-		
+				
 		var customerName = customerData[0].CUSTOMER_NAME;
 		var txnDate = customerData[0].TXN_DATE;
 		var channel = customerData[0].CHANNEL;
@@ -258,8 +265,7 @@ $(document).on('click','#SEARCH_NO',function(event){
 	
 		for (var k = 0; k < shippingAddress.length; k++) {
 			var address = shippingAddress[0];
-			var remarks = shippingAddress[1];
-			
+			var remarks = shippingAddress[1];			
 		}
 		
 		if(remarks == null)
@@ -301,8 +307,7 @@ $(document).on('click','#SEARCH_NO',function(event){
 	        html+="<td>"+orderList[i].PRD_NAME+"</td>";
 	        html+="<td>"+orderList[i].QUANTITY+"</td>";
 	        html+="<td style='text-align: right;'>"+orderList[i].UNIT_PRICE+".00</td>";
-	        html+="<td style='text-align: right;'>"+orderList[i].TOTAL_PRICE+".00</td>";
-	        html+="<td style='text-align: right;'>"+orderList[i].TOTAL_PRICE+".00</td>";	       
+	        html+="<td style='text-align: right;'>"+orderList[i].TOTAL_PRICE+".00</td>";       
 	        html+="</tr>";
 	    }
 	    html+="</table>";
@@ -335,7 +340,8 @@ $(document).on('click','#SEARCH_NO',function(event){
 		<ol class="breadcrumb">
 			<li class="breadcrumb-item">
 				<a href="home.action">Dashboard</a>
-			</li>			
+			</li>	
+			
 		</ol>
 				
 		<div class="container-fluid">
@@ -378,7 +384,7 @@ $(document).on('click','#SEARCH_NO',function(event){
 						<img src="${pageContext.request.contextPath}/images/logo.png" alt="Amur Logo"/>
 					</div>
 					
-					<div class="modal-body" id="modal-body">
+					<div class="modal-body" id="modal-body">						
 						<table id="order-info-table">
 							
 							<tbody>
