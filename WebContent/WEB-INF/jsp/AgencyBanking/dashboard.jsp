@@ -329,8 +329,7 @@ $(document).on('click','#SEARCH_NO',function(event){
 </script>
 </head>
 <body>
-<body>
-	<form id="form1" method="post" name="form1"></form>
+<body>	
 	<div class="">
 		<div class="page-header">
 			<div>

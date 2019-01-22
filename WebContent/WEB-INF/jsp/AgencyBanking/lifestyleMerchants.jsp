@@ -68,7 +68,7 @@ $(document).ready(function(){
 	        
 	        var appendTxt = "<tr class="+addclass+" index='"+rowindex+"' id='"+rowindex+"' > "+
 	        "<td >"+colindex+"</td>"+  
-	        "<td><id='SEARCH_NO' value='merchantId@"+v.MERCHANT_ID+"' aria-controls='DataTables_Table_0'>"+v.MERCHANT_NAME+"</span> </td>"+ 
+	        "<td><id='SEARCH_NO' value='merchantId@"+v.MERCHANT_ID+"'>"+v.MERCHANT_NAME+"</span> </td>"+ 
 	        "<td style='display:none'>"+v.MERCHANT_ID+" </td>"+
 	        "<td>"+v.MERCHANT_MOBILE+"</td>"+ 
 	        "<td>"+v.MERCHANT_EMAIL+"</td>"+ 
